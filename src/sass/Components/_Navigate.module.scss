@@ -1,0 +1,10 @@
+@import '../Variable/index';
+.list-location {
+  @include flex(center, center, nowrap);
+  // width: max-content;
+}
+
+.date {
+  @include flex(center, center, nowrap);
+  margin-top: 10px;
+}

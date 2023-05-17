@@ -1,0 +1,63 @@
+@import '../Variable/index';
+
+.wrapper {
+    padding: 0 200px;
+    @media (min-width: 740px) and (max-width: 1023px) {
+        padding: 60px;
+    }
+    @media (max-width: 739px) { 
+        padding: 10px;
+    }
+  .header {
+    @include flex();
+    flex-direction: column;
+    .main-heaeder {
+      height: 85px;
+
+      color: #111;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 85px;
+      cursor: pointer;
+    }
+    .sub-heaeder {
+      @include flex();
+      flex-direction: column;
+      .text1 {
+        line-height: 20px;
+        font-size: 14pt;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .text2 {
+        font-size: 14pt;
+        color: #333;
+        font-weight: bold;
+      }
+    }
+  }
+  .content {
+    // padding: 30px 20px;
+    .title-main {
+        line-height: 24px;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 40px;
+      text-transform: uppercase;
+    }
+    .title-main__sm {
+      margin-top: -16px;
+    }
+    .title-sub {
+      line-height: 20px;
+      // font-size: 1.6rem;
+
+      .title-sub__item {
+        margin: 6px 0;
+      }
+    }
+  }
+}

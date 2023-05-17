@@ -1,0 +1,31 @@
+@import '../../sass/Variable/index';
+
+.join {
+    padding: 125px 0 28px;
+    overflow: hidden;
+  .header {
+    .title {
+      margin-bottom: 25px;
+      color: #4e4c50;
+      font-size: 44px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      text-align: center
+    }
+  }
+  .join--member {
+    @include flex(center, unset, wrap);
+    li {
+        padding: 12px;
+      .img {
+        display: block;
+        width: 116px;
+        pointer-events: none;
+        img {
+          border-radius: 0.25rem !important;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

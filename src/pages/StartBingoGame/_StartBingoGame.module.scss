@@ -1,0 +1,60 @@
+@import '../../sass/Variable/index';
+
+.wrapper {
+  position: relative;
+  padding: 40px;
+  height: 100vh;
+  background-image: url('../../assets/image/BingoGame/bg.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .img-bingo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 720px;
+    height: 100vh;
+    transform: translate(-50%, -50%) !important;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .icon-close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  .btn-start {
+    position: absolute;
+    bottom: 30px;
+    right: 10%;
+    width: 280px;
+    height: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      transform: scale(1.05);
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

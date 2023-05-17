@@ -1,0 +1,40 @@
+@import '../../sass/Variable/index';
+
+.wrapper {
+  background-image: url('../../assets/image/Game/Wordmatchinggame/bgstart.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  min-height: 100vh;
+  padding: 40px 80px;
+  background-color: rgb(169 226 95);
+  position: relative;
+  .list-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 15%;
+    @include flex();
+    .button-success {
+      margin-right: 20px;
+      img {
+        width: 140px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+    .button-fail {
+      img {
+        width: 140px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

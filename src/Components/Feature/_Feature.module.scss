@@ -1,0 +1,64 @@
+@import '../../sass/Variable/index';
+
+.row-fe {
+  .col-fe {
+    padding: 0 20px;
+    border-radius: 10px;
+    .wrapper-item {
+      padding: 0 10px;
+
+      border-radius: 10px;
+      box-shadow: 5px 5px 120px hsla(0, 0%, 76%, 0.15);
+      background-color: white;
+    }
+  }
+}
+.feature {
+  padding-top: 70px;
+  background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/decor-sp.svg) no-repeat 0 -135px;
+  background-size: 100%;
+
+  .feature-item {
+    padding: 0 24px;
+
+    .feature__img {
+      height: 169px;
+      @include flex();
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .feature__content {
+    height: 124px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    border-top: 1px solid #38333b3a;
+
+    .title {
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #2c9e3e;
+      font-size: 18px;
+      line-height: 27px;
+    }
+    p {
+    }
+    line-height: 20px;
+    color: #69676a;
+    font-size: 1.6rem;
+  }
+}
+
+.btn-but {
+  margin-top: 30px;
+  text-align: center;
+}

@@ -1,0 +1,130 @@
+@import '../Variable/_index.scss';
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  @include flex();
+
+  .wrapper {
+    position: relative;
+    width: 80%;
+    height: 76%;
+    background: linear-gradient(to bottom, #b8f2d9, #c6f6c8, #d7fbb5);
+    border-radius: 10px;
+    padding: 34px;
+
+    .icon-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      svg {
+        font-size: 4rem;
+      }
+    }
+    .title {
+      font-weight: bold;
+      font-size: 3rem;
+      margin-bottom: 40px;
+    }
+
+    .content-top {
+      @include flex(center, space-evenly, nowrap);
+      padding: 0 30px;
+      margin-bottom: 10px;
+      .img {
+        width: 240px;
+        margin-right: 70px;
+
+        img {
+          width: 100%;
+          border-radius: 10px;
+          margin-bottom: 20px;
+        }
+      }
+
+      .question {
+        margin-top: -70px;
+        flex: 1;
+        font-size: 3rem;
+        font-weight: 500;
+      }
+    }
+
+    .content-body {
+      @include flex(center, space-between, nowrap);
+      padding: 0 80px;
+      .text-img {
+        text-align: center;
+        font-weight: 500;
+        font-size: 2rem;
+      }
+
+      .button {
+        button {
+          margin-right: 40px;
+          width: 380px;
+          height: 80px;
+          border-radius: 12px;
+          background-color: #113edc;
+          border: none;
+          font-size: 3rem;
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .footer {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+
+      @include tablet {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-item {
+        @include flex(center, space-between, nowrap);
+        border: 3px solid #24fff2;
+        border-radius: 10px;
+        padding: 10px;
+        .img-footer {
+          img {
+            height: 80px;
+            width: 80%;
+            object-fit: contain;
+          }
+        }
+
+        .content-footer {
+          @include flex(center, center, nowrap);
+          flex-direction: column;
+
+          span {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 14px;
+          }
+
+          p {
+            font-weight: 500;
+          }
+        }
+
+        .contact {
+          color: #03a2fb;
+          font-size: 2rem;
+          height: 100%;
+          @include flex(end, end, nowrap);
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

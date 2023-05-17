@@ -1,0 +1,14 @@
+@import '../Variable/index';
+.wrapper-header--section {
+  @include flex(center, flex-start);
+  margin-bottom: 16px;
+  img {
+    width: 20px;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-left: 14px;
+    font-size: 2.4rem;
+  }
+}

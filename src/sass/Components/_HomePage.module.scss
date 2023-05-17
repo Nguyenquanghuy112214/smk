@@ -1,0 +1,116 @@
+@import '../Variable/index';
+.IconMenu-Mb {
+  margin-top: 24px;
+  margin-right: 4px;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+
+  svg {
+    height: 0;
+    width: 0;
+  }
+  @include mobile {
+    width: 50px;
+    height: 50px;
+    svg {
+      height: 30px;
+      width: 30px;
+    }
+  }
+}
+
+.wrapper-content {
+}
+
+.header-homepage {
+  margin-top: 20px;
+  @include flex(center, space-between);
+
+  &__left {
+    @include flex();
+    img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+
+      @include mobile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    &__nickname {
+      display: flex;
+      font-size: 2.8rem;
+      margin-left: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+
+      @include tablet {
+        font-size: 2.2rem;
+      }
+
+      .text-1 {
+        @include mobile {
+          display: none;
+        }
+      }
+
+      .text-2 {
+        margin-left: 10px;
+        color: $main-color;
+        @include mobile {
+          margin-left: -4px;
+        }
+      }
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 429rem;
+  height: 306rem;
+  border-radius: 30%;
+  background: #ffe0de;
+  z-index: -9;
+  top: -46%;
+  left: -13%;
+  filter: blur(80px);
+}
+
+.wrapper-section {
+  margin-top: 30px;
+  border-radius: 30px;
+}
+
+.wapper-section--body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0 30px;
+}
+
+.wrapper-navigate {
+  @include flex();
+  select {
+    margin-right: 20px;
+    border-radius: 8px;
+    min-width: 90px;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    font-size: 1.4rem;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+    border: 2px solid #f6ebeb;
+    cursor: pointer;
+    option {
+      font-size: 1.6rem;
+      height: 20px;
+      background-color: white;
+      &:hover {
+        background: white;
+      }
+    }
+  }
+}

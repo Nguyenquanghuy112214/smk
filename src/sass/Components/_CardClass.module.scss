@@ -1,0 +1,17 @@
+@import '../Variable/index';
+
+.wrapper {
+  margin-bottom: 30px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #ccc;
+  }
+}
+.list-class {
+  @include flex(center, flex-start);
+}

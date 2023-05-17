@@ -1,0 +1,119 @@
+.background {
+  background: #f9f9f9;
+  padding: 65px 0 80px;
+}
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1140px;
+}
+.header {
+  margin-bottom: 45px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: center;
+  h2 {
+    margin-bottom: 25px;
+    color: #4e4c50;
+    font-size: 44px;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+  .list {
+    margin: 0 -15px;
+    padding: 0px 50px;
+    width: 100%;
+  }
+}
+.office {
+  // width: 490px;
+  display: block;
+  margin: 0 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 1px 4px 24px hsla(0, 0%, 82%, 0.25);
+  overflow: hidden;
+}
+.office_img {
+  height: 360px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.list {
+}
+.office_content {
+  padding: 24px;
+  .title {
+    margin-bottom: 24px;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #4e4c50;
+  }
+  .address {
+    display: flex;
+    align-items: center;
+    i {
+      width: 16px;
+      height: 21px;
+      margin-right: 12px;
+      background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/icon-address.svg) no-repeat 0 0 / contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    p {
+      flex: 1;
+      // min-height: 82px;
+      font-size: 16px;
+      line-height: 24px;
+      color: #4e4c50;
+    }
+  }
+  .phone {
+    display: flex;
+    i {
+      width: 18px;
+      height: 18px;
+      margin-right: 9px;
+      background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/icon-phone2.svg) no-repeat 0 0 / contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    p {
+      font-size: 16px;
+      line-height: 24px;
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      transition: 0.25s;
+      color: #4e4c50;
+    }
+  }
+  .email {
+    display: flex;
+    align-items: flex-start;
+    p {
+      font-size: 16px;
+      line-height: 24px;
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      transition: 0.25s;
+      color: #4e4c50;
+    }
+    svg {
+      color: #4e4c50;
+      margin-right: 12px;
+    }
+  }
+}

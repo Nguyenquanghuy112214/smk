@@ -1,0 +1,164 @@
+@import '../Variable/index';
+
+.wrapper-button {
+  @include flex(center, center, nowrap);
+  // width: min-content;
+  border: 2px solid #f6ebeb;
+  padding: 10px;
+  font-size: 1.4rem;
+  box-shadow: $box-shadow;
+  background-color: white;
+  transition: all 0.3s linear;
+  color: black;
+  .icon {
+    svg {
+      color: #757c76;
+    }
+  }
+
+  .text2 {
+    margin-left: 6px;
+  }
+}
+.xl {
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: #e5e9ed;
+  box-shadow: none;
+  min-width: 100%;
+
+  @include tablet {
+    min-width: 350px;
+  }
+  @include mobile {
+    padding: 8px;
+    margin-top: 10px;
+    min-width: 60%;
+  }
+  span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    @include flex();
+    @include mobile {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .text1 {
+    font-size: 2rem;
+    font-weight: bold;
+    @include mobile {
+      font-size: 1.4rem;
+    }
+  }
+  .text2 {
+    display: none;
+  }
+  @include flex(center, space-between);
+}
+
+.lg {
+  // color: #929292;
+  border-radius: 8px;
+  min-width: 90px;
+  margin-bottom: 10px;
+}
+
+.ml {
+  margin-left: 8px;
+}
+
+.sm {
+  padding: 4px;
+  height: 20px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.date {
+  border: 2px #5ec375 solid;
+  .text1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $main-color;
+    transition: all 0.3s linear;
+
+    @include mobile {
+      font-size: 1.4rem;
+      margin: -3px;
+    }
+  }
+  &.activedate {
+    background-color: $main-color;
+    .text1 {
+      color: white;
+    }
+  }
+}
+
+.rank {
+  box-shadow: none;
+  border: none;
+  height: 50px;
+  position: relative;
+  color: #8f8f8f;
+  margin-bottom: 30px;
+  @include mobile {
+    margin-bottom: 14px;
+  }
+  // &.active::after {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0%;
+  //   bottom: 0%;
+  //   background-color: $main-color;
+  // }
+}
+
+.leftradius {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.rightradius {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.noefect {
+  background-color: #ffffff;
+  border: none;
+  width: 100%;
+  box-shadow: unset;
+  @include flex(center, flex-start, nowrap);
+  padding: 10px 0;
+  .text1 {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #5d5d5d;
+    line-height: 20px;
+  }
+}
+
+.df {
+  background-color: $main-color;
+  color: white;
+  .text1 {
+    font-size: 1.4rem;
+  }
+}
+
+.plus {
+  background-color: $plus-color;
+  color: white;
+  .text1 {
+    font-size: 1.4rem;
+  }
+  .text2 {
+    font-size: 1.4rem;
+  }
+}

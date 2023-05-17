@@ -1,0 +1,27 @@
+@use './variables';
+@mixin flex($align-item: center, $justify-content: center, $wrap: wrap) {
+  display: flex;
+  flex-wrap: $wrap;
+  align-items: $align-item;
+  justify-content: $justify-content;
+}
+
+@mixin mobile {
+  @media only screen and (max-width: $mobile-width) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+
+@mixin pc {
+  @media only screen and (min-width: $pc-width) {
+    @content;
+  }
+}
+

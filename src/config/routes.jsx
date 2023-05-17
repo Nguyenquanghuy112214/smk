@@ -1,0 +1,67 @@
+const routes = {
+  homepage: '/',
+  privacy: '/privacy&policy',
+  rank: '/rank',
+  register: '/register',
+  login: '/login',
+  userinfo: '/userinfo',
+  vocabulary: '/vocabulary/:type/:indexvoca/:search',
+  grammar: '/grammar',
+  grammardetail: '/grammardetail/:namegrammar/:grammarTypeid/:index',
+  grammardetailclass: '/grammardetailclass/:idClass/:idgrammar',
+  learning: '/learning/:id/:idmusic/:type/:name/:nameinit',
+  conversation: '/conversation/:idtopic/:iddetail',
+  exercise: '/exercise/:id/:music/:idvoca/:namevoca',
+  account: '/account',
+  accountedit: '/accountedit',
+  accounteditprofile: '/accounteditprofile/:index',
+  music: '/music',
+  musictopic: '/musictopic/:name/:id',
+  musicrunvideo: '/musicrunvideo/:idtopic/:idsong',
+  musicrunvideomain: '/musicrunvideo/:idsong',
+  musicrunvideosearch: '/musicrunvideosearch/:search/:idsong',
+  video: '/video',
+  videocategory: '/videocategory/:title/:unit/:idcate',
+  videorunvideo: '/videorunvideo/:idtopicvideo/:idvideo',
+  history: '/history',
+  historycategory: '/historycategory/:series/:id/:title/:idtopic',
+  historyrun: '/historyrun/:idcate/:idhistory',
+  historyrunvideopopular: '/historyrunpopular/:idstory',
+  historyrunseries: '/historyrunseries/:idseries/:idhistory',
+  historyrunsearchmain: '/historyrunsearchmain/:search/:idhistory',
+  courseware: '/courseware',
+  practicelistening: '/practicelistening/:index',
+  process: '/process',
+  bannerui: '/bannerui',
+  privacy2: '/privacy2',
+
+  // gioi thieu
+  aboutbkt: '/aboutbkt',
+  productbkt: '/productbkt',
+  helpbkt: '/helpbkt',
+
+  // Game
+  wordmatchinggame: '/wordmatchinggame',
+  startwordmatchinggame: '/startwordmatchinggame',
+  bingogame: '/bingogame/:typeofGame',
+  startbingogame: '/startbingogame',
+  startbingogame2: '/startbingogame2',
+  dragdropgame: '/dragdropgame/:iddragdrop',
+  startdragdropgame: '/startdragdropgame',
+  starttotltalgame: '/starttoltalgame',
+
+  // AlphaPage
+  alphastartpage: '/alphastartpage',
+  listalpha: '/listalpha',
+  detailalpha: '/detailalpha/:type/:alpha/:idalpha',
+  // NumberPage
+  numberstartpage: '/numberstartpage',
+  listnumber: '/listnumber',
+  detailnumber: '/detailnumber/:type/:number/:idnumber',
+  // ColorPage
+  colorstartpage: '/colorstartpage',
+  listcolor: '/listcolor',
+  detailcolor: '/detailcolor/:type/:color/:idcolor',
+};
+
+export default routes;

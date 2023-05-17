@@ -1,0 +1,79 @@
+@import '../../sass/Variable/index';
+
+.wrapper {
+  padding: 40px;
+  height: 100vh;
+  background-image: url('../../assets/image/SelectGame/bg.png');
+  background-position: 100% 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  @include flex();
+  .icon-close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .body {
+    padding: 20px 0;
+    width: 90%;
+    height: 500px;
+    border-radius: 50px;
+    background-color: #ffffff70;
+    border: 16px solid #67b5cc;
+    .title {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 6rem;
+      font-weight: 500;
+    }
+    .list-item {
+      height: 100%;
+      .wrapper-item {
+        @include flex();
+        flex-direction: column;
+
+        .img {
+          width: 100%;
+          border-radius: 50%;
+          background-color: #d4eeff;
+          padding: 20px;
+          img {
+            border-radius: 50%;
+
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+        .name-game {
+          width: 100%;
+          background-color: #5cbdff;
+          border: 2px solid #1861b7;
+          border-radius: 25px;
+          margin-top: 14px;
+          font-weight: bold;
+          color: white;
+          text-align: center;
+          font-size: 2rem;
+          padding: 20px;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}

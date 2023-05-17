@@ -1,0 +1,126 @@
+@import '../../sass/Variable/index';
+
+.wrapper {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94vw;
+  height: 90%;
+  background-color: #abff9b60;
+  z-index: 9;
+  border-radius: 10px;
+  padding: 20px;
+  .helper {
+    width: 100%;
+    @include flex(center, start, nowrap);
+
+    img {
+      width: 115px;
+      height: 124px;
+      object-fit: contain;
+    }
+    .title-helper {
+      height: 78px;
+      background-color: #e8dede;
+      border-radius: 8px;
+      margin-left: -20px;
+      margin-top: -40px;
+      @include flex(center, start, nowrap);
+      padding: 0 20px;
+      font-size: 2.4rem;
+    }
+  }
+  .content {
+    @include flex(center, space-around, nowrap);
+    &-left {
+      flex: 2;
+    }
+    &-right {
+      flex: 1;
+
+      .main-content {
+        @include flex(center, unset, nowrap);
+
+        .alpha {
+          font-size: 9.6rem;
+          font-weight: bold;
+          margin-right: 40px;
+        }
+        .spelling {
+          font-size: 4.8rem;
+          color: #747373;
+          font-weight: bold;
+          margin-right: 40px;
+        }
+        img {
+          width: 38px;
+          height: 50px;
+          object-fit: contain;
+          border-radius: 8px;
+        }
+      }
+      .wrapper-example {
+        .example {
+          margin-top: 50px;
+          font-weight: bold;
+          font-size: 3.2rem;
+        }
+        .list-example {
+          padding-left: 30px;
+          margin-top: 40px;
+          height: 200px;
+
+          display: flex;
+          flex-direction: column;
+          overflow: auto;
+          overflow: -moz-scrollbars-none;
+          -ms-overflow-style: none;
+          &::-webkit-scrollbar {
+            width: 0 !important;
+            display: none;
+          }
+
+          .vn {
+            margin-top: 20px;
+            font-size: 2.8rem;
+            line-height: 2.8rem;
+          }
+          .en {
+            margin-top: 20px;
+            font-size: 2.8rem;
+            padding-left: 20px;
+          }
+        }
+      }
+    }
+  }
+  .list-navigate {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    @include flex();
+    .ga {
+      width: 63px;
+      height: 70px;
+      margin-right: 20px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        cursor: pointer;
+      }
+    }
+    .kh {
+      width: 63px;
+      height: 70px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        cursor: pointer;
+      }
+    }
+  }
+}

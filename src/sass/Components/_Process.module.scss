@@ -1,0 +1,208 @@
+@import '../Variable/index';
+
+.wrapper {
+  position: relative;
+  padding: 10px 20px;
+
+  .blur {
+    position: absolute;
+    width: 200rem;
+    height: 300rem;
+    border-radius: 30%;
+    background: #ffe0de;
+
+    z-index: -9;
+    top: 0%;
+    left: -48%;
+    filter: blur(80px);
+  }
+
+  .header {
+    @include flex(center, start, nowrap);
+    .img-header {
+      margin-right: 20px;
+      width: 80px;
+      img {
+        width: 100%;
+      }
+    }
+
+    .title-main {
+      font-size: 2.6rem;
+      font-weight: bold;
+
+      span {
+        color: #106218;
+      }
+    }
+  }
+
+  .body {
+    margin-top: 100px;
+    padding: 0 60px;
+    .line {
+      width: 80%;
+      height: 7px;
+      background-color: #c5c5c5;
+      margin-bottom: 160px;
+
+      .point {
+        position: absolute;
+        top: 50%;
+        width: 24px;
+        height: 24px;
+        background-color: #c5c5c5;
+        border-radius: 50%;
+        transform: translateY(-50%) !important;
+      }
+      .point1,
+      .point6,
+      .point7 {
+        left: -4px;
+
+        &.active {
+          background-color: #106218;
+        }
+      }
+      .point2,
+      .point5 {
+        left: 49%;
+        &.active {
+          background-color: #106218;
+        }
+      }
+      .point3,
+      .point4,
+      .point8 {
+        left: 98%;
+        &.active {
+          background-color: #106218;
+        }
+      }
+    }
+    .line1 {
+      position: relative;
+    }
+
+    .line2 {
+      position: relative;
+      margin-left: 154px;
+    }
+
+    .line3 {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 240px;
+      height: 7px;
+      color: transparent;
+      background-color: #c5c5c5;
+      transform: rotate(47deg);
+      transform-origin: 100% 74%;
+      z-index: -1;
+    }
+
+    .line4 {
+      position: relative;
+      margin-left: 320px;
+      width: 34%;
+    }
+
+    .line5 {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 240px;
+      height: 7px;
+      color: transparent;
+      background-color: #c5c5c5;
+      transform: rotate(45deg);
+      transform-origin: 0% 30%;
+      z-index: -1;
+    }
+  }
+
+  .footer {
+    @include flex();
+    margin-top: -50px;
+
+    .img-gift__chest {
+      margin: 0 20px;
+    }
+
+    .chest1 {
+      width: 100px;
+    }
+    .chest2 {
+      width: 120px;
+    }
+    .chest3 {
+      width: 140px;
+    }
+  }
+}
+
+.content-top {
+  position: absolute;
+  top: -70px;
+  left: -80px;
+  width: max-content;
+  @include flex(center, space-between, nowrap);
+  z-index: 10;
+
+  .medal {
+    width: 70px;
+    img {
+      width: 100%;
+    }
+  }
+
+  span {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+.content-bottom {
+  position: absolute;
+  bottom: -40px;
+  left: -80px;
+  @include flex(center, space-between, nowrap);
+  z-index: 10;
+
+  span {
+    margin-right: 10px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: red;
+  }
+
+  .img-star {
+    width: 40px;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.rotate {
+  transform: rotate(45deg);
+}
+
+.topmax {
+  top: -76px;
+  left: -48px;
+}
+
+.right {
+  left: 0px;
+  top: -50px;
+}
+
+.center {
+  left: -30px;
+}
+
+.left {
+  left: -90px;
+}

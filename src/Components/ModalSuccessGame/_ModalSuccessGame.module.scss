@@ -1,0 +1,77 @@
+@import '../../sass/Variable/index';
+
+.wrapper {
+  width: 600px;
+  background: #e2ffcc;
+  border-radius: 8px;
+  padding: 24px;
+  .header {
+    font-weight: bold;
+    font-size: 2.4rem;
+    color: #5abb3e;
+
+    span {
+      margin-right: 20px;
+      svg {
+        color: #5abb3e;
+        font-size: 2.8rem;
+      }
+    }
+  }
+
+  .body {
+    margin-top: 14px;
+    @include flex(center, space-between, nowrap);
+    .left {
+      color: #43669f;
+      .vocabulary {
+        font-weight: 700;
+        margin-right: 16px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 2rem;
+      }
+
+      .spelling {
+        font-size: 2rem;
+        margin-right: 10px;
+      }
+      .speak {
+        cursor: pointer;
+        svg {
+          font-size: 3rem;
+          transition: all 0.2s linear;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+      .translate {
+        margin-top: 18px;
+      }
+    }
+
+    .right {
+      img {
+        border-radius: 8px;
+        width: 140px;
+      }
+    }
+  }
+
+  .footer {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    background-color: #72d356;
+    border-radius: 50px;
+    box-shadow: 0 7px #5abb3e;
+    cursor: pointer;
+
+    button {
+      color: white;
+      background: transparent;
+      font-weight: 500;
+    }
+  }
+}

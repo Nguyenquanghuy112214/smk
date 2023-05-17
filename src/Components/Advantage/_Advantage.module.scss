@@ -1,0 +1,73 @@
+@import '../../sass/Variable/index';
+
+.advantage {
+  padding: 75px 0 160px;
+  background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/decor-sp.svg) no-repeat 0 -135px;
+  background-size: 100%;
+  .header {
+    .title {
+      color: #4e4c50;
+      font-size: 44px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+  }
+
+  .col-advantage {
+    ul {
+      li {
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        min-height: 128px;
+        padding: 22px 32px;
+        background: #fff;
+        box-shadow: 5px 5px 120px hsla(0, 0%, 76%, 0.15);
+        border-radius: 8px;
+        position: relative;
+        margin-bottom: 30px;
+        &:before {
+          content: '';
+          height: 100%;
+          width: 6px;
+          border-radius: 8px 0 0 8px;
+          background: #2c9e3e;
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        .icon {
+          margin-right: 32px;
+          img {
+            max-width: 100%;
+          }
+        }
+        p {
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 28px;
+          -ms-flex: 1;
+          flex: 1;
+        }
+      }
+    }
+  }
+}
+
+.col-advantage-bottom {
+  padding: 0 30px;
+  .img-wrapper {
+    img {
+    }
+  }
+  .btn-box {
+    text-align: center;
+    margin-top: 20px;
+
+    div {
+      margin-bottom: 20px;
+    }
+  }
+}

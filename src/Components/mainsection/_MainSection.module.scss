@@ -1,0 +1,70 @@
+.background {
+  position: relative;
+  padding: 15px 0 115px;
+  &::before {
+    width: 124px;
+    height: 91px;
+    background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/decor-intro1.svg) no-repeat 0 0 / contain;
+    top: 13px;
+    left: 2.1354166667vw;
+    content: '';
+    position: absolute;
+    z-index: -1;
+  }
+  &::after {
+    width: 341px;
+    height: 267px;
+    background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/decor-intro2.svg) no-repeat 0 0 / contain;
+    left: 8px;
+    top: 270px;
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+  }
+
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1140px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .col {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    .img {
+      margin-top: 50px;
+      width: 500px;
+      img {
+        object-fit: contain;
+        width: 100%;
+      }
+    }
+  }
+  .intro {
+    padding-top: 20px;
+    max-width: 445px;
+    h1 {
+      margin-bottom: 25px;
+      font-size: 64px;
+      line-height: 80px;
+      color: #4e4c50;
+    }
+  }
+  p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

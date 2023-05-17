@@ -1,0 +1,83 @@
+@import '../Variable/index';
+.wrapper {
+  @include flex(unset, unset, nowrap);
+  flex-direction: column;
+  height: 100%;
+}
+
+.wrapper-header {
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+
+  // margin-top: 20px;
+  @include tablet {
+    display: block;
+  }
+  @include mobile {
+    display: block;
+  }
+  .img {
+    margin-bottom: 30px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+
+    .opacity {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+    p {
+      margin-top: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      @include tablet {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+      @include mobile {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+    }
+    a {
+      color: black;
+    }
+    img {
+      width: 60px;
+      @include tablet {
+        width: 40px;
+      }
+      @include mobile {
+        width: 40px;
+      }
+    }
+  }
+}
+
+.wrapper-footer {
+  @include flex(center, start, nowrap);
+  flex: 1;
+  margin: 30px 0;
+  flex-direction: column;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  @include tablet {
+    display: none;
+  }
+
+  @include mobile {
+    display: none;
+  }
+}

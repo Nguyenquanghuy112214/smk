@@ -1,0 +1,68 @@
+@import '../../sass/Variable/index';
+
+.feedback {
+  padding: 80px 0;
+  .wrapper-feedback {
+    @include flex(center, space-around, nowrap);
+    padding: 0 50px;
+    .feedback__img {
+      width: 255px;
+      img {
+        border-radius: 15px;
+        max-width: 100%;
+        display: block;
+      }
+    }
+    .feedback__content {
+      width: 540px;
+      .content {
+        margin-bottom: 24px;
+        max-width: 445px;
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 500;
+        position: relative;
+        &::before {
+          content: '';
+          width: 46px;
+          height: 31px;
+          background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/quote1.svg) no-repeat 0 0 / contain;
+          position: absolute;
+          left: -57px;
+          top: -8px;
+        }
+        p {
+            font-weight: 400;
+        }
+      }
+      .customer {
+        margin-bottom: 49px;
+        .name {
+          font-size: 18px;
+          line-height: 28px;
+          margin-bottom: 4px;
+          font-weight: 600;
+          text-transform: capitalize;
+
+        }
+        p {
+            font-size: 1.4rem;
+          line-height: 20px;
+          font-weight: 300;
+          
+        }
+      }
+    }
+  }
+}
+
+.right-feedback {
+  margin-left: 125px;
+}
+
+.btn-but {
+    @include flex();
+  div {
+    margin-right: 20px;
+  }
+}

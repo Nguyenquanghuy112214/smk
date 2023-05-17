@@ -1,0 +1,32 @@
+.nav__toggler div {
+  width: 3.6rem;
+  height: 0.2rem;
+  margin: 0.4rem;
+  margin: 5px 0;
+  background: black;
+  transition: all 0.3s ease-in;
+}
+.nav__toggler {
+  cursor: pointer;
+}
+
+.line1.active {
+  transform: rotate(-45deg) translate(-4px, 5px);
+}
+.line2.active {
+  opacity: 0;
+}
+.line3.active {
+  transform: rotate(45deg) translate(-4px, -5px);
+}
+
+.icon-menu {
+  position: relative;
+}
+
+.box {
+  position: absolute;
+  top: 54px;
+  right: 10px;
+  width: 250px;
+}

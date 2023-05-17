@@ -1,0 +1,36 @@
+@import '../../sass/Variable/index';
+
+.wrapper-img {
+  @include flex(center, space-between, nowrap);
+  .img-alpha {
+    flex: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    img {
+      width: 84%;
+      object-fit: contain;
+    }
+    .animation {
+    }
+  }
+}
+
+.videoYTB {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 36.25%;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 93%;
+    height: 100%;
+  }
+}
+.animation {
+  flex: 1;
+}

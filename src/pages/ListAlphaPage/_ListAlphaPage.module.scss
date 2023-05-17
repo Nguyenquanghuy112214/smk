@@ -1,0 +1,22 @@
+.list-alpha {
+  padding: 30px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 50px 30px;
+  place-items: center;
+  .alpha-item {
+    // width: 100%;
+    height: 160px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      cursor: pointer;
+
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

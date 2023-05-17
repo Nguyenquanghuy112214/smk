@@ -1,0 +1,74 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  .img {
+    position: absolute;
+    object-fit: contain;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      transform: scale(1.1) !important;
+    }
+  }
+  .img0 {
+    left: 10%;
+    bottom: 10%;
+    width: 264px;
+    height: 202px;
+  }
+  .img1 {
+    left: 0%;
+    bottom: 50%;
+    width: 352px;
+    height: 223px;
+  }
+  .img2 {
+    left: 20%;
+    top: -10%;
+    width: 252px;
+    height: 223px;
+  }
+  .img3 {
+    left: 40%;
+    top: 10%;
+    width: 282px;
+    height: 223px;
+  }
+  .img4 {
+    left: 30%;
+    bottom: 27%;
+    width: 302px;
+    height: 223px;
+  }
+  .img5 {
+    left: 50%;
+    top: -10%;
+    width: 282px;
+    height: 223px;
+  }
+  .img6 {
+    right: 0%;
+    top: 0%;
+    width: 252px;
+    height: 223px;
+  }
+  .img7 {
+    right: 14%;
+    bottom: 38%;
+    width: 302px;
+    height: 203px;
+  }
+  .img8 {
+    right: 26%;
+    bottom: 10%;
+    width: 302px;
+    height: 203px;
+  }
+  .img9 {
+    right: 0%;
+    bottom: 10%;
+    width: 302px;
+    height: 203px;
+  }
+}

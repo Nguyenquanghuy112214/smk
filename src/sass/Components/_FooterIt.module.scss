@@ -1,0 +1,104 @@
+@import '../Variable/index';
+
+.wrapper-footer {
+  background-color: #2a292c;
+  //
+  padding: 30px 0;
+  .container-footer {
+    padding: 30px 0;
+
+    .row-footer-top {
+      border-bottom: 1px solid #4e4c50;
+      padding-bottom: 40px;
+      .col-footer {
+        .col-left-top {
+          h4 {
+            color: white;
+            margin-bottom: 22px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+          }
+          .wrapper-phone {
+            @include flex(center, start, nowrap);
+            span {
+              font-size: 16px;
+              font-weight: 700;
+              line-height: 24px;
+              color: #fff;
+              @include flex();
+              svg {
+                color: white;
+                font-size: 1.5rem;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+      .col-right-top {
+        p {
+          font-size: 13px;
+          color: #b8b7b9;
+          line-height: 18px;
+          margin-bottom: 14px;
+        }
+      }
+    }
+  }
+}
+
+.col-footer-bot {
+    padding: 50px 0;
+}
+
+.col-bot {
+    @include flex(start,center,nowrap);
+}
+
+.location-icon,
+.phone-icon,
+.earth-icon {
+	// font-size: 30px;
+	padding-right: 10px;
+    svg {
+        color: white;
+		font-size: 3rem;
+
+    }
+}
+
+.location,
+.phone,
+.earth {
+	padding-bottom: 10px;
+	svg {
+		position: relative;
+	}
+}
+
+.location-content,
+.phone-content,
+.earth-content {
+	position: relative;
+	margin-left: 10px;
+
+	h3 {
+		font-size: 1.8rem;
+		line-height: 2rem;
+	}
+    span {
+        color: white;
+        line-height: 24px;
+        font-size: 1.6rem;
+    }
+	&::before {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: -10px;
+		width: 2px;
+		height: 100%;
+		background: white;
+	}
+}

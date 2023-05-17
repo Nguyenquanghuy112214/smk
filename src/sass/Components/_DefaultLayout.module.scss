@@ -1,0 +1,26 @@
+@import '../Variable/index';
+
+.wrapper-layoutdefault {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+.wrapper-header {
+  @include mobile {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 316px;
+    z-index: 100;
+    background: #ffffff;
+    transform: translateX(-100%);
+    transition: all 0.3s linear;
+    width: 100vw;
+  }
+  &.active {
+    @include mobile {
+      transform: translateX(0);
+    }
+  }
+}

@@ -1,0 +1,101 @@
+.background {
+  background: #fff;
+  padding: 65px 0 80px;
+  position: relative;
+  &::before {
+    content: '';
+    width: 679px;
+    height: 944px;
+    background: url(https://monkeymedia.vcdn.com.vn/upload/web/img_default/decor-intro3.svg) no-repeat 0 0 / contain;
+    position: absolute;
+    left: 0;
+    top: 360px;
+    z-index: -1;
+  }
+}
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1140px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.header {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: center;
+  h2 {
+    margin-bottom: 25px;
+    color: #4e4c50;
+    font-size: 44px;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #4e4c50;
+  }
+}
+.col {
+  width: 33.3333%;
+  display: inline-block;
+  margin: 15px 0;
+  padding: 0 15px;
+  background: #fff;
+  color: #4e4c50;
+  line-height: 1.4;
+  .img {
+    width: 150px;
+    height: 150px;
+    padding: 15px;
+    margin: 0 auto -75px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 1px 4px 24px hsla(0, 0%, 82%, 0.25);
+    img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .info {
+    padding: 83px 24px 24px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 1px 4px 24px hsla(0, 0%, 82%, 0.25);
+    overflow: hidden;
+    min-height: 400px;
+  }
+  .name {
+    margin-bottom: 4px;
+    color: #2c9e3e;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 700;
+  }
+  .position {
+    margin-bottom: 12px;
+    font-weight: 600;
+    min-height: 48px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .content {
+    min-height: 100px;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: left;
+  }
+}
