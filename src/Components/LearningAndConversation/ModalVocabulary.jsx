@@ -9,42 +9,86 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import iconclose from '~/assets/image/iconclose.png';
+import * as GetSpeak from '~/services/GetSpeakByID';
+
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function ModalVocabulary({ isActive, vocaDetail }) {
+  const [data, setData] = useState([]);
+  const [indexVN, setIndexVN] = useState(null);
+  const [indexEN, setIndexEN] = useState(null);
+  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  console.log('vocaDetail', vocaDetail);
   const handleClose = () => {
+    setIndexVN(null);
+    setIndexEN(null);
     dispatch(setModalVoca(false));
   };
 
-  const audio = useMemo(() => {
-    return new Audio(
-      `https://resourcesk.bkt.net.vn/AudioMP3/${vocaDetail !== undefined && vocaDetail.name !== undefined && vocaDetail.name}.mp3`
-    );
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await GetSpeak.getSpeak(vocaDetail?.idvocabulary);
+      setData(res.data);
+    };
+    fetch();
   }, [vocaDetail]);
-  const audiovn = useMemo(() => {
-    return new Audio(
-      `https://resourcesk.bkt.net.vn/AudioMP3/${vocaDetail !== undefined && vocaDetail.name !== undefined && vocaDetail.name}_vi.mp3`
-    );
-  }, [vocaDetail]);
+  console.log('data', data);
 
-  const speakEn = () => {
-    setTimeout(() => {
+  const audio = useMemo(() => {
+    return new Audio(`https://resourcesk.bkt.net.vn/AudioMP3/${data[indexEN] !== undefined && data[indexEN]?.soundslow}.mp3`);
+  }, [data, indexEN]);
+  const audiovn = useMemo(() => {
+    return new Audio(`https://resourcesk.bkt.net.vn/AudioMP3/${data[indexVN] !== undefined && data[indexVN]?.soundslow}_vi.mp3`);
+  }, [data, indexVN]);
+  const audio1 = useMemo(() => {
+    return new Audio(`https://resourcesk.bkt.net.vn/AudioMP3/${vocaDetail?.name}.mp3`);
+  }, [data, indexEN]);
+  const audiovn2 = useMemo(() => {
+    return new Audio(`https://resourcesk.bkt.net.vn/AudioMP3/${vocaDetail?.name}_vi.mp3`);
+  }, [data, indexVN]);
+
+  const speakEn = (index) => {
+    setIndexEN(index);
+    setIndexVN(null);
+    setCount(count + 1);
+  };
+
+  const speakVn = (index) => {
+    setIndexVN(index);
+    setIndexEN(null);
+    setCount(count + 1);
+  };
+
+  const handle2 = () => {
+    audio1.play();
+  };
+  const handle1 = () => {
+    audiovn2.play();
+  };
+
+  useEffect(() => {
+    if (indexEN !== null) {
+      console.log('zo2');
+
       audiovn.pause();
       audiovn.currentTime = 0;
       audio.play();
-    }, 100);
-  };
+    }
+  }, [audio, count]);
 
-  const speakVn = () => {
-    setTimeout(() => {
+  useEffect(() => {
+    if (indexVN !== null) {
+      console.log('zo1');
       audio.pause();
       audio.currentTime = 0;
       audiovn.play();
-    }, 100);
-  };
+    }
+  }, [audio, count]);
 
   return (
     vocaDetail !== undefined && (
@@ -67,10 +111,16 @@ function ModalVocabulary({ isActive, vocaDetail }) {
               <div className={cx('voca')}>
                 <span className={cx('name-eng')}>{vocaDetail.name} :</span>
                 <span className={cx('name-vn')}> {vocaDetail.vnName}</span>
+                <span className={cx('icon-speak')} onClick={handle1}>
+                  <GiSpeaker />
+                </span>
               </div>
               <div className={cx('spelling')}>
                 <span className={cx('spelling__left')}>{t('Transliteration')} </span>
                 <span className={cx('spelling__right')}> {vocaDetail.pronounce}</span>
+                <span className={cx('icon-speak')} onClick={handle2}>
+                  <GiSpeaker />
+                </span>
               </div>
             </div>
             <div className={cx('img')}>
@@ -78,19 +128,23 @@ function ModalVocabulary({ isActive, vocaDetail }) {
             </div>
             <div className={cx('content')}>
               <h3>{t('Newword')}</h3>
-              <div className={cx('content-body')}>
-                <div className={cx('content-body__item')}>
-                  <span className={cx('voca-speak')}>{vocaDetail.name}</span>
-                  <span className={cx('icon-speak')} onClick={speakEn}>
-                    <GiSpeaker />
-                  </span>
-                </div>
-                <div className={cx('content-body__item')}>
-                  <span className={cx('voca-speak', 'eng')}>{`"${vocaDetail.vnName}"`}</span>
-                  <span className={cx('icon-speak')} onClick={speakVn}>
-                    <GiSpeaker />
-                  </span>
-                </div>
+              <div className={cx('content-body-total')}>
+                {data?.map((item, index) => (
+                  <div key={index} className={cx('content-body')}>
+                    <div className={cx('content-body__item')}>
+                      <span className={cx('voca-speak')}>{item?.sampleEn}</span>
+                      <span className={cx('icon-speak')} onClick={() => speakEn(index)}>
+                        <GiSpeaker />
+                      </span>
+                    </div>
+                    <div className={cx('content-body__item')}>
+                      <span className={cx('voca-speak', 'eng')}>{`"${item?.sampleVn}"`}</span>
+                      <span className={cx('icon-speak')} onClick={() => speakVn(index)}>
+                        <GiSpeaker />
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>

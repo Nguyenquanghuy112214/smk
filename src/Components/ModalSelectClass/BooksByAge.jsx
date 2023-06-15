@@ -102,9 +102,8 @@ function BookByAge({ listCourse }) {
     return (
       // <div className={cx('wrapper-img')}>
       <Swiper navigation={true} modules={[Navigation]} slidesPerView={4} className="mySwiper">
-        {idClass === false &&
-          listCourse !== undefined &&
-          listCourse.map((item, index) => {
+        {idClass === undefined &&
+          listCourse?.map((item, index) => {
             return (
               <SwiperSlide key={item.courseId}>
                 <div className={IDCourse === item.courseId ? cx('img', 'active') : cx('img')}>
@@ -144,8 +143,7 @@ function BookByAge({ listCourse }) {
           })}
 
         {idClass !== undefined &&
-          couresByClass !== undefined &&
-          couresByClass.map((item, i) => {
+          couresByClass?.map((item, i) => {
             return (
               <SwiperSlide key={item.courseId}>
                 <div className={IDCourse === item.courseId ? cx('img', 'active') : cx('img')}>

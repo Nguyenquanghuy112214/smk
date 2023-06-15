@@ -19,12 +19,18 @@
     .voca {
       text-align: center;
       margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       .name-vn,
       .name-eng {
         text-align: center;
         font-size: 2.2rem;
         color: #21a757;
         font-weight: bold;
+      }
+      .name-vn {
+        margin-right: 20px;
       }
     }
 
@@ -39,10 +45,14 @@
       text-align: center;
       font-size: 2rem;
       font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &__left {
       }
 
       &__right {
+        margin-right: 20px;
       }
     }
   }
@@ -74,10 +84,10 @@
     img {
       border-radius: 10px;
       width: 300px;
-      height: 200px;
+      height: 100px;
       @media (min-width: 1600px) {
         width: 320px;
-        height: 320px;
+        height: 200px;
       }
       object-fit: contain;
       border-radius: 12px;
@@ -93,25 +103,6 @@
         @include flex(center, space-between, nowrap);
         font-size: 2.4rem;
         font-weight: bold;
-        .icon-speak {
-          @include flex(center, center, nowrap);
-
-          height: 30px;
-          width: 30px;
-          border-radius: 30%;
-          background-color: #fff4f2;
-          padding: 2px;
-          transition: all 0.3s linear;
-
-          &:hover {
-            cursor: pointer;
-            transform: scale(1.2);
-          }
-
-          svg {
-            color: #ff6652;
-          }
-        }
 
         .voca-speak {
           text-transform: capitalize;
@@ -123,5 +114,36 @@
         }
       }
     }
+  }
+}
+
+.content-body-total {
+  height: 300px;
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
+  }
+}
+
+.icon-speak {
+  @include flex(center, center, nowrap);
+
+  height: 30px;
+  width: 30px;
+  border-radius: 30%;
+  background-color: #fff4f2;
+  padding: 2px;
+  transition: all 0.3s linear;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+
+  svg {
+    color: #ff6652;
   }
 }

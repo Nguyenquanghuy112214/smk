@@ -55,7 +55,7 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
   const [indexSlider, setIndexSlider] = useState(0);
   const arrray = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   const indexDebounce = useDebounce(indexSlider, 300);
-
+  console.log('dataModal', dataModal);
   const closeModal = () => {
     setSuccess(undefined);
     setDataModal([]);
@@ -196,7 +196,7 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
       setLoading(false);
     }
   }, [isActive]);
-
+  console.log('idVoca', idVoca);
   useEffect(() => {
     const fetch = async () => {
       const [voca, listspeak] = await Promise.all([GetVocaById.getVocaSingle(idVoca), GetSpeak.getSpeak(idVoca)]);

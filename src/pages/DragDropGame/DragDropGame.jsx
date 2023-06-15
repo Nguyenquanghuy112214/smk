@@ -16,6 +16,9 @@ import { resourceAutio } from '~/constant/resourceAudio';
 import { useNavigate, useParams } from 'react-router-dom';
 import _ from 'lodash';
 import Loading from '~/Components/animationloading/Animationloading';
+import routes from '~/config/routes';
+import iconclose from '~/assets/image/iconclose.png';
+
 const cx = classNames.bind(styles);
 
 const DragDropGame = () => {
@@ -138,7 +141,7 @@ const DragDropGame = () => {
   useEffect(() => {
     if (data !== undefined && data.length > 0) {
       if (+point === data.length) {
-        navigator('/startdragdropgame');
+        navigator(routes.startdragdropgame);
       }
     }
   }, [data, point]);
@@ -157,9 +160,11 @@ const DragDropGame = () => {
   }, [idDragDrop]);
 
   const onHome = () => {
-    navigator('/');
+    navigator(routes.homepage);
   };
-
+  const NaviteStartGame = () => {
+    navigator(routes.startdragdropgame);
+  };
   return (
     <DndProvider backend={HTML5Backend}>
       <Loading active={dataQuestion !== undefined && dataQuestion.length === 0 ? true : false} opa={0.6} />
@@ -168,6 +173,9 @@ const DragDropGame = () => {
         <button className={cx('icon')} onClick={onHome}>
           <IoHome />
         </button>
+        <div onClick={NaviteStartGame} className={cx('icon-close')}>
+          <img src={iconclose} alt="" />
+        </div>
 
         <div className={cx('row')}>
           {dataQuestion !== undefined &&

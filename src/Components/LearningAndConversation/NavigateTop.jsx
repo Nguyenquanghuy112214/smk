@@ -131,7 +131,7 @@ export function NavigateContent({ idtopic, buttonleft, datatopic, datalesson, ti
   };
 
   const openModalLesson = async (item) => {
-    navigate(`/learning/${id}/${idmusic}/${type}/${name}/${item.name}`);
+    navigate(`/learning/${id}/${idmusic}/${type}/${name}/${item.name}/null`);
     const res = await GetLinkByTopicLesson.getLinkByTopicLesson(idtopic, item.idlesson);
     setDetailLesson(res);
     dispatch(setModalTopic(true));

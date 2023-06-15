@@ -17,6 +17,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import useDebounce from '~/hooks/useDebounce';
 import { useTranslation } from 'react-i18next';
 import Loading from '../animationloading/Animationloading';
+import iconclose from '~/assets/image/iconclose.png';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +27,6 @@ function ListClass() {
   const [search, setSearch] = useState('');
   const [activeInput, setActiveInput] = useState(true);
   const [listCourse, setListCourse] = useState([]);
-  console.log('listCourse', listCourse);
   const [dataSearch, setDataSearch] = useState([]);
   // const [listbook, setListBook] = useState([]);
   const [listclass, setListClass] = useState([]);
@@ -71,12 +71,19 @@ function ListClass() {
 
   let data = [];
   if (search !== '' && dataSearch.length === 0) {
+    console.log('th1');
     data = [];
   } else if (search !== '' && dataSearch.length > 0) {
+    console.log('th2');
+
     data = dataSearch;
   } else {
+    console.log('th3');
+
     data = listCourse;
   }
+  console.log('data', data);
+  console.log('dataSearch', dataSearch);
   const { t } = useTranslation();
   return (
     <div ref={ref} className={cx('wrapper')}>
@@ -86,7 +93,7 @@ function ListClass() {
       />
 
       <div onClick={() => setSearch('')} className={cx('icon-close')} ref={ref1}>
-        <AiOutlineClose />
+        <img src={iconclose} alt="" />
       </div>
       <div style={{ fontSize: '3.2rem', fontWeight: 'bold', color: '#377B02', textAlign: 'center', margin: '40px 0' }}>
         {t('Courseselection')}
@@ -110,7 +117,7 @@ function ListClass() {
         </div>
       </div>
 
-      <BooksByAge listCourse={data !== undefined && data.length > 0 ? data : ''} />
+      <BooksByAge listCourse={data !== undefined && data.length > 0 ? data : null} />
     </div>
   );
 }

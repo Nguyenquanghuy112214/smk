@@ -533,6 +533,10 @@ export const ModalSuccess = ({ success, onClick, RedirectHome }) => {
 };
 
 export const ModalFail = ({ error, onClick }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(routes.startbingogame2);
+  };
   return (
     <AnimatePresence>
       {error === false && (
@@ -551,7 +555,7 @@ export const ModalFail = ({ error, onClick }) => {
             <div className={cx('fail')}>
               <img src={fail} alt="" />
             </div>
-            <div className={cx('home-fail')}>
+            <div onClick={handleClick} className={cx('home-fail')}>
               <img src={homesuccess} alt="" />
             </div>
             <div className={cx('repeat-fail')}>
@@ -586,7 +590,7 @@ export const FigureSuccess = ({ data, figure, Random }) => {
             exit={{ opacity: 0 }}
             className={cx('figure')}
           >
-            <img src={imgRandom[Random].img} alt="" />
+            <img src={imgRandom[Random]?.img} alt="" />
           </motion.div>
         </motion.div>
       )}

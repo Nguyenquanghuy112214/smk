@@ -44,7 +44,7 @@ function Vocabulary() {
       {/* Modal voca/exer */}
       <ModalVocaPageExercise idVoca={data} isActive={isVocaMain === true} />
       <ModalVocaPractive onClick={handleClick2} idVoca={data} isActive={isVocaMain === false} />
-      <SupplementaryStudy keyword="Học từ vựng" title={t('vocabulary')} path={routes.homepage}>
+      <SupplementaryStudy keyword="Học từ vựng" title={t('vocabulary')} path={isvoca === 'true' ? -1 : routes.homepage}>
         <Search />
         <Row className={cx('wrapper-content')}>
           <Col xxl={4} xl={4} lg={5} md={6} sm={4} xs={12}>

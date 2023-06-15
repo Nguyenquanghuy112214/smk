@@ -34,7 +34,6 @@ const ModalLesson = ({ isActive, dataDetailLesson, titleModalLearning }) => {
   const [dataActive, setDataAcitve] = useState();
   const [dataRelate, setDataRelate] = useState([]);
   const isActiveLesson = useSelector((state) => state.TopicModal.isActiveLesson);
-  console.log('isActiveLesson', isActiveLesson);
   const isActiveMusic = useSelector((state) => state.TopicModal.isActiveMusic);
 
   const dispatch = useDispatch();
@@ -42,6 +41,7 @@ const ModalLesson = ({ isActive, dataDetailLesson, titleModalLearning }) => {
   const isLoading = useSelector((state) => state.Loading.isActive);
   const [vocabulary, setVocabulary] = useState();
   const [vocaDetail, setModalVocaDetail] = useState();
+  console.log('vocabulary', vocabulary);
 
   useEffect(() => {
     const fetch = async () => {
