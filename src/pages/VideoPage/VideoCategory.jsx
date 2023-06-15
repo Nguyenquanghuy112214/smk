@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(styles);
 const VideoCategory = () => {
+  const { t } = useTranslation;
   const { title } = useParams;
   const { unit } = useParams;
   const [active, setActive] = useState(false);
@@ -17,7 +18,6 @@ const VideoCategory = () => {
   const handleClick = () => {
     setActive(true);
   };
-  const { t } = useTranslation;
   return (
     <div className={cx('wrapper')}>
       <div className={cx('blur')} style={{ background: '#fee0de' }}></div>
@@ -28,11 +28,12 @@ const VideoCategory = () => {
         <div className={cx('wrapper-list__topic')}>
           <div className={cx('list-topicvideo')}>
             <div className={cx('title-video')}>
-              {t('videostore')}
+              {/* {t('videostore')} */}
+              Kho Video
               <img className={cx('img-video')} src={video} alt="" />
             </div>
 
-            <div className={cx('title-topic')}>{t('Categories')}</div>
+            <div className={cx('title-topic')}>{/* {t('Categories')} */}Chuyên mục</div>
             <div className={cx('wrapper-content__listcate')}>
               <ListGramar onClick={handleClick} />
               <ListVideoCateDetail active={active} />

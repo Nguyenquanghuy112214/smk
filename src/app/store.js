@@ -47,8 +47,10 @@ import musicBackground from '~/Redux/MusicBackground';
 import IDBookAge from '~/Redux/IDBookAgeSlice';
 import UCHistory from '~/Redux/ChangeUCHistory';
 import scoreExercise from '~/Redux/TottalScoreExcercise';
+import toggleMusic from '~/Redux/ToggleMusic';
 
 const rootReducer = {
+  toggleMusic: toggleMusic,
   musicBackground: musicBackground,
   scoreExercise: scoreExercise,
   UCHistory: UCHistory,

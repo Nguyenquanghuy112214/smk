@@ -1,25 +1,25 @@
 import classNames from 'classnames/bind';
 import styles from '~/sass/Components/_Excercies.module.scss';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setListActive } from '~/Redux/ListActiveExercise';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingRobot from '../LoadingRobot';
 import micro from '~/assets/animations/micro.json';
+import { useRecorder } from '~/hooks/useRecorder';
 const cx = classNames.bind(styles);
 
 function Excercise6({ dataModal }) {
   const dispatch = useDispatch();
+  const { startRec, endRec, translate } = useRecorder();
   const [activeMicro, setActiveMicro] = useState(false);
 
-  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-
   const openMicro = () => {
-    SpeechRecognition.startListening();
     setActiveMicro(true);
+    startRec();
     const timer = setTimeout(() => {
-      SpeechRecognition.stopListening();
+      endRec();
       setActiveMicro(false);
     }, 4000);
     return () => clearTimeout(timer);
@@ -27,17 +27,13 @@ function Excercise6({ dataModal }) {
 
   useEffect(() => {
     let name = dataModal !== undefined && dataModal.dataItem !== undefined && dataModal.dataItem.name;
-    let tran = transcript;
-    if (tran.toLowerCase().slice(0, -1) === name.toLowerCase()) {
+    let tran = translate;
+    if (tran !== undefined && tran.toLowerCase().slice(0, -1) === name.toLowerCase()) {
       dispatch(setListActive({ active6: true }));
     } else {
       dispatch(setListActive({ active6: false }));
     }
-  }, [transcript, listening]);
-
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+  }, [translate]);
 
   return (
     <div className={cx('pronounce')}>
@@ -60,7 +56,7 @@ function Excercise6({ dataModal }) {
           )}
         </AnimatePresence>
       </div>
-      <div className={cx('answer-micro')}>{transcript}</div>
+      <div className={cx('answer-micro')}>{translate}</div>
     </div>
   );
 }

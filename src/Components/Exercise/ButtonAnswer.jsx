@@ -1,8 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import styles from '~/sass/Components/_Excercies.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { setListActive } from '~/Redux/ListActiveExercise';
 import { motion } from 'framer-motion';
 
 const cx = classNames.bind(styles);

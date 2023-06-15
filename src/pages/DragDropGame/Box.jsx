@@ -4,6 +4,8 @@ import classNames from 'classnames/bind';
 import styles from './_DragDropGame.module.scss';
 import { useDispatch } from 'react-redux';
 import { setIDDragDrop } from '~/Redux/IdDragDrop';
+import { resourceAutio } from '~/constant/resourceAudio';
+import { useMemo } from 'react';
 const cx = classNames.bind(styles);
 export function Box({ name, active, index }) {
   let count = 0;
@@ -26,15 +28,27 @@ export function Box({ name, active, index }) {
   }));
   const opacity = isDragging || active ? 0 : 1;
   const visibility = active ? 'hidden' : 'visible';
+
+  const audioSuccess = useMemo(() => {
+    return new Audio(resourceAutio(name));
+  }, [name]);
+  const handleClick = () => {
+    console.log('name', name);
+    audioSuccess.pause();
+    audioSuccess.currentTime = 0;
+    audioSuccess.play();
+  };
   return (
     <>
       <div
         style={{
           opacity,
           visibility,
+          cursor: 'pointer',
         }}
         ref={drag}
         className={cx('box-img')}
+        onClick={handleClick}
       >
         <img src={`https://resourcesk.bkt.net.vn/ImagesPNG/${name}.png`} alt="" />
       </div>

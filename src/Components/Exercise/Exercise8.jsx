@@ -4,7 +4,7 @@ import micro from '~/assets/animations/micro.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import * as GetSpeak from '~/services/GetSpeakByID';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 import { setExcercises } from '~/Redux/ExerciesSlice';
 import { removeListActive } from '~/Redux/ListActiveExercise';
 import { setModalSuccess } from '~/Redux/ModalSuccess';
@@ -18,11 +18,14 @@ import RengReng from '../Rengreng/RengReng';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingRobot from '../LoadingRobot';
 import { useTranslation } from 'react-i18next';
+import { useRecorder } from '~/hooks/useRecorder';
 
 const cx = classNames.bind(styles);
 
 function Excercise7({ dataModal }) {
   const { t } = useTranslation();
+  const { startRec, endRec, translate } = useRecorder();
+
   const dispatch = useDispatch();
   const [listAnswer, setListAnswer] = useState([]);
   const active = useSelector((state) => state.Excercies.isActive);
@@ -37,7 +40,6 @@ function Excercise7({ dataModal }) {
   const [singleSpeak, setSingleSpeak] = useState([]);
   const [countSingleEnd, setCountSingleEnd] = useState(0);
 
-  const { transcript, resetTranscript } = useSpeechRecognition();
   useEffect(() => {
     const fetch = async () => {
       const res = await GetSpeak.getSpeak(dataModal.dataItem.idvocabulary);
@@ -53,7 +55,7 @@ function Excercise7({ dataModal }) {
     dispatch(setActiveEx5(false));
     let firstAnswer = '';
     let tran = '';
-    tran = tran + transcript;
+    tran = tran + translate;
 
     const checkFirstAnswer = listAnswer.find((x) => x.active === undefined);
     setSingleSpeak(checkFirstAnswer);
@@ -65,7 +67,7 @@ function Excercise7({ dataModal }) {
     } else {
       setExactly({ exact: false, check: checkFirstAnswer !== undefined && checkFirstAnswer.id });
     }
-  }, [listAnswer, data, transcript]);
+  }, [listAnswer, data, translate]);
 
   // Fn kiểm tra nếu đúng hết thì next sang bài tập tiếp theo
   useLayoutEffect(() => {
@@ -91,7 +93,6 @@ function Excercise7({ dataModal }) {
       }
       // note test
       dispatch(setNextSingleSpeak(undefined));
-      resetTranscript();
     } else if (exactly.exact === false && listAnswer.find((x) => x.active === undefined && listAnswer.length > 1)) {
       if (countEx5 < 1) {
         dispatch(setActiveEx5(true));
@@ -108,7 +109,7 @@ function Excercise7({ dataModal }) {
 
         dispatch(setModalSuccess(false));
       }
-      resetTranscript();
+
       setData([]);
     } else if (exactly.exact === false && listAnswer !== undefined && listAnswer.length === 1) {
       if (countEx5 < 1) {
@@ -140,10 +141,10 @@ function Excercise7({ dataModal }) {
   }, [nextSingleSpeak]);
 
   const openMicro = () => {
-    SpeechRecognition.startListening();
+    startRec();
     setActiveMicro(true);
     setTimeout(() => {
-      SpeechRecognition.stopListening();
+      endRec();
       setActiveMicro(false);
     }, 3000);
   };
@@ -176,7 +177,7 @@ function Excercise7({ dataModal }) {
             )}
           </AnimatePresence>
         </div>
-        <div className={cx('answer-micro')}>{transcript}</div>
+        <div className={cx('answer-micro')}>{translate}</div>
       </div>
       <div className={cx('check')}>
         <button onClick={handleClick}>{t('Check')}</button>

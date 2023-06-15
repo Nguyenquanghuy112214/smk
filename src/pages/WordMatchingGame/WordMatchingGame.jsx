@@ -8,10 +8,21 @@ import classNames from 'classnames/bind';
 import styles from './_WordMatchingGame.module.scss';
 import ModalSuccessGame from '~/Components/ModalSuccessGame/ModalSuccessGame';
 import { motion, AnimatePresence } from 'framer-motion';
+import { imgWordMatchingGame } from '~/assets/image/wordmatchinggame/index';
+import routes from '~/config/routes';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToggleMusic } from '~/Redux/ToggleMusic';
+import { IoHome } from 'react-icons/io5';
 
 const cx = classNames.bind(styles);
 
 function WordMatchingGame() {
+  const navigator = useNavigate();
+  const isToggle = useSelector((state) => state.toggleMusic.isActive);
+  const dispatch = useDispatch();
+
+  const { home, mute_btn, unmute_btn, info_btn } = imgWordMatchingGame;
   // Fake data random
   const animation = {
     hidden: {
@@ -44,6 +55,9 @@ function WordMatchingGame() {
   const [answerSuccessReal, setAnswerSuccessReal] = useState([]);
   const [listVoca, setListVoca] = useState([]);
   const [count, setCount] = useState(0);
+  console.log('answerSuccess', answerSuccess);
+  console.log('listVoca', listVoca);
+  console.log('answerSuccessReal', answerSuccessReal);
   const randomFirt = Math.floor(Math.random() * 100);
   const randomBack = Math.floor(Math.random() * dataVoca.length);
 
@@ -222,12 +236,29 @@ function WordMatchingGame() {
       }
     }
   };
+  const handleNaviteHome = () => {
+    navigator(routes.starttotltalgame);
+  };
+  const handleToggleMusic = () => {
+    dispatch(setToggleMusic(!isToggle));
+  };
 
+  const onHome = () => {
+    navigator('/');
+  };
   if (!dataVoca || !dataVoca[indexVoca] || !dataVoca[indexVoca].cpitSpeak) return <div className={cx('wrapper')}></div>;
   // else {
   return (
     <div className={cx('wrapper')}>
+      <button className={cx('icon')} onClick={onHome}>
+        <IoHome />
+      </button>
       {/* <Loading active={dataVoca === null || dataVoca === undefined} /> */}
+      <div className={cx('list-navigate')}>
+        <img src={home} alt="" onClick={handleNaviteHome} />
+        <img src={isToggle ? unmute_btn : mute_btn} alt="" onClick={handleToggleMusic} />
+        <img src={info_btn} alt="" />
+      </div>
       <Container>
         <div className={cx('list-img')}>
           {dataVoca[indexVoca].cpitSpeak.map((voca, index) => {

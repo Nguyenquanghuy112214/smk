@@ -30,10 +30,11 @@ import LoadingRobot from '../LoadingRobot';
 import { useTranslation } from 'react-i18next';
 import * as CreateContentHistory from '~/services/CreateContentHistory';
 import { useAuth } from '~/hooks/useAuth';
+import iconclose from '~/assets/image/iconclose.png';
 
 const cx = classNames.bind(styles);
 
-function ModalVocaPractive({ idVoca, isActive }) {
+function ModalVocaPractive({ idVoca, isActive, onClick }) {
   const { auth } = useAuth();
   const { transcript } = useSpeechRecognition();
   const text = useDebounce(transcript, 800);
@@ -69,6 +70,7 @@ function ModalVocaPractive({ idVoca, isActive }) {
     { id: 3, title: 'Khẩu hình', img: talk },
   ];
   const closeModal = () => {
+    onClick();
     setSuccess(undefined);
     const swiper = document.querySelector('.test').swiper;
     arrray.forEach(() => {
@@ -269,7 +271,7 @@ function ModalVocaPractive({ idVoca, isActive }) {
             {success === true && <ModalSuccess onClick={closeModalSuccess} success={success} />}
             {success === false && <ModalFail onClick={closeModalFail} success={success} />}
             <span className={cx('close-modalvoca')} onClick={closeModal}>
-              <AiOutlineClose />
+              <img src={iconclose} alt="" />
             </span>
             <div className={cx('modalvoca-content')}>
               <Swiper

@@ -10,6 +10,7 @@ import Paginated from '~/Components/Paginated';
 
 const cx = classNames.bind(styles);
 const PopularGrid = ({ title, listData }) => {
+  console.log('title', title);
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -68,7 +69,7 @@ const PopularGrid = ({ title, listData }) => {
         <div className={cx('title')}>{title}</div>
         <div className={cx('wrapper-list__popular')}>
           {listData.map((item, index) => {
-            return <PopularItem  data={item} index={index} key={index} />;
+            return <PopularItem data={item} index={index} key={index} />;
           })}
         </div>
       </div>

@@ -9,7 +9,7 @@ import config from '~/config';
 const listMenu = [
   { icon: Home, title: 'menu1', navlink: config.routes.homepage },
   { icon: School, title: 'menu2', navlink: config.routes.homepage, opacity: 'opacity' },
-  { icon: Learning, title: 'menu3', navlink: '/a' },
+  { icon: Learning, title: 'menu3', navlink: '/a', opacity: 'opacity' },
   { icon: Process, title: 'menu4', navlink: config.routes.process },
   { icon: Contact, title: 'menu5', navlink: config.routes.homepage },
   { icon: Account, title: 'menu6', navlink: config.routes.account },

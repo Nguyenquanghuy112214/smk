@@ -37,7 +37,7 @@ const PopularGrid = ({ title, listData, music }) => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [setlected, setSelected] = useState();
-  const itemsPerPage = width <= 1024 ? 4 : 8;
+  const itemsPerPage = width <= 1024 ? 4 : 12;
 
   useEffect(() => {
     setCheck(!check);

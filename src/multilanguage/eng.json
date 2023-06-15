@@ -57,7 +57,7 @@
     "Pronouncelearnedvocabulary": "Pronounce learned vocabulary",
     "Matchthecorresponding": "Match the corresponding words",
     "Skip": "Skip",
-    "Vocabularyselection": "Vocabularyselection",
+    "Vocabularyselection": "Vocabulary Selection",
     "Wrong": "Wrong",
     "Right": "Right",
     "Quicknavigation": "Quick navigation",
@@ -207,5 +207,6 @@
     "Tablenumber": "Number",
     "Translate": "Translate",
     "Examplesentences": "Example sentences",
-    "Colorboard": "Color"
+    "Colorboard": "Color",
+    "Listoflisteningsongs": "List of listening songs"
 }

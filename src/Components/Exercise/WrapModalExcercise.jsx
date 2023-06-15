@@ -28,7 +28,7 @@ const cx = classNames.bind(styles);
 
 function WrapModalExcercies({ children, isActive, dataModal, onClick }) {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, name, numberunit, idtopic } = useParams();
   const dispatch = useDispatch();
 
   const [help, setHelp] = useState();
@@ -43,7 +43,7 @@ function WrapModalExcercies({ children, isActive, dataModal, onClick }) {
   };
 
   const closeModal = () => {
-    navigate(`/exercise/${id}/1/undefined/undefined`);
+    navigate(`/exercise/${id}/1/undefined/undefined/${name}/${numberunit}/${idtopic}`);
 
     dispatch(setActiveExerciseEnd(undefined));
     dispatch(setCountEx5(0));

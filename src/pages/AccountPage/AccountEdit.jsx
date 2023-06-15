@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
 import { wrapper, container } from './Motion';
 import { t } from 'i18next';
+import { useCourse } from '~/hooks/useCourse';
 
 const cx = classNames.bind(styles);
 
@@ -109,12 +110,15 @@ export function Input({ type, text, value }) {
 }
 
 export function ModalLogout({ active, onClick }) {
+  const { clearCourse } = useCourse();
   const navigate = useNavigate();
   const { auth } = useAuth();
   const handleLogout = async () => {
     const res = await Logout.logout({ headers: { Authorization: `Bearer ${auth.token}` } });
     localStorage.removeItem('IDBookAge');
     localStorage.removeItem('token');
+    window.location.reload();
+    clearCourse();
     navigate('/login');
   };
   return (
@@ -141,7 +145,7 @@ export function ModalLogout({ active, onClick }) {
               >
                 Đăng xuất
               </button>
-              <button onClick={() => onClick()}>Tiếp tục</button>
+              <button onClick={() => onClick()}>Không</button>
             </div>
           </div>
         </motion.div>

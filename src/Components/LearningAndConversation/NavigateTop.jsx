@@ -34,11 +34,7 @@ function NavigateTop({ active, datalesson, datatopic, conversation, indexTopic }
 
   const [buttonleft, setButtonLeft] = useState(true);
   const [titleModalLearning, setTitleModalLearning] = useState();
-  const { id } = useParams();
-  const { idmusic } = useParams();
-  const { type } = useParams();
-  const { name } = useParams();
-  const { nameinit } = useParams();
+  const { id, idmusic, type, name, nameinit, numberunit } = useParams();
 
   useEffect(() => {
     const fetch = async () => {
@@ -100,11 +96,9 @@ function NavigateTop({ active, datalesson, datatopic, conversation, indexTopic }
 export default NavigateTop;
 
 // NavigateContent
-export function NavigateContent({ idtopic, buttonleft, datalesson, titleModalLearning, indexTopic }) {
-  const { id } = useParams();
-  const { idmusic } = useParams();
-  const { type } = useParams();
-  const { name } = useParams();
+export function NavigateContent({ idtopic, buttonleft, datatopic, datalesson, titleModalLearning, indexTopic }) {
+  const { id, idmusic, type, name, numberunit } = useParams();
+
   const { t } = useTranslation('translation');
 
   // active modal topic
@@ -132,7 +126,7 @@ export function NavigateContent({ idtopic, buttonleft, datalesson, titleModalLea
   }, [id]);
 
   const openListLearning = (idtopic) => {
-    navigate(`/exercise/1/0/undefined/undefined`);
+    navigate(`/exercise/1/0/undefined/undefined/${name}/${numberunit}/${idtopic}`);
     dispatch(setIdTopic(idtopic));
   };
 
@@ -147,7 +141,7 @@ export function NavigateContent({ idtopic, buttonleft, datalesson, titleModalLea
   const openModalVocaPageExercise = () => {
     dispatch(setIndexTopic(indexTopic));
     dispatch(setModalVoca(false));
-    navigate(`/vocabulary/exercise/${indexTopic}/null`);
+    navigate(`/vocabulary/exercise/${indexTopic}/null/true`);
     dispatch(setActiveModalVocaExercise(true));
   };
 

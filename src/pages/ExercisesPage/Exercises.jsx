@@ -14,20 +14,23 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames/bind';
 import styles from '~/sass/Components/_VocabularyAndExcercies.module.scss';
 import routes from '~/config/routes';
+import { useParams } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function Vocabulary() {
+  const { idtopic } = useParams();
   const isActiveModalVocaPage = useSelector((state) => state.ModalVocaPage.isActive);
   const idTopic = useSelector((state) => state.IdTopic.isTopic);
+  console.log('idTopic', idTopic);
   const [listUnit, setListUnit] = useState();
 
   useLayoutEffect(() => {
     const fetch = async () => {
-      const res = await GetUnitByIdTopic.getUnit(idTopic);
+      const res = await GetUnitByIdTopic.getUnit(idTopic || idtopic);
       setListUnit(res);
     };
     fetch();
-  }, [idTopic]);
+  }, [idTopic, idtopic]);
   const { t } = useTranslation();
   return (
     <div className={cx('wrapper-total')}>
@@ -38,10 +41,10 @@ function Vocabulary() {
       <SupplementaryStudy exercises keyword="Bài tập" path={routes.learning} title={t('Exercise')}>
         <Row className={cx('wrapper-content')}>
           <Col xxl={4} xl={4} lg={4} md={6} sm={4} xs={12}>
-            <LeftMenu idTopic={idTopic} listUnit={listUnit}></LeftMenu>
+            <LeftMenu idTopic={idTopic || idtopic} listUnit={listUnit}></LeftMenu>
           </Col>
           <Col xxl={8} xl={8} lg={8} md={6} sm={8} xs={12}>
-            <RightMenu idTopic={idTopic} idFirstUnit={listUnit && listUnit[0]}></RightMenu>
+            <RightMenu idTopic={idTopic || idtopic} idFirstUnit={listUnit && listUnit[0]}></RightMenu>
           </Col>
         </Row>
       </SupplementaryStudy>

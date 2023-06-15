@@ -26,7 +26,7 @@ const RunHistory = () => {
   const { idstory } = useParams();
   const [relatedList, setRelatedList] = useState([]);
   const [dataActive, setDataActive] = useState();
-
+  console.log('relatedList', relatedList);
   useEffect(() => {
     const fetch = async () => {
       const res = await GetPopularStory.getPopularStory();

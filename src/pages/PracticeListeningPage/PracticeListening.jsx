@@ -25,6 +25,7 @@ import * as GetAllListenLearn from '~/services/GetAllListenLearn';
 import * as GetAllListenCompetently from '~/services/GetAllListenCompetently';
 import * as GetAllListenMaster from '~/services/GetAllListenMaster';
 import * as ProgressSchedule from '~/services/ProgressScheduleListen';
+import iconclose from '~/assets/image/iconclose.png';
 import mp3success from '~/assets/music/success.mp3';
 import mp3fail from '~/assets/music/fail.mp3';
 import { useTranslation } from 'react-i18next';
@@ -86,7 +87,7 @@ function PracticeListening() {
           >
             <div className={cx('wrapper-modal__practicelistening')}>
               <span className={cx('icon-close')} onClick={closeModal}>
-                <AiOutlineClose />
+                <img src={iconclose} alt="" />
               </span>
               <ModalPracticeListening data={dataModal} />
             </div>
@@ -106,7 +107,7 @@ function PracticeListening() {
           >
             <div className={cx('wrapper-modal__practicelistening')}>
               <span className={cx('icon-close')} onClick={closeModal}>
-                <AiOutlineClose />
+                <img src={iconclose} alt="" />
               </span>
               <ModalStudyResult />
             </div>
@@ -126,14 +127,14 @@ function PracticeListening() {
           </button>
 
           <div className={cx('navigate-button')}>
-            <button className={cx('navigate-button__list', 'active')}>{t('Conversationlist')}</button>
+            <button className={cx('navigate-button__list', 'active')}>{t('Listoflisteningsongs')}</button>
           </div>
           <div className={cx('wrapper-ractice__detail')}>
             <div className={cx('header-ractice__detail')}>
               <div className={cx('img-ractice__detail')}>
                 <img src={leaning} alt="" />
               </div>
-              <div className={cx('text-ractice__detail')}>{`Unit ${index}: ${
+              <div className={cx('text-ractice__detail')}>{`Unit ${+index + 1}: ${
                 listTopic !== undefined &&
                 listTopic[index] !== undefined &&
                 listTopic[index].nameTopic !== undefined &&
@@ -207,6 +208,7 @@ export function ButtonDetail({ onClick, data }) {
 }
 
 export function ModalPracticeListening({ data }) {
+  console.log('data', data);
   const { auth } = useAuth();
   const { t } = useTranslation();
 

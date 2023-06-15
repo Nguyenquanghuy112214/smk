@@ -25,20 +25,21 @@
     }
   }
   .body {
-    padding: 20px 0;
+    padding: 20px;
     width: 90%;
-    height: 500px;
+    // height: 500px;
     border-radius: 50px;
-    background-color: #ffffff70;
+    background-color: #ffffffd0;
     border: 16px solid #67b5cc;
     .title {
       margin-top: 20px;
       text-align: center;
       font-size: 6rem;
-      font-weight: 500;
+      font-weight: 400;
     }
     .list-item {
       height: 100%;
+
       .wrapper-item {
         @include flex();
         flex-direction: column;
@@ -46,7 +47,7 @@
         .img {
           width: 100%;
           border-radius: 50%;
-          background-color: #d4eeff;
+          background-color: #66c2ff;
           padding: 20px;
           img {
             border-radius: 50%;
@@ -70,7 +71,7 @@
           cursor: pointer;
           transition: all 0.3s ease-in-out;
           &:hover {
-            transform: scale(1.1);
+            transform: scale(0.97);
           }
         }
       }

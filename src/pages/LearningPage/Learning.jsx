@@ -29,11 +29,10 @@ function Learning() {
 
   // handle button left
   const handleClick = async (item, index) => {
-    navigate(`/learning/${item.idtopic}/undefined/learn/${item.name}/undefined`);
+    navigate(`/learning/${item.idtopic}/undefined/learn/${item.name}/undefined/${+index + 1}`);
     setIndexTopic(index);
     setActive(index);
     const res = await GetLesson.getLesson(item.idtopic);
-
     setDataTopic(item);
     setDataLesson(res);
   };
@@ -53,6 +52,8 @@ function Learning() {
   } else if (listTopic[0] !== undefined) {
     data = listTopic[0];
   }
+  console.log('data', data);
+
   return (
     <div className={cx('wrapper-total')}>
       <Loading active={data !== undefined && data.length === 0 ? true : false} opa={0.6} />

@@ -237,7 +237,7 @@ function HomePage() {
                 <CardItem
                   onClick={navigate}
                   clwhite
-                  to={IDBook !== false && IDAge !== false ? `/vocabulary/main/0/null` : config.routes.homepage}
+                  to={IDBook !== false && IDAge !== false ? `/vocabulary/main/0/null/false` : config.routes.homepage}
                   justify
                   textwhite
                   primary

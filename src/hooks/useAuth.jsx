@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { changeAuth } from '~/Redux/AuthSlice';
 export const useAuth = () => {
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth !== null && state.auth);
 
   const dispatch = useDispatch();
 

@@ -29,7 +29,7 @@ const CoureseItem = ({ data, onClick, onError }) => {
             {t('Author')}: <strong>{data !== undefined && data.author}</strong>
           </span>
           <span className={cx('time')}>
-            {t('Capacity')}: <strong>20 {t('minute')}</strong>
+            {t('Capacity')}: <strong>{data?.timeLength}</strong>
           </span>
         </div>
         <div className={cx('content-course__view', 'single')}>

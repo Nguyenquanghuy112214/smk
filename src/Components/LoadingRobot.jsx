@@ -29,11 +29,13 @@ const LoadingRobot = ({ title, sm, ssm, style, ex6, ex7, notext, active, onClick
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={classes}>
       {!notext && <div className={cx('text-error')}>{`${ssm ? t('Pleasechooseanotherkeyword') : title}`}</div>}
-      <div
-        onClick={() => onClick()}
-        className={cx('animtion-error', `${sm ? 'animtion-error__sm' : `${ssm ? 'animtion-error__ssm' : ''}`}`)}
-        ref={container}
-      ></div>
+      {!px && (
+        <div
+          onClick={() => onClick()}
+          className={cx('animtion-error', `${sm ? 'animtion-error__sm' : `${ssm ? 'animtion-error__ssm' : ''}`}`)}
+          ref={container}
+        ></div>
+      )}
     </motion.div>
   );
 };

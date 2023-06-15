@@ -26,7 +26,7 @@ const data2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 
 export function LeftContent() {
   const navigate = useNavigate();
   const { type } = useParams();
-  const { indexvoca } = useParams();
+  const { indexvoca, isvoca } = useParams();
   const { search } = useParams();
   const { IDBook, IDAge, IDCourse } = useIDBookIDAge();
 
@@ -54,7 +54,7 @@ export function LeftContent() {
 
   const handleClick = (index, item, e) => {
     if (type === 'main') {
-      navigate(`/vocabulary/main/${index}/null`);
+      navigate(`/vocabulary/main/${index}/null/${isvoca}`);
     }
     setIsActiveSearch(null);
     if (indexActive !== index) {
@@ -71,7 +71,7 @@ export function LeftContent() {
     fetch();
   }, []);
   const handleSearch = async (item, index) => {
-    navigate(`/vocabulary/main/undefined/${item}`);
+    navigate(`/vocabulary/main/undefined/${item}/${isvoca}`);
     dispatch(setIndexVoca(null));
     const res = await GetAllVoca.getAllVoca();
     const data = setDataSearchVoca([...res.filter((i) => i.name.toLowerCase().charAt(0).includes(item.toLowerCase()))]);
@@ -121,7 +121,7 @@ export function LeftContent() {
   ) : null;
 }
 
-export function RightContent() {
+export function RightContent({ onClick2 }) {
   const { type } = useParams();
   const { search } = useParams();
 
@@ -203,7 +203,7 @@ export function RightContent() {
         <Paginated sm indexVoca={indexVoca} currentItems={currentItems} onClick={(event) => handlePageClick(event)} pageCount={pageCount}>
           {currentItems !== undefined &&
             currentItems.map((item, index) => {
-              return <ButtonVocabulary dataDetailVoca={item} delay={index} xxl key={index} title={item.name} />;
+              return <ButtonVocabulary onClick2={() => onClick2()} dataDetailVoca={item} delay={index} xxl key={index} title={item.name} />;
             })}
         </Paginated>
       </Alphabet>

@@ -32,6 +32,7 @@ const RunMusicMain = () => {
 
   const [listData, setListData] = useState([]);
   const [dataActive, setDataActive] = useState();
+  console.log('listData', listData);
 
   useEffect(() => {
     const fetch = async () => {

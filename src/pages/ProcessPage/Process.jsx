@@ -21,7 +21,8 @@ const cx = classNames.bind(styles);
 
 const Process = () => {
   const [listProcess, setListProcess] = useState([]);
-  const [score, setScore] = useState();
+  const [score, setScore] = useState(0);
+  console.log('score', score);
   const [dataPoint, setDatapoint] = useState([]);
   const { auth } = useAuth();
   useEffect(() => {

@@ -29,9 +29,14 @@ import msfail from '~/assets/music/fail.mp3';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
 import styles from './_BingoGame.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToggleMusic } from '~/Redux/ToggleMusic';
 const cx = classNames.bind(styles);
 function BingoGame() {
   const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const isToggle = useSelector((state) => state.toggleMusic.isActive);
+  console.log('isToggle', isToggle);
   const { typeofGame } = useParams();
   const [input, setInput] = useState([]);
   const [start, setStart] = useState(0);
@@ -122,6 +127,7 @@ function BingoGame() {
     return newData;
   }
   const [success, setSuccess] = useState(null);
+  console.log('success', success);
   const [Check, setCheck] = useState(null);
   function check(data, squares) {
     for (const row of data) {
@@ -140,7 +146,7 @@ function BingoGame() {
           const timer = setTimeout(() => {
             setCheck(true);
             setDataQuestion([]);
-          }, [1000]);
+          }, [3000]);
           return () => clearTimeout(timer);
         }
         if (success === true) {
@@ -166,7 +172,10 @@ function BingoGame() {
 
   useEffect(() => {
     if (Check === true) {
-      setSuccess(false);
+      const timer = setTimeout(() => {
+        setSuccess(false);
+      }, [0]);
+      return clearTimeout(() => timer);
     }
   }, [Check]);
 
@@ -296,7 +305,7 @@ function BingoGame() {
     if (figure === true) {
       const timer = setTimeout(() => {
         setFigure(null);
-      }, [2000]);
+      }, [3000]);
       return () => clearTimeout(timer);
     }
   }, [figure]);
@@ -318,7 +327,7 @@ function BingoGame() {
       const exclude = array.filter((x) => x !== Random);
       const timer = setTimeout(() => {
         setArray(exclude);
-      }, [2500]);
+      }, [3500]);
       audioFail.pause();
       audioFail.currentTime = 0;
       return () => clearTimeout(timer);
@@ -387,6 +396,11 @@ function BingoGame() {
     SetError(true);
   };
 
+  const toggleMusic = () => {
+    console.log('1');
+    dispatch(setToggleMusic(!isToggle));
+  };
+
   return (
     <div className={cx('wrapper')}>
       <ModalSuccess RedirectHome={handleHome} onClick={handleNext} success={success} />
@@ -399,7 +413,7 @@ function BingoGame() {
         <img onClick={hanldeHome} src={iconhome} alt="" />
       </div>
       <div className={cx('body')}>
-        <div className={cx('icon-speak')}>
+        <div onClick={toggleMusic} className={cx('icon-speak')}>
           <img src={iconspeak} alt="" />
         </div>
         <div className={cx('icon-help')}>

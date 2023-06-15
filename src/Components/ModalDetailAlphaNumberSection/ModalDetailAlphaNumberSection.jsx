@@ -76,7 +76,7 @@ function ModalDetailAlphaNumberSection({ children, onCickLeft, onCickRight }) {
   if (!data) return null;
   return (
     <motion.div
-      variants={staggerContainer}
+      // variants={staggerContainer}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
@@ -91,7 +91,10 @@ function ModalDetailAlphaNumberSection({ children, onCickLeft, onCickRight }) {
         />
       </div>
       <div className={cx('content')}>
-        <motion.div variants={moveDetail('left')} className={cx('content-left')}>
+        <motion.div
+          // variants={moveDetail('left')}
+          className={cx('content-left')}
+        >
           {children}
         </motion.div>
         <motion.div variants={moveDetail()} className={cx('content-right')}>

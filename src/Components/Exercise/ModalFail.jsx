@@ -134,9 +134,7 @@ function ModalFail({ count }) {
             <button onClick={handleFail}>Bỏ qua</button>
           </div>
         </motion.div>
-      ) : (
-        <div>sai roi</div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 }

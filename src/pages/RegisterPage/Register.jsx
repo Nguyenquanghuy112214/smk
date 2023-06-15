@@ -81,7 +81,7 @@ function Register() {
         UserName: Yup.string().required(t('Pleaseenteryourusername')),
         Password: Yup.string().required(t('Pleaseenterapassword')),
         ComfirmPass: Yup.string()
-          .required(t('Please confirm password'))
+          .required(t('Pleaseconfirmpassword'))
           .oneOf([Yup.ref('Password'), null], t('Passworddoesnotmatch')),
       })}
       onSubmit={handleSubmit}

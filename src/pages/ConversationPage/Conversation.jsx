@@ -118,7 +118,7 @@ function Conversation() {
   }, [+IDAge, +IDBook]);
   return (
     <div className={cx('wrapper')}>
-      <HeaderPage title={t('listeningpractice')} path={routes.homepage} />
+      <HeaderPage title={t('conversation')} path={routes.homepage} />
       <Loading active={listCate !== undefined && listCate.length === 0 ? true : false} opa={0.6} />
       {/* modal hoi thoai*/}
       <AnimatePresence>
@@ -151,7 +151,7 @@ function Conversation() {
           >
             <div className={cx('wrapper-modal__practicelistening')}>
               <span className={cx('icon-close')} onClick={closeModal}>
-                <AiOutlineClose />
+                <img src={iconclose} alt="" />
               </span>
               {/* Modal ket qua */}
               <ModalStudyResult />

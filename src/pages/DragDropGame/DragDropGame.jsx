@@ -33,8 +33,10 @@ const DragDropGame = () => {
 
   const [dataQuestion, setDataQuestion] = useState([]);
   const audioSuccess = useMemo(() => {
-    if (dataQuestion && dataQuestion[idDragDrop] && dataQuestion[idDragDrop].name)
+    if (dataQuestion && dataQuestion[idDragDrop] && dataQuestion[idDragDrop].name) {
+      console.log('dataQuestion[idDragDrop].name)', dataQuestion[idDragDrop].name);
       return new Audio(resourceAutio(dataQuestion[idDragDrop].name));
+    }
   }, [idDragDrop]);
   const audioFail = useMemo(() => {
     return new Audio(msfail);
@@ -53,8 +55,8 @@ const DragDropGame = () => {
       audioFail.currentTime = 0;
       audioSuccess.pause();
       audioSuccess.currentTime = 0;
-      audioSuccess.play();
 
+      audioSuccess.play();
       setSuccess(true);
     } else if (countFail > 0) {
       if (audioSuccess) {

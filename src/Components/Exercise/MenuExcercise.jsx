@@ -28,6 +28,8 @@ import { useTranslation } from 'react-i18next';
 const cx = classNames.bind(styles);
 
 export function LeftMenu({ idTopic, listUnit }) {
+  const { name, numberunit, idtopic } = useParams();
+
   const navgate = useNavigate();
   const dispatch = useDispatch();
 
@@ -44,13 +46,15 @@ export function LeftMenu({ idTopic, listUnit }) {
       dispatch(setDataVocaExcercise(res));
     };
     fetch();
-    navgate(`/exercise/${item.idlesson}/0/undefined`);
+    navgate(`/exercise/${item.idlesson}/0/undefined/undefined/${name}/${numberunit}/${idtopic}`);
   };
 
-  if (!listUnit) return;
+  if (!listUnit) return null;
   return (
     <div className={cx('wrapper-left')}>
-      <h3 className={cx('unit')}>Unit 1: Family</h3>
+      <h3 className={cx('unit')}>
+        Unit {numberunit}: {name}
+      </h3>
       <div className={cx('img')}>
         <img src={bg} alt="" />
       </div>
@@ -83,10 +87,11 @@ export function LeftMenu({ idTopic, listUnit }) {
 
 export function RightMenu({ idTopic, idFirstUnit }) {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, name, numberunit, idtopic } = useParams();
+
   const dispatch = useDispatch();
-  // const active = useSelector((state) => state.Excercies.isActive);
-  const active = 11;
+  const active = useSelector((state) => state.Excercies.isActive);
+  // const active = 6;
   const activemodal = useSelector((state) => state.ModalExcercise.isActive);
   const listVoca = useSelector((state) => state.DataVocaExcercise);
 
@@ -102,7 +107,7 @@ export function RightMenu({ idTopic, idFirstUnit }) {
         GetVocaByTopicAndLesson.getVocabularyTopicAndLesson(idTopic, id === undefined ? +id - 1 : +id + 1),
       ]);
       setFirstListVoca(res);
-      setDataisturb(res2[0]);
+      setDataisturb(res2 !== undefined && res2[0] !== undefined && res2[0]);
     };
     fetch();
   }, [idFirstUnit, idTopic, id]);
@@ -115,7 +120,7 @@ export function RightMenu({ idTopic, idFirstUnit }) {
   }
   const openExcercise = async (item) => {
     console.log('item', item);
-    navigate(`/exercise/${id}/1/${item.idvocabulary}/${item.name}`);
+    navigate(`/exercise/${id}/1/${item.idvocabulary}/${item.name}/${name}/${numberunit}/${idtopic}`);
     dispatch(setModalExcercise(true));
     setDataModal({ dataItem: item, dataTotal: data });
   };
@@ -149,6 +154,7 @@ export function RightMenu({ idTopic, idFirstUnit }) {
         {active === 10 && <Excercise10 dataModal={dataModal} dataDisturb={dataDisturb} />}
         {active === 11 && <DisplayExerciseEnd />}
       </WrapModalExcercise>
+
       <div className={cx('wrapper-right')}>
         <div className={cx('select-voca')}>{t('Vocabularyselection')}</div>
 

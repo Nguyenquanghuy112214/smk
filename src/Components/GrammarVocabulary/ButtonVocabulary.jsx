@@ -24,6 +24,7 @@ function ButtonVocabulary({
   onClick,
   onClickSearch,
   delay,
+  onClick2,
 }) {
   const { type } = useParams();
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ function ButtonVocabulary({
     onClick();
   };
 
-  const openModalVoca = async (dataDetailVoca) => {
+  const openModalVoca = (dataDetailVoca) => {
     window.scrollTo(0, 0);
     if (!dataDetailVoca) {
       onClickSearch();
@@ -39,6 +40,7 @@ function ButtonVocabulary({
       dispatch(setModalVocaPage(true));
       dispatch(setDataDetailVoca(dataDetailVoca.idvocabulary));
     }
+    onClick2();
   };
 
   const item = {

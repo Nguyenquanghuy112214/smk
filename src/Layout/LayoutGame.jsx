@@ -14,6 +14,8 @@ const cx = classNames.bind(styles);
 
 function LayoutGame({ children }) {
   const music = useSelector((state) => state.musicBackground.music);
+  const isToggle = useSelector((state) => state.toggleMusic.isActive);
+
   console.log('music', music);
 
   useEffect(() => {
@@ -23,15 +25,15 @@ function LayoutGame({ children }) {
         music.currentTime = 0;
         music.play();
         music.loop = true;
-        console.log('item', item);
+        music.volume = 0.22;
       } else if (item.isMusic === false) {
-        console.log('out');
-
         music.pause();
         music.currentTime = 0;
+      } else if (isToggle === false) {
+        music.pause();
       }
     });
-  }, []);
+  }, [isToggle]);
 
   const location = useLocation();
 

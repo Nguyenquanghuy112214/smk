@@ -149,250 +149,251 @@ const AccountEdit = () => {
     });
   };
   return (
-    <Formik
-      initialValues={{
-        fullName: '',
-        dob: '',
-        sex: '',
-        email: '',
-        phone: '',
-        city: '',
-        district: '',
-        commune: '',
-      }}
-      validationSchema={Yup.object({
-        fullName: Yup.string().required(t('Pleaseenteryourname')),
-        dob: Yup.string().required('Pleaseenteryourdateofbirth'),
-        sex: Yup.string().required('Pleaseselectyourgender'),
+    <>
+      <ModalChangePassword active={activeModal} />
+      <Formik
+        initialValues={{
+          fullName: '',
+          dob: '',
+          sex: '',
+          email: '',
+          phone: '',
+          city: '',
+          district: '',
+          commune: '',
+        }}
+        validationSchema={Yup.object({
+          fullName: Yup.string().required(t('Pleaseenteryourname')),
+          dob: Yup.string().required(t('Pleaseenteryourdateofbirth')),
+          sex: Yup.string().required(t('Pleaseselectyourgender')),
 
-        city: idTotal.city ? null : Yup.string().required(t('Pleaseselectprovince/city')),
-        district: idTotal.district ? null : Yup.string().required(t('Pleaseselectdistrict/district')),
-        commune: idTotal.commune ? null : Yup.string().required('Pleaseselectcommune/ward'),
+          city: idTotal.city ? null : Yup.string().required(t('Pleaseselectprovince/city')),
+          district: idTotal.district ? null : Yup.string().required(t('Pleaseselectdistrict/district')),
+          commune: idTotal.commune ? null : Yup.string().required(t('Pleaseselectcommune/ward')),
 
-        email: Yup.string().required(t('Pleaseenteremail')).email(t('Thisisnotanemail')),
-        phone: Yup.string()
-          .required(t('Pleaseenterthephonenumber'))
-          .matches(phoneRegExp, t('Pleaseenterthenumber'))
-          .min(10, t('Incompletenumber'))
-          .max(12, t('Pleasecheckagain')),
-      })}
-      onSubmit={handleSubmit}
-    >
-      {(formikProps) => {
-        const { values, touched, errors, setFieldValue, setFieldTouched } = formikProps;
+          email: Yup.string().required(t('Pleaseenteremail')).email(t('Thisisnotanemail')),
+          phone: Yup.string()
+            .required(t('Pleaseenterthephonenumber'))
+            .matches(phoneRegExp, t('Pleaseenterthenumber'))
+            .min(10, t('Incompletenumber'))
+            .max(12, t('Pleasecheckagain')),
+        })}
+        onSubmit={handleSubmit}
+      >
+        {(formikProps) => {
+          const { values, touched, errors, setFieldValue, setFieldTouched } = formikProps;
 
-        return (
-          <Form>
-            <ToastContainer />
-            <div className={cx('wrapper', 'wrapper-edit')}>
-              <ModalChangePassword active={activeModal} />
-              <div className={cx('blur')}></div>
-              <div className={cx('header')}>
-                <div className={cx('header__left')}>
-                  <img src={avatar} alt="" />
+          return (
+            <Form>
+              <ToastContainer />
+              <div className={cx('wrapper', 'wrapper-edit')}>
+                <div className={cx('blur')}></div>
+                <div className={cx('header')}>
+                  <div className={cx('header__left')}>
+                    <img src={avatar} alt="" />
 
-                  <div className={cx('header__left-nickname')}>
-                    <div className={cx('header__left-nickname__main')}>
-                      <h3 className={cx('nickname')}> BKT Student</h3>
-                      <span className={cx('id')}>id:9999</span>
-                    </div>
-                    <img className={cx('pencil')} src={pencil} alt="" />
-                  </div>
-                </div>
-              </div>
-
-              <div className={cx('wrapper-content-account__edit')}>
-                <div className={cx('img-account__edit')}>
-                  <img src={avatar2} alt="" />
-                  <lable
-                    for="img"
-                    style={{ display: 'block', marginTop: '30px', fontWeight: '600', lineHeight: '24px', textAlign: 'center' }}
-                  >
-                    {t('Changeavatar')}
-                  </lable>
-                </div>
-                <div className={cx('main-content-account__edit')}>
-                  <div className={cx('main-content-account__edit__name')}>{profile !== undefined && profile.fullname}</div>
-                  <div className={cx('button-single')}>
-                    <div onClick={(e) => changlePassword(e)} className={cx('button-changle')}>
-                      {t('Changethepassword')}
+                    <div className={cx('header__left-nickname')}>
+                      <div className={cx('header__left-nickname__main')}>
+                        <h3 className={cx('nickname')}> BKT Student</h3>
+                        <span className={cx('id')}>id:9999</span>
+                      </div>
+                      <img className={cx('pencil')} src={pencil} alt="" />
                     </div>
                   </div>
-                  <div>
-                    {errors.fullName && touched.fullName ? (
-                      <span className={cx('text-user', 'active')}>{errors.fullName}</span>
-                    ) : (
-                      <span className={cx('text-user')}> {t('Firstandlastname')}</span>
-                    )}
-                    <Input
-                      error={errors.fullName && touched.fullName}
-                      span="Họ và tên"
-                      id="fullName"
-                      type="text"
-                      text="Họ và tên"
-                      placeholder={t('Enteryourname')}
-                      name="fullName"
-                    />
-                  </div>
-                  <div>
-                    {errors.email && touched.email ? (
-                      <span className={cx('text-user', 'active')}>{errors.email}</span>
-                    ) : (
-                      <span className={cx('text-user')}>Email</span>
-                    )}
-                    <Input
-                      span="Email"
-                      error={errors.email && touched.email}
-                      id="email"
-                      type="email"
-                      text="Email"
-                      placeholder={t('Enteremail')}
-                      name="email"
-                    />
-                  </div>
+                </div>
 
-                  <div>
-                    {errors.phone && touched.phone ? (
-                      <span className={cx('text-user', 'active')}>{errors.phone}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('Phonenumber')}</span>
-                    )}
-
-                    <Input
-                      span="Số điện thoại"
-                      error={errors.phone && touched.phone}
-                      id="phone"
-                      type="phone"
-                      text="Số điện thoại"
-                      placeholder={t('Enteryourphonenumber')}
-                      name="phone"
-                    />
+                <div className={cx('wrapper-content-account__edit')}>
+                  <div className={cx('img-account__edit')}>
+                    <img src={avatar2} alt="" />
+                    <lable
+                      for="img"
+                      style={{ display: 'block', marginTop: '30px', fontWeight: '600', lineHeight: '24px', textAlign: 'center' }}
+                    >
+                      {t('Changeavatar')}
+                    </lable>
                   </div>
-                  <div className={cx('wrapper-input2')}>
+                  <div className={cx('main-content-account__edit')}>
+                    <div className={cx('main-content-account__edit__name')}>{profile !== undefined && profile.fullname}</div>
+                    <div className={cx('button-single')}>
+                      <div onClick={(e) => changlePassword(e)} className={cx('button-changle')}>
+                        {t('Changethepassword')}
+                      </div>
+                    </div>
                     <div>
-                      {errors.dob && touched.dob ? (
-                        <span className={cx('text-user', 'active')}>{errors.dob}</span>
+                      {errors.fullName && touched.fullName ? (
+                        <span className={cx('text-user', 'active')}>{errors.fullName}</span>
                       ) : (
-                        <span className={cx('text-user')}>{t('Dateofbirth')}</span>
+                        <span className={cx('text-user')}> {t('Firstandlastname')}</span>
                       )}
                       <Input
-                        span="Ngày sinh"
-                        error={errors.dob && touched.dob}
-                        id="dob"
-                        onClick={() => setTypeDate('date')}
-                        onBlur={() => setTypeDate('text')}
-                        type={typedate}
-                        text="Ngày sinh"
-                        placeholder={t('Chooseyourdateofbirth')}
-                        name="dob"
+                        error={errors.fullName && touched.fullName}
+                        span="Họ và tên"
+                        id="fullName"
+                        type="text"
+                        text="Họ và tên"
+                        placeholder={t('Enteryourname')}
+                        name="fullName"
+                      />
+                    </div>
+                    <div>
+                      {errors.email && touched.email ? (
+                        <span className={cx('text-user', 'active')}>{errors.email}</span>
+                      ) : (
+                        <span className={cx('text-user')}>Email</span>
+                      )}
+                      <Input
+                        span="Email"
+                        error={errors.email && touched.email}
+                        id="email"
+                        type="email"
+                        text="Email"
+                        placeholder={t('Enteremail')}
+                        name="email"
                       />
                     </div>
 
                     <div>
-                      {errors.sex && touched.sex ? (
-                        <span className={cx('text-user', 'active')}>{errors.sex}</span>
+                      {errors.phone && touched.phone ? (
+                        <span className={cx('text-user', 'active')}>{errors.phone}</span>
                       ) : (
-                        <span className={cx('text-user')}>{t('Sex')}</span>
+                        <span className={cx('text-user')}>{t('Phonenumber')}</span>
                       )}
 
-                      <SelectInput
-                        option={optionSex}
-                        span="Giới tính"
-                        error={errors.sex && touched.sex}
-                        id="sex"
-                        type="text"
-                        text="Giới tính"
-                        placeholder={t('Chooseyourgender')}
-                        value={values.sex}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        name="sex"
+                      <Input
+                        span="Số điện thoại"
+                        error={errors.phone && touched.phone}
+                        id="phone"
+                        type="phone"
+                        text="Số điện thoại"
+                        placeholder={t('Enteryourphonenumber')}
+                        name="phone"
                       />
                     </div>
+                    <div className={cx('wrapper-input2')}>
+                      <div>
+                        {errors.dob && touched.dob ? (
+                          <span className={cx('text-user', 'active')}>{errors.dob}</span>
+                        ) : (
+                          <span className={cx('text-user')}>{t('Dateofbirth')}</span>
+                        )}
+                        <Input
+                          span="Ngày sinh"
+                          error={errors.dob && touched.dob}
+                          id="dob"
+                          onClick={() => setTypeDate('date')}
+                          onBlur={() => setTypeDate('text')}
+                          type={typedate}
+                          text="Ngày sinh"
+                          placeholder={t('Chooseyourdateofbirth')}
+                          name="dob"
+                        />
+                      </div>
+
+                      <div>
+                        {errors.sex && touched.sex ? (
+                          <span className={cx('text-user', 'active')}>{errors.sex}</span>
+                        ) : (
+                          <span className={cx('text-user')}>{t('Sex')}</span>
+                        )}
+
+                        <SelectInput
+                          option={optionSex}
+                          span="Giới tính"
+                          error={errors.sex && touched.sex}
+                          id="sex"
+                          type="text"
+                          text="Giới tính"
+                          placeholder={t('Chooseyourgender')}
+                          value={values.sex}
+                          onChange={setFieldValue}
+                          onBlur={setFieldTouched}
+                          name="sex"
+                        />
+                      </div>
+                    </div>
+
+                    {errors.city && touched.city ? (
+                      <span className={cx('text-user', 'active')}>{errors.city}</span>
+                    ) : (
+                      <span className={cx('text-user')}>{t('Province/City')}</span>
+                    )}
+                    <SelectInput
+                      option={province}
+                      span="Tỉnh/ Thành phố"
+                      error={errors.city && touched.city}
+                      id="sex"
+                      type="text"
+                      text="Tỉnh/ thành phố"
+                      placeholder={t('Selectprovince/city')}
+                      value={values.city}
+                      onChange={handleChange}
+                      onBlur={setFieldTouched}
+                      name="city"
+                    />
+
+                    <div className={cx('wrapper-input2')}>
+                      <div>
+                        {' '}
+                        {errors.district && touched.district ? (
+                          <span className={cx('text-user', 'active')}>{errors.district}</span>
+                        ) : (
+                          <span className={cx('text-user')}>{t('District')}</span>
+                        )}
+                        <SelectInput
+                          option={provinceID}
+                          span="Quận/ Huyện"
+                          error={errors.district && touched.district}
+                          id="sex"
+                          type="text"
+                          text="Quận/ Huyện"
+                          placeholder={t('Selectdistrict/district')}
+                          value={values.district}
+                          onChange={handleChange}
+                          onBlur={setFieldTouched}
+                          name="district"
+                          messeage={t('Pleaseselecttheoptionsfirst')}
+                        />
+                      </div>
+
+                      {/* xa */}
+                      <div>
+                        {errors.commune && touched.commune ? (
+                          <span className={cx('text-user', 'active')}>{errors.commune}</span>
+                        ) : (
+                          <span className={cx('text-user')}>{t('Wards')}</span>
+                        )}
+
+                        <SelectInput
+                          option={ward}
+                          span="Xã/ Phường"
+                          error={errors.commune && touched.commune}
+                          id="sex"
+                          type="text"
+                          text="Xã/ Phường"
+                          placeholder={t('Selectcommune/ward')}
+                          value={values.commune}
+                          onChange={handleChange}
+                          onBlur={setFieldTouched}
+                          name="commune"
+                          messeage={t('Pleaseselecttheoptionsfirst')}
+                        />
+                      </div>
+                      {/*  */}
+                    </div>
+                    <div className={cx('wrapper-button', 'wrapper-button-profile')}>
+                      <button type="submit" className={cx('button-update')}>
+                        {t('Confirm')}
+                      </button>
+                    </div>
+                    {/* <Input type="text" text="Truờng" placeholder="THCS Phương Tú" /> */}
                   </div>
-
-                  {errors.city && touched.city ? (
-                    <span className={cx('text-user', 'active')}>{errors.city}</span>
-                  ) : (
-                    <span className={cx('text-user')}>{t('Province/City')}</span>
-                  )}
-                  <SelectInput
-                    option={province}
-                    span="Tỉnh/ Thành phố"
-                    error={errors.city && touched.city}
-                    id="sex"
-                    type="text"
-                    text="Tỉnh/ thành phố"
-                    placeholder={t('Selectprovince/city')}
-                    value={values.city}
-                    onChange={handleChange}
-                    onBlur={setFieldTouched}
-                    name="city"
-                  />
-
-                  <div className={cx('wrapper-input2')}>
-                    <div>
-                      {' '}
-                      {errors.district && touched.district ? (
-                        <span className={cx('text-user', 'active')}>{errors.district}</span>
-                      ) : (
-                        <span className={cx('text-user')}>{t('District')}</span>
-                      )}
-                      <SelectInput
-                        option={provinceID}
-                        span="Quận/ Huyện"
-                        error={errors.district && touched.district}
-                        id="sex"
-                        type="text"
-                        text="Quận/ Huyện"
-                        placeholder={t('Selectdistrict/district')}
-                        value={values.district}
-                        onChange={handleChange}
-                        onBlur={setFieldTouched}
-                        name="district"
-                        messeage={t('Pleaseselecttheoptionsfirst')}
-                      />
-                    </div>
-
-                    {/* xa */}
-                    <div>
-                      {errors.commune && touched.commune ? (
-                        <span className={cx('text-user', 'active')}>{errors.commune}</span>
-                      ) : (
-                        <span className={cx('text-user')}>{t('Wards')}</span>
-                      )}
-
-                      <SelectInput
-                        option={ward}
-                        span="Xã/ Phường"
-                        error={errors.commune && touched.commune}
-                        id="sex"
-                        type="text"
-                        text="Xã/ Phường"
-                        placeholder={t('Selectcommune/ward')}
-                        value={values.commune}
-                        onChange={handleChange}
-                        onBlur={setFieldTouched}
-                        name="commune"
-                        messeage={t('Pleaseselecttheoptionsfirst')}
-                      />
-                    </div>
-                    {/*  */}
-                  </div>
-                  {/* <Input type="text" text="Truờng" placeholder="THCS Phương Tú" /> */}
                 </div>
               </div>
-
-              <div className={cx('wrapper-button', 'wrapper-button-profile')}>
-                <button type="submit" className={cx('button-update')}>
-                  {t('Confirm')}
-                </button>
-              </div>
-            </div>
-          </Form>
-        );
-      }}
-    </Formik>
+            </Form>
+          );
+        }}
+      </Formik>
+    </>
   );
 };
 
@@ -419,9 +420,9 @@ export function ModalChangePassword({ active }) {
             </span>
             <div className={cx('changle-pass__title')}>{t('Updatepassword')}</div>
             <div className={cx('wrapper-listinput')}>
-              <input type="text" placeholder={t('currentpassword')} />
-              <input type="text" placeholder={t('Anewpassword')} />
-              <input type="text" placeholder={t('ConfirmPassword')} />
+              <input type="password" placeholder={t('currentpassword')} />
+              <input type="password" placeholder={t('Anewpassword')} />
+              <input type="password" placeholder={t('ConfirmPassword')} />
             </div>
 
             <div className={cx('button-modal__changepass')}>

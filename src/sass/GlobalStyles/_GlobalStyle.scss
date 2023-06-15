@@ -108,6 +108,24 @@ input,
   width: 100%;
 }
 
+.swiper-list-item {
+  .swiper-wrapper {
+    & .swiper-slide:nth-child(n + 2) {
+      position: relative;
+      &::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: -20%;
+        height: 80%;
+        width: 4px;
+        background-color: #1861b7;
+      }
+      // border-left: 1px solid #1861b7;
+    }
+  }
+}
+
 // .swiper {
 //   .swiper-wrapper {
 //     .swiper-slide {
@@ -393,7 +411,7 @@ input[type='date']::-webkit-datetime-edit-year-field {
 
 // swiper select
 .swiper-select {
-  margin-top: 40px;
+  margin-top: 60px;
   padding-left: 50px;
   padding-right: 50px;
 

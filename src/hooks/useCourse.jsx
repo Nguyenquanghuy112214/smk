@@ -11,5 +11,9 @@ export const useCourse = () => {
     dispatch(actionChangeCourse);
   };
 
-  return { course, setCourse };
+  const clearCourse = () => {
+    localStorage.clear('course');
+  };
+
+  return { course, setCourse, clearCourse };
 };

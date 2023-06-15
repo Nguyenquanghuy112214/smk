@@ -212,7 +212,26 @@ function Exercise3({ dataModal }) {
       <div className={cx('button-question')}>
         {listVoca !== undefined &&
           listVoca.map((voca, index) => {
-            if (index < 10) {
+            if (index < 10 && answerSuccess?.length < 10) {
+              return (
+                <motion.button
+                  style={{
+                    opacity: voca.remove === 100 ? 0 : 1,
+                    visibility: voca.remove === 100 ? 'hidden' : 'visible',
+                  }}
+                  // variants={animation}
+                  // initial="hidden"
+                  // animate="show"
+                  // highlighter
+                  key={index}
+                  onClick={() => handClick(voca, index)}
+                  className={cx('button-question__item')}
+                >
+                  {voca.voca}
+                </motion.button>
+              );
+            } else if (index - 4 < answerSuccess?.length) {
+              console.log('th2');
               return (
                 <motion.button
                   style={{

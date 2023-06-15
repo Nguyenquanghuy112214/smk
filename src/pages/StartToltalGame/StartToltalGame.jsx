@@ -1,4 +1,3 @@
-import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import styles from './_StartToltalGame.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,8 +19,8 @@ function StartToltalGame() {
 
   const data = [
     { name: 'BINGO WORD', path: routes.startbingogame },
-    { name: 'FLASH VOCA', path: routes.startwordmatchinggame },
-    { name: 'FOUR PIC ONE WORD', path: routes.startdragdropgame },
+    { name: 'FOUR PIC ONE WORD', path: routes.startwordmatchinggame },
+    { name: 'FLASH VOCA', path: routes.startdragdropgame },
   ];
   const handleNavigate = (item) => {
     navigate(item.path);
@@ -36,8 +35,8 @@ function StartToltalGame() {
       </div>
       <div data-aos="zoom-in" data-aos-duration="900" className={cx('body')}>
         <div className={cx('title')}>Select Game</div>
-        <div className={cx('list-item')}>
-          <Swiper spaceBetween={50} navigation={true} modules={[Navigation]} slidesPerView={4} className={cx('swiper-select')}>
+        <div className={cx('list-item', 'swiper-list-item')}>
+          <Swiper spaceBetween={80} navigation={true} modules={[Navigation]} slidesPerView={4} className={cx('swiper-select')}>
             {data !== undefined &&
               data.map((item, index) => {
                 return (

@@ -27,7 +27,6 @@ import * as UpdateVocabularyData from '~/services/UpdateVocabularyData';
 import { setModalSpeak } from '~/Redux/ModalSpeakSlice';
 import YouTube from 'react-youtube';
 import useDebounce from '~/hooks/useDebounce';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import ModalSuccess from './ModalSuccess';
 import ModalFail from './ModalFail';
 import LoadingRobot from '../LoadingRobot';
@@ -36,13 +35,14 @@ import { useMemo } from 'react';
 import { useAuth } from '~/hooks/useAuth';
 import { useCourse } from '~/hooks/useCourse';
 import * as CreateContentHistory from '~/services/CreateContentHistory';
+import { useRecorder } from '~/hooks/useRecorder';
 
 const cx = classNames.bind(styles);
 
 function ModalVocaPageExercise({ idVoca, isActive }) {
   const { course } = useCourse();
   const { auth } = useAuth();
-  const { transcript, resetTranscript } = useSpeechRecognition();
+  const { startRec, endRec, translate } = useRecorder();
 
   const [success, setSuccess] = useState(undefined);
   const dispatch = useDispatch();
@@ -51,7 +51,6 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
   const [loading, setLoading] = useState();
   const [num, setNum] = useState(1);
   const [dataModal, setDataModal] = useState([]);
-  console.log('dataModal', dataModal);
   const [vn, setVn] = useState(false);
   const [indexSlider, setIndexSlider] = useState(0);
   const arrray = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -221,15 +220,16 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
   const handleEnd = () => {
     audio.play();
   };
-  const text = useDebounce(transcript, 800);
+  const text = useDebounce(translate, 800);
 
   const openMicro = () => {
-    SpeechRecognition.startListening();
+    startRec();
     setActiveMicro(true);
-    setTimeout(() => {
-      SpeechRecognition.stopListening();
+    const timer = setTimeout(() => {
+      endRec();
       setActiveMicro(false);
     }, 4000);
+    return () => clearTimeout(timer);
   };
 
   const closeModalSuccess = () => {
@@ -282,8 +282,9 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
             >
               <SwiperSlide>
                 <div className={cx('wrapper-color')}>
-                  <img className={cx('main-img', 'sub-img')} src={blue_yellow} alt="" />
+                  <img style={{ width: '60%' }} className={cx('main-img', 'sub-img')} src={blue_yellow} alt="" />
                   <img
+                    style={{ width: '30%' }}
                     className={cx('main-img', 'sub-img')}
                     src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`}
                     alt=""
@@ -395,7 +396,7 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
                       <img onClick={handleEnd} className={cx('img-speak')} src={speak} alt="" />
                     </div>
                     <div className={cx('text-sub')}>
-                      {transcript !== undefined && transcript.length > 0 ? transcript : '..................'}
+                      {translate !== undefined && translate.length > 0 ? translate : '..................'}
                     </div>
                   </div>
                   <div className={cx('button-complete')}>

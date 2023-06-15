@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from '~/sass/Components/_Excercies.module.scss';
 import micro from '~/assets/animations/micro.json';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 import { useEffect, useState } from 'react';
 import { setListActive } from '~/Redux/ListActiveExercise';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,11 +12,14 @@ import { setModalSuccess } from '~/Redux/ModalSuccess';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingRobot from '../LoadingRobot';
 import { useTranslation } from 'react-i18next';
+import { useRecorder } from '~/hooks/useRecorder';
 
 const cx = classNames.bind(styles);
 
 function Excercise7({ dataModal }) {
   const { t } = useTranslation();
+  const { startRec, endRec, translate } = useRecorder();
+
   const success = useSelector((state) => state.ModalSuccess.isActive);
   const activeModalScore = useSelector((state) => state.ActiveModalScore.isActive);
   const listActive = useSelector((state) => state.ListActive);
@@ -25,25 +28,25 @@ function Excercise7({ dataModal }) {
   const [count, setCount] = useState(0);
 
   const dispatch = useDispatch();
-  const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+
   const openMicro = () => {
-    SpeechRecognition.startListening();
+    startRec();
     setActiveMicro(true);
     setTimeout(() => {
-      SpeechRecognition.stopListening();
+      endRec();
       setActiveMicro(false);
     }, 3000);
   };
 
   useEffect(() => {
     let name = dataModal !== undefined && dataModal.dataItem !== undefined && dataModal.dataItem.name;
-    let tran = transcript;
-    if (tran.toLowerCase().slice(0, -1) === name.toLowerCase()) {
+    let tran = translate;
+    if (tran !== undefined && tran.toLowerCase().slice(0, -1) === name.toLowerCase()) {
       dispatch(setListActive({ active7: true }));
     } else {
       dispatch(setListActive({ active7: false }));
     }
-  }, [transcript]);
+  }, [translate]);
 
   const handleClick = () => {
     if (listActive !== undefined && listActive[0] !== undefined && listActive[0].active7 === true) {
@@ -55,9 +58,7 @@ function Excercise7({ dataModal }) {
       }
     }
   };
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+
   return (
     <div className={cx('exercies')}>
       {success === false && <ModalFail count={count} />}
@@ -87,7 +88,7 @@ function Excercise7({ dataModal }) {
             )}
           </AnimatePresence>
         </div>
-        <div className={cx('answer-micro')}>{transcript}</div>
+        <div className={cx('answer-micro')}>{translate}</div>
       </div>
       <div className={cx('check')}>
         <button onClick={handleClick}>{t('Check')}</button>
