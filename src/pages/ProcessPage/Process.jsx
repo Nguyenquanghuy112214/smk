@@ -21,7 +21,7 @@ const cx = classNames.bind(styles);
 
 const Process = () => {
   const [listProcess, setListProcess] = useState([]);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(1000);
   console.log('score', score);
   const [dataPoint, setDatapoint] = useState([]);
   const { auth } = useAuth();
@@ -34,7 +34,7 @@ const Process = () => {
         CreateStudyRouteByUser.createStudyRouteByUser({ headers: { Authorization: `Bearer ${auth.token}` } }),
       ]);
       setListProcess([...res]);
-      setScore(res2.data);
+      // setScore(res2.data);
       setDatapoint([...res3.data]);
     };
     fetch();
@@ -48,7 +48,8 @@ const Process = () => {
           <img src={avatar} alt="" />
         </div>
         <div className={cx('title-main')}>
-          {t('hello')}, <span>Nguyễn Quang Huy</span>
+          {t('hello')}
+          <span>{auth?.fullName}</span>
         </div>
       </div>
 

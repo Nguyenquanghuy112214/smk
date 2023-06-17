@@ -77,6 +77,22 @@
           transform: scale(1.03);
         }
       }
+      &::after {
+        position: absolute;
+        content: '';
+        left: 50%;
+        top: 50%;
+        width: 3.8px;
+        height: 0%;
+        background-color: #cfd89c;
+        border-radius: 12px;
+        transform: translate(-50%, -50%) rotate(-49deg);
+        transition: all 0.2s ease-in;
+      }
+    }
+
+    .active::after {
+      height: 65%;
     }
     .icon-help {
       position: absolute;

@@ -39,38 +39,40 @@ import { useRecorder } from '~/hooks/useRecorder';
 
 const cx = classNames.bind(styles);
 
-function ModalVocaPageExercise({ idVoca, isActive }) {
+function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
   const { course } = useCourse();
   const { auth } = useAuth();
-  const { startRec, endRec, translate } = useRecorder();
+  const { startRec, endRec, translate, close } = useRecorder();
 
   const [success, setSuccess] = useState(undefined);
   const dispatch = useDispatch();
   const [activeMicro, setActiveMicro] = useState(false);
 
-  const [loading, setLoading] = useState();
-  const [num, setNum] = useState(1);
   const [dataModal, setDataModal] = useState([]);
   const [vn, setVn] = useState(false);
   const [indexSlider, setIndexSlider] = useState(0);
   const arrray = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-  const indexDebounce = useDebounce(indexSlider, 300);
-  console.log('dataModal', dataModal);
+  const indexDebounce = useDebounce(indexSlider, 200);
+  useEffect(() => {
+    setIndexSlider(0);
+  }, [idVoca, isActive]);
+
   const closeModal = () => {
+    console.log('out');
+    close();
     setSuccess(undefined);
-    setDataModal([]);
+    // setDataModal([]);
     dispatch(setModalVocaPage(false));
-    setIndexSlider(undefined);
+    setIndexSlider(null);
     const swiper = document.querySelector('.test2').swiper;
     arrray.forEach(() => {
       swiper.slidePrev();
       return;
     });
+    onClick();
   };
 
-  useEffect(() => {
-    setIndexSlider(0);
-  }, [idVoca]);
+  const text = useDebounce(translate, 800);
 
   const closeSuccess = () => {
     let tran = '';
@@ -120,6 +122,8 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
   };
 
   const audio = useMemo(() => {
+    console.log('dataModal', dataModal);
+    console.log('indexDebounce', indexDebounce);
     if (
       dataModal !== undefined &&
       dataModal.voca !== undefined &&
@@ -137,6 +141,7 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
     }
   }, [dataModal, vn]);
 
+  console.log('audio', audio);
   const audio2 = useMemo(() => {
     if (
       dataModal !== undefined &&
@@ -165,11 +170,7 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
       audio.currentTime = 0;
       if (+indexSlider === 0) {
         audio.play();
-      } else if (+indexSlider === 1) {
-        audio.play();
-      } else if (+indexSlider === 2) {
-        audio.play();
-      } else if (+indexSlider === 3) {
+      } else if (+indexSlider === 1 || +indexSlider === 2 || +indexSlider === 3) {
         audio.play();
       } else if (
         indexSlider >= 4 &&
@@ -184,26 +185,15 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
     }
   }, [audio, audio2]);
 
-  useEffect(() => {
-    if (num === 1) {
-      setLoading(true);
-      const timer = setTimeout(() => {
-        setLoading(false);
-        setNum(2);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else {
-      setLoading(false);
-    }
-  }, [isActive]);
   console.log('idVoca', idVoca);
+
   useEffect(() => {
     const fetch = async () => {
       const [voca, listspeak] = await Promise.all([GetVocaById.getVocaSingle(idVoca), GetSpeak.getSpeak(idVoca)]);
       setDataModal({ listspeak: listspeak, voca: voca });
     };
     fetch();
-  }, [idVoca]);
+  }, [idVoca, isActive]);
 
   const openModalKh = () => {
     dispatch(setModalSpeak(true));
@@ -220,7 +210,6 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
   const handleEnd = () => {
     audio.play();
   };
-  const text = useDebounce(translate, 800);
 
   const openMicro = () => {
     startRec();
@@ -248,167 +237,172 @@ function ModalVocaPageExercise({ idVoca, isActive }) {
   if (!dataModal || !dataModal.listspeak || !dataModal.voca) return;
 
   return (
-    !loading && (
-      <motion.div
-        initial={{ opacity: 0, display: 'none', visibility: 'hidden', x: 0 }}
-        animate={{
-          opacity: isActive ? 1 : 0,
-          x: isActive ? 0 : 50,
-          visibility: isActive ? 'visible' : 'hidden',
-          display: isActive ? 'flex' : 'none',
-          transition: { duration: 0.3, delay: 0 },
-        }}
-        className={cx('modal')}
-      >
-        <div className={cx('wrapper-modal')}>
-          {success === true && <ModalSuccess onClick={closeModalSuccess} success={success} />}
-          {success === false && <ModalFail onClick={closeModalFail} success={success} />}
+    <AnimatePresence>
+      {isActive && (
+        <motion.div
+          initial={{
+            opacity: 0,
+            //  display: 'none',
+            visibility: 'hidden',
+            x: 0,
+          }}
+          animate={{
+            opacity: isActive ? 1 : 0,
+            x: isActive ? 0 : 50,
+            visibility: isActive ? 'visible' : 'hidden',
+            // display: isActive ? 'flex' : 'none',
+            transition: { duration: 0.3, delay: 0 },
+          }}
+          className={cx('modal')}
+        >
+          <div className={cx('wrapper-modal')}>
+            {success === true && <ModalSuccess onClick={closeModalSuccess} success={success} />}
+            {success === false && <ModalFail onClick={closeModalFail} success={success} />}
 
-          <div className={cx('close-modalvoca')} onClick={closeModal}>
-            <img src={iconclose} alt="" />
-          </div>
+            <div className={cx('close-modalvoca')} onClick={closeModal}>
+              <img src={iconclose} alt="" />
+            </div>
 
-          <ModalSpeak dataModal={dataModal} />
-          <div className={cx('modalvoca-content')}>
-            <Swiper
-              className={cx('test2')}
-              modules={[Navigation]}
-              grabCursor={true}
-              spaceBetween={10}
-              slidesPerView={1}
-              navigation
-              initialSlide="0"
-              onSlideChange={(index) => handleSetIndex(index)}
-            >
-              <SwiperSlide>
-                <div className={cx('wrapper-color')}>
-                  <img style={{ width: '60%' }} className={cx('main-img', 'sub-img')} src={blue_yellow} alt="" />
-                  <img
-                    style={{ width: '30%' }}
-                    className={cx('main-img', 'sub-img')}
-                    src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`}
-                    alt=""
-                  />
-                  <div className={cx('kh')}>
-                    <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
-                    <div></div>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className={cx('wrapper-color')}>
-                  <img className={cx('main-img', 'sub-img')} src={blue_yellow} alt="" />
-                  <div>
-                    <img className={cx('main-img', 'sub-img')} src={green} alt="" />
-                    <h3 className={cx('voca-en')}>{vn ? dataModal.voca[0].vnName : dataModal.voca[0].name}</h3>
-                  </div>
-                  <div className={cx('kh')}>
-                    <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
-                    <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className={cx('wrapper-color')}>
-                  <img className={cx('main-img')} src={blue_yellow} alt="" />
-                  <img className={cx('main-img')} src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`} alt="" />
-                  <button className={cx('button-voca')}>{vn ? dataModal.voca[0].vnName : dataModal.voca[0].name}</button>
-                  <div className={cx('kh')}>
-                    <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
-                    <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className={cx('wrapper-color')}>
-                  <img className={cx('main-img')} src={blue_yellow} alt="" />
-                  <img className={cx('main-img')} src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`} alt="" />
-                  <button className={cx('button-voca')}>{vn ? dataModal.voca[0].vnName : dataModal.voca[0].pronounce}</button>
-                  <div className={cx('kh')}>
-                    <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
-                    <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              {dataModal.listspeak.data.map((item, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <div className={cx('wrapper-color')}>
-                      <img className={cx('main-img')} src={blue_yellow} alt="" />
-                      <img className={cx('main-img')} src={`https://resourcesk.bkt.net.vn/ImagesPNG/${item.images}.png`} alt="" />
-                      <button className={cx('button-voca')}>{vn ? item.sampleVn : item.sampleEn}</button>
-                      <div className={cx('kh')}>
-                        <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
-                        <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
-                      </div>
+            <ModalSpeak dataModal={dataModal} />
+            <div className={cx('modalvoca-content')}>
+              <Swiper
+                className={cx('test2')}
+                modules={[Navigation]}
+                grabCursor={true}
+                spaceBetween={10}
+                slidesPerView={1}
+                navigation
+                initialSlide="0"
+                onSlideChange={(index) => handleSetIndex(index)}
+              >
+                <SwiperSlide>
+                  <div className={cx('wrapper-color')}>
+                    <img style={{ width: '60%' }} className={cx('main-img', 'sub-img')} src={blue_yellow} alt="" />
+                    <img
+                      style={{ width: '30%' }}
+                      className={cx('main-img', 'sub-img')}
+                      src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`}
+                      alt=""
+                    />
+                    <div className={cx('kh')}>
+                      <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
+                      <div></div>
                     </div>
-                  </SwiperSlide>
-                );
-              })}
-              <SwiperSlide>
-                <div className={cx('wrapper-complete')}>
-                  <div className={cx('header-exercise')}>
-                    <img className={cx('img-children')} src={children} alt="" />
-                    <span>{`Hãy ghi âm từ "${
-                      dataModal !== undefined &&
-                      dataModal.voca !== undefined &&
-                      dataModal.voca[0] !== undefined &&
-                      dataModal.voca[0].name !== undefined &&
-                      dataModal.voca[0].name
-                    }" để cùng luyện từ với SmarKid nhé`}</span>
                   </div>
-                  <div className={cx('content-exercise')}>
-                    <AnimatePresence>
-                      {activeMicro ? (
-                        <motion.div
-                          initial={{ opacity: 0, visibility: 'hidden' }}
-                          animate={{ opacity: activeMicro ? 1 : 0, visibility: activeMicro ? 'visible' : 'hidden' }}
-                          exit={{ opacity: 0 }}
-                          style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                        >
-                          <LoadingRobot style={micro} title="" ex6 active={activeMicro} />
-                        </motion.div>
-                      ) : (
-                        <div style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <LoadingRobot onClick={openMicro} style={micro} title="" ex6 />
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <div className={cx('wrapper-color')}>
+                    <img className={cx('main-img', 'sub-img')} src={blue_yellow} alt="" />
+                    <div>
+                      <img className={cx('main-img', 'sub-img')} src={green} alt="" />
+                      <h3 className={cx('voca-en')}>{vn ? dataModal.voca[0].vnName : dataModal.voca[0].name}</h3>
+                    </div>
+                    <div className={cx('kh')}>
+                      <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
+                      <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
+                    </div>
+                  </div>
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <div className={cx('wrapper-color')}>
+                    <img className={cx('main-img')} src={blue_yellow} alt="" />
+                    <img className={cx('main-img')} src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`} alt="" />
+                    <button className={cx('button-voca')}>{vn ? dataModal.voca[0].vnName : dataModal.voca[0].name}</button>
+                    <div className={cx('kh')}>
+                      <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
+                      <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
+                    </div>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <div className={cx('wrapper-color')}>
+                    <img className={cx('main-img')} src={blue_yellow} alt="" />
+                    <img className={cx('main-img')} src={`https://resourcesk.bkt.net.vn/ImagesPNG/${dataModal.voca[0].name}.png`} alt="" />
+                    <button className={cx('button-voca')}>{vn ? dataModal.voca[0].vnName : dataModal.voca[0].pronounce}</button>
+                    <div className={cx('kh')}>
+                      <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
+                      <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
+                    </div>
+                  </div>
+                </SwiperSlide>
+
+                {dataModal.listspeak.data.map((item, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <div className={cx('wrapper-color')}>
+                        <img className={cx('main-img')} src={blue_yellow} alt="" />
+                        <img className={cx('main-img')} src={`https://resourcesk.bkt.net.vn/ImagesPNG/${item.images}.png`} alt="" />
+                        <button className={cx('button-voca')}>{vn ? item.sampleVn : item.sampleEn}</button>
+                        <div className={cx('kh')}>
+                          <img onClick={changeLenguage} className={cx('flag')} src={vn ? flagen : flagvn} alt="" />
+                          <img onClick={openModalKh} className={cx('flag')} src={kh} alt="" />
                         </div>
-                      )}
-                    </AnimatePresence>
-                    <div className={cx('content-exercise__voca')}>
-                      <h3>
-                        {dataModal !== undefined &&
-                          dataModal.voca !== undefined &&
-                          dataModal.voca[0] !== undefined &&
-                          dataModal.voca[0].name !== undefined &&
-                          dataModal.voca[0].name}
-                      </h3>
-                      <span className={cx('adj')}>ADJECTIVE</span>
-                      <span className={cx('spelling')}>
-                        {dataModal !== undefined &&
-                          dataModal.voca !== undefined &&
-                          dataModal.voca[0] !== undefined &&
-                          dataModal.voca[0].pronounce !== undefined &&
-                          dataModal.voca[0].pronounce}
-                      </span>
-                      <img onClick={handleEnd} className={cx('img-speak')} src={speak} alt="" />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+                <SwiperSlide>
+                  <div className={cx('wrapper-complete')}>
+                    <div className={cx('header-exercise')}>
+                      <img className={cx('img-children')} src={children} alt="" />
+                      <span>{`Hãy ghi âm từ "${
+                        dataModal !== undefined &&
+                        dataModal.voca !== undefined &&
+                        dataModal.voca[0] !== undefined &&
+                        dataModal.voca[0].name !== undefined &&
+                        dataModal.voca[0].name
+                      }" để cùng luyện từ với SmarKid nhé`}</span>
                     </div>
-                    <div className={cx('text-sub')}>
-                      {translate !== undefined && translate.length > 0 ? translate : '..................'}
+                    <div className={cx('content-exercise')}>
+                      <AnimatePresence>
+                        {activeMicro ? (
+                          <motion.div
+                            initial={{ opacity: 0, visibility: 'hidden' }}
+                            animate={{ opacity: activeMicro ? 1 : 0, visibility: activeMicro ? 'visible' : 'hidden' }}
+                            exit={{ opacity: 0 }}
+                            style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                          >
+                            <LoadingRobot style={micro} title="" ex6 active={activeMicro} />
+                          </motion.div>
+                        ) : (
+                          <div style={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <LoadingRobot onClick={openMicro} style={micro} title="" ex6 />
+                          </div>
+                        )}
+                      </AnimatePresence>
+                      <div className={cx('content-exercise__voca')}>
+                        <h3>
+                          {dataModal !== undefined &&
+                            dataModal.voca !== undefined &&
+                            dataModal.voca[0] !== undefined &&
+                            dataModal.voca[0].name !== undefined &&
+                            dataModal.voca[0].name}
+                        </h3>
+                        <span className={cx('adj')}>ADJECTIVE</span>
+                        <span className={cx('spelling')}>
+                          {dataModal !== undefined &&
+                            dataModal.voca !== undefined &&
+                            dataModal.voca[0] !== undefined &&
+                            dataModal.voca[0].pronounce !== undefined &&
+                            dataModal.voca[0].pronounce}
+                        </span>
+                        <img onClick={handleEnd} className={cx('img-speak')} src={speak} alt="" />
+                      </div>
+                      <div className={cx('text-sub')}>{translate !== undefined && translate.length > 0 ? translate : '...........'}</div>
+                    </div>
+                    <div className={cx('button-complete')}>
+                      <button onClick={closeSuccess}>Hoàn thành</button>
                     </div>
                   </div>
-                  <div className={cx('button-complete')}>
-                    <button onClick={closeSuccess}>Hoàn thành</button>
-                  </div>
-                </div>
-              </SwiperSlide>
-            </Swiper>
+                </SwiperSlide>
+              </Swiper>
+            </div>
           </div>
-        </div>
-      </motion.div>
-    )
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

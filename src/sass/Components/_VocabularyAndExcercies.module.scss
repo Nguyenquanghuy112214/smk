@@ -404,7 +404,7 @@
 // wrapper-level3
 
 .wrapper-level3 {
-  @include flex(unset, start, nowrap);
+  @include flex(unset, space-around, nowrap);
   flex-direction: column;
   height: 100%;
   .header {
@@ -472,6 +472,9 @@
 
     .videosm {
       height: 360px;
+      @include pc {
+        height: 500px;
+      }
     }
 
     .content-right {
@@ -519,15 +522,8 @@
 
 // footer
 .wrapper-list {
-  overflow: auto;
-  overflow: -moz-scrollbars-none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-    display: none;
-  }
   max-height: 100px;
-  margin-left: 20px;
+
   @include flex(start, start, nowrap);
   flex-direction: column;
   .list-speak {

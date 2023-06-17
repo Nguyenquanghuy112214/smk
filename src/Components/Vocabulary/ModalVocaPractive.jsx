@@ -6,7 +6,6 @@ import { Navigation } from 'swiper';
 import 'swiper/css/navigation';
 import 'swiper/css';
 
-import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 
 import speak from '~/assets/image/VocaPage/speak.png';
@@ -20,7 +19,6 @@ import micro from '~/assets/image/VocaPage/micro.png';
 import micro2 from '~/assets/animations/micro.json';
 import children from '~/assets/image/VocaPage/children.png';
 import { useRef } from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 import { setModalVocaPage } from '~/Redux/OpenModalVocaPage';
 import ModalSuccess from './ModalSuccess';
@@ -31,13 +29,12 @@ import { useTranslation } from 'react-i18next';
 import * as CreateContentHistory from '~/services/CreateContentHistory';
 import { useAuth } from '~/hooks/useAuth';
 import iconclose from '~/assets/image/iconclose.png';
+import { useRecorder } from '~/hooks/useRecorder';
 
 const cx = classNames.bind(styles);
 
 function ModalVocaPractive({ idVoca, isActive, onClick }) {
   const { auth } = useAuth();
-  const { transcript } = useSpeechRecognition();
-  const text = useDebounce(transcript, 800);
   const dispatch = useDispatch();
   const [dataModal, setDataModal] = useState([]);
   const [indexListSpeak, setIndexListSpeak] = useState(undefined);
@@ -52,17 +49,19 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
   const ref3 = useRef();
   const ref4 = useRef();
   const ref5 = useRef();
+  const { startRec, endRec, translate, close } = useRecorder();
 
   const [activeMicro, setActiveMicro] = useState(false);
   const openMicro = () => {
-    SpeechRecognition.startListening();
+    startRec();
     setActiveMicro(true);
     setTimeout(() => {
-      SpeechRecognition.stopListening();
+      endRec();
       setActiveMicro(false);
       setClick(true);
     }, 4000);
   };
+  const text = useDebounce(translate, 800);
 
   const data = [
     { id: 1, title: 'Hình ảnh', img: picture },
@@ -70,7 +69,6 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
     { id: 3, title: 'Khẩu hình', img: talk },
   ];
   const closeModal = () => {
-    onClick();
     setSuccess(undefined);
     const swiper = document.querySelector('.test').swiper;
     arrray.forEach(() => {
@@ -78,6 +76,8 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
       return;
     });
     dispatch(setModalVocaPage(false));
+    close();
+    onClick();
   };
 
   useLayoutEffect(() => {
@@ -310,7 +310,7 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column' }} className={cx('example-sentences')}>
                           <h3>Câu ví dụ</h3>
-                          <div className={cx('wrapper-list')}>
+                          <div className={cx('wrapper-list', 'animationscroll')}>
                             {dataModal.listspeak.data.map((item, index) => {
                               return (
                                 <div key={index} className={cx('list-speak')}>
@@ -404,7 +404,7 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
 
                         <div style={{ display: 'flex', flexDirection: 'column' }} className={cx('example-sentences')}>
                           <h3>Câu ví dụ</h3>
-                          <div className={cx('wrapper-list')}>
+                          <div className={cx('wrapper-list', 'animationscroll')}>
                             {dataModal.listspeak.data.map((item, index) => {
                               return (
                                 <div key={index} className={cx('list-speak')}>
@@ -469,7 +469,7 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
 
                         <div style={{ display: 'flex', flexDirection: 'column' }} className={cx('example-sentences')}>
                           <h3>{t('Examplesentences')}</h3>
-                          <div className={cx('wrapper-list')}>
+                          <div className={cx('wrapper-list', 'animationscroll')}>
                             {dataModal.listspeak.data.map((item, index) => {
                               return (
                                 <div key={index} className={cx('list-speak')}>

@@ -446,6 +446,9 @@
       @include flex(start, space-between, nowrap);
       min-height: 500px;
     }
+    @include pc {
+      min-height: 700px;
+    }
 
     .content-run__left {
       width: 70%;

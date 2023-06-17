@@ -42,7 +42,7 @@ function Vocabulary() {
     <div style={{ minHeight: '100vh' }}>
       <Loading active={isActiveModalVocaPage === undefined ? true : false} opa={0.6} />
       {/* Modal voca/exer */}
-      <ModalVocaPageExercise idVoca={data} isActive={isVocaMain === true} />
+      <ModalVocaPageExercise onClick={handleClick2} idVoca={data} isActive={isVocaMain === true} />
       <ModalVocaPractive onClick={handleClick2} idVoca={data} isActive={isVocaMain === false} />
       <SupplementaryStudy keyword="Học từ vựng" title={t('vocabulary')} path={isvoca === 'true' ? -1 : routes.homepage}>
         <Search />

@@ -105,13 +105,14 @@ function UserInfo() {
           },
           { headers: { Authorization: `Bearer ${auth.token}` } }
         );
+        console.log('res', res);
         if (res.success === true) {
           toast.success(t('Editinformationsuccessfully'), {
             position: toast.POSITION.TOP_RIGHT,
           });
           setTimeout(() => {
             navigate(`/`);
-          }, 3000);
+          }, 2000);
         } else if (res.success === false) {
           toast.error(t('Pleasetryagain'), {
             position: toast.POSITION.TOP_RIGHT,
@@ -157,6 +158,7 @@ function UserInfo() {
 
         return (
           <Form>
+            <ToastContainer />
             <div className={cx('wrapper')}>
               <div className={cx('header')}>
                 <div className={cx('wrapper-logo')}>
@@ -168,9 +170,8 @@ function UserInfo() {
                 <div>
                   {errors.fullName && touched.fullName ? (
                     <span className={cx('text-user', 'active')}>{errors.fullName}</span>
-                  ) : (
-                    <span className={cx('text-user')}>{t('Firstandlastname')}</span>
-                  )}
+                  ) : // <span className={cx('text-user')}>{t('Firstandlastname')}</span>
+                  null}
                   <Input
                     error={errors.fullName && touched.fullName}
                     span="Họ và tên"
@@ -184,9 +185,8 @@ function UserInfo() {
                 <div>
                   {errors.email && touched.email ? (
                     <span className={cx('text-user', 'active')}>{errors.email}</span>
-                  ) : (
-                    <span className={cx('text-user')}>Email</span>
-                  )}
+                  ) : // <span className={cx('text-user')}>Email</span>
+                  null}
                   <Input
                     span="Email"
                     error={errors.email && touched.email}
@@ -202,9 +202,8 @@ function UserInfo() {
                   <div>
                     {errors.phone && touched.phone ? (
                       <span className={cx('text-user', 'active')}>{errors.phone}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('Phonenumber')}</span>
-                    )}
+                    ) : // <span className={cx('text-user')}>{t('Phonenumber')}</span>
+                    null}
 
                     <Input
                       span="Số điện thoại"
@@ -219,9 +218,8 @@ function UserInfo() {
                   <div>
                     {errors.dob && touched.dob ? (
                       <span className={cx('text-user', 'active')}>{errors.dob}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('Dateofbirth')}</span>
-                    )}
+                    ) : // <span className={cx('text-user')}>{t('Dateofbirth')}</span>
+                    null}
                     <Input
                       span="Ngày sinh"
                       error={errors.dob && touched.dob}
@@ -239,9 +237,8 @@ function UserInfo() {
                   <div>
                     {errors.sex && touched.sex ? (
                       <span className={cx('text-user', 'active')}>{errors.sex}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('Sex')}</span>
-                    )}
+                    ) : // <span className={cx('text-user')}>{t('Sex')}</span>
+                    null}
 
                     <SelectInput
                       option={optionSex}
@@ -260,9 +257,8 @@ function UserInfo() {
                   <div>
                     {errors.city && touched.city ? (
                       <span className={cx('text-user', 'active')}>{errors.city}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('Province/City')}</span>
-                    )}
+                    ) : // <span className={cx('text-user')}>{t('Province/City')}</span>
+                    null}
                     <SelectInput
                       option={province}
                       span="Tỉnh/ Thành phố"
@@ -282,9 +278,8 @@ function UserInfo() {
                   <div>
                     {errors.district && touched.district ? (
                       <span className={cx('text-user', 'active')}>{errors.district}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('District')}</span>
-                    )}
+                    ) : // <span className={cx('text-user')}>{t('District')}</span>
+                    null}
 
                     <SelectInput
                       option={provinceID}
@@ -306,9 +301,8 @@ function UserInfo() {
                   <div>
                     {errors.commune && touched.commune ? (
                       <span className={cx('text-user', 'active')}>{errors.commune}</span>
-                    ) : (
-                      <span className={cx('text-user')}>{t('Wards')}</span>
-                    )}
+                    ) : // <span className={cx('text-user')}>{t('Wards')}</span>
+                    null}
 
                     <SelectInput
                       option={ward}

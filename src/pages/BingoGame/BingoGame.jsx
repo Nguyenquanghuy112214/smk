@@ -413,7 +413,7 @@ function BingoGame() {
         <img onClick={hanldeHome} src={iconhome} alt="" />
       </div>
       <div className={cx('body')}>
-        <div onClick={toggleMusic} className={cx('icon-speak')}>
+        <div onClick={toggleMusic} className={cx('icon-speak', `${isToggle ? 'active' : ''}`)}>
           <img src={iconspeak} alt="" />
         </div>
         <div className={cx('icon-help')}>

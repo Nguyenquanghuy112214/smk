@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 export const useRecorder = () => {
@@ -38,5 +39,9 @@ export const useRecorder = () => {
         console.error(error);
       });
   }
-  return { startRec, endRec, translate };
+
+  const close = () => {
+    setTranslate();
+  };
+  return { startRec, endRec, translate, close };
 };

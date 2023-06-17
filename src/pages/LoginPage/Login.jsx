@@ -14,10 +14,12 @@ import { useAuth } from '~/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import Loading from '~/Components/animationloading/Animationloading';
 import * as UCHistoryByUser from '~/services/UCHistoryByUser';
+import * as Profile from '~/services/Profile';
 
 const cx = classNames.bind(styles);
 
 function Login() {
+  const [profile, setProfile] = useState();
   const [checktoken, setCheckToken] = useState(false);
   const { auth, setAuth } = useAuth();
   const [error, setError] = useState(false);
@@ -25,12 +27,15 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && ((profile?.email !== undefined && profile?.email.length > 0) || profile?.dob !== null)) {
       navigate(config.routes.homepage);
-    } else {
+    }
+    if (localStorage.getItem('token') && ((profile?.email !== undefined && profile?.email.length === 0) || profile?.dob === null)) {
+      navigate(config.routes.userinfo);
+    } else if (!localStorage.getItem('token')) {
       navigate(config.routes.login);
     }
-  }, [checktoken]);
+  }, [checktoken, profile]);
 
   const handleSubmit = (values) => {
     const fetchAPI = async () => {
@@ -38,6 +43,9 @@ function Login() {
       try {
         const dn = await login.login(values);
         if (dn.data !== null) {
+          const profile = await Profile.profile({ headers: { Authorization: `Bearer ${dn.data?.token}` } });
+          console.log('profile', profile);
+          setProfile(profile.data);
           setAuth(dn.data);
           setCheckToken(true);
           setLoading(false);

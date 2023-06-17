@@ -17,6 +17,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { wrapper, container } from './Motion';
 import { t } from 'i18next';
 import { useCourse } from '~/hooks/useCourse';
+import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +38,7 @@ const AccountEditProfile = () => {
     fetch();
   }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setActive(true);
   };
 
@@ -117,9 +118,9 @@ export function ModalLogout({ active, onClick }) {
     const res = await Logout.logout({ headers: { Authorization: `Bearer ${auth.token}` } });
     localStorage.removeItem('IDBookAge');
     localStorage.removeItem('token');
-    window.location.reload();
+    // window.location.reload();
     clearCourse();
-    navigate('/login');
+    navigate(routes.aboutbkt);
   };
   return (
     <AnimatePresence>

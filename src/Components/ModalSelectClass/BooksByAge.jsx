@@ -102,7 +102,7 @@ function BookByAge({ listCourse }) {
     return (
       // <div className={cx('wrapper-img')}>
       <Swiper navigation={true} modules={[Navigation]} slidesPerView={4} className="mySwiper">
-        {idClass === undefined &&
+        {(idClass === undefined || idClass === false) &&
           listCourse?.map((item, index) => {
             return (
               <SwiperSlide key={item.courseId}>
