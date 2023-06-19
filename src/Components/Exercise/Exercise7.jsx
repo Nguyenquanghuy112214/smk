@@ -13,12 +13,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LoadingRobot from '../LoadingRobot';
 import { useTranslation } from 'react-i18next';
 import { useRecorder } from '~/hooks/useRecorder';
+import Loading from '../animationloading/Animationloading';
 
 const cx = classNames.bind(styles);
 
 function Excercise7({ dataModal }) {
   const { t } = useTranslation();
-  const { startRec, endRec, translate } = useRecorder();
+  const { startRec, endRec, translate, loadingMicro, close } = useRecorder();
 
   const success = useSelector((state) => state.ModalSuccess.isActive);
   const activeModalScore = useSelector((state) => state.ActiveModalScore.isActive);
@@ -41,7 +42,11 @@ function Excercise7({ dataModal }) {
   useEffect(() => {
     let name = dataModal !== undefined && dataModal.dataItem !== undefined && dataModal.dataItem.name;
     let tran = translate;
-    if (tran !== undefined && tran.toLowerCase().slice(0, -1) === name.toLowerCase()) {
+    console.log('tran.toLowerCase().slice(0, -1)', tran?.toLowerCase().slice(0, -1).split(' ').join(''));
+    console.log('name.toLowerCase()', name?.toLowerCase());
+    console.log('check', tran?.toLowerCase().slice(0, -1).split(' ').join('') === name?.toLowerCase());
+    if (tran !== undefined && tran.toLowerCase().slice(0, -1).split(' ').join('') === name?.toLowerCase()) {
+      console.log('truong hop dung');
       dispatch(setListActive({ active7: true }));
     } else {
       dispatch(setListActive({ active7: false }));
@@ -49,6 +54,7 @@ function Excercise7({ dataModal }) {
   }, [translate]);
 
   const handleClick = () => {
+    close();
     if (listActive !== undefined && listActive[0] !== undefined && listActive[0].active7 === true) {
       dispatch(setModalSuccess(true));
     } else {
@@ -61,6 +67,7 @@ function Excercise7({ dataModal }) {
 
   return (
     <div className={cx('exercies')}>
+      <Loading active={loadingMicro} opa={0.2} />
       {success === false && <ModalFail count={count} />}
       {success === true && <ModalSuccess count={count} />}
       {activeModalScore === true && <ModalScores />}
@@ -88,7 +95,7 @@ function Excercise7({ dataModal }) {
             )}
           </AnimatePresence>
         </div>
-        <div className={cx('answer-micro')}>{translate}</div>
+        <div className={cx('answer-micro')}>{translate?.slice(0, -1)}</div>
       </div>
       <div className={cx('check')}>
         <button onClick={handleClick}>{t('Check')}</button>

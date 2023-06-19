@@ -90,8 +90,8 @@ export function RightMenu({ idTopic, idFirstUnit }) {
   const { id, name, numberunit, idtopic } = useParams();
 
   const dispatch = useDispatch();
-  const active = useSelector((state) => state.Excercies.isActive);
-  // const active = 6;
+  // const active = useSelector((state) => state.Excercies.isActive);
+  const active = 7;
   const activemodal = useSelector((state) => state.ModalExcercise.isActive);
   const listVoca = useSelector((state) => state.DataVocaExcercise);
 

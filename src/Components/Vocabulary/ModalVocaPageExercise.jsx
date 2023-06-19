@@ -35,14 +35,17 @@ import { useMemo } from 'react';
 import { useAuth } from '~/hooks/useAuth';
 import { useCourse } from '~/hooks/useCourse';
 import * as CreateContentHistory from '~/services/CreateContentHistory';
+import * as CreateUserVoca from '~/services/CreateUserVoca';
 import { useRecorder } from '~/hooks/useRecorder';
+import Loading from '../animationloading/Animationloading';
 
 const cx = classNames.bind(styles);
 
 function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
   const { course } = useCourse();
   const { auth } = useAuth();
-  const { startRec, endRec, translate, close } = useRecorder();
+  const { startRec, endRec, translate, close, loadingMicro } = useRecorder();
+  console.log('loadingMicro', loadingMicro);
 
   const [success, setSuccess] = useState(undefined);
   const dispatch = useDispatch();
@@ -77,17 +80,35 @@ function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
   const closeSuccess = () => {
     let tran = '';
     tran = tran + text;
+    console.log('tran', tran.toLowerCase().slice(0, -1).split(' ').join(''));
+    console.log(
+      'dataModalVocap',
+      tran.toLowerCase().slice(0, -1).split(' ').join('') ===
+        (dataModal !== undefined &&
+          dataModal.voca !== undefined &&
+          dataModal.voca[0] !== undefined &&
+          dataModal.voca[0].name !== undefined &&
+          dataModal.voca[0].name.toLowerCase().split(' ').join(''))
+    );
+    console.log(
+      'dataModalVocapsss',
+      dataModal !== undefined &&
+        dataModal.voca !== undefined &&
+        dataModal.voca[0] !== undefined &&
+        dataModal.voca[0].name !== undefined &&
+        dataModal.voca[0].name
+    );
     if (
-      tran.toLowerCase().split(' ').join('') ===
+      tran.toLowerCase().slice(0, -1).split(' ').join('') ===
       (dataModal !== undefined &&
         dataModal.voca !== undefined &&
         dataModal.voca[0] !== undefined &&
         dataModal.voca[0].name !== undefined &&
-        dataModal.voca[0].name.toLowerCase().slice(0, -1).split(' ').join(''))
+        dataModal.voca[0].name.toLowerCase().split(' ').join(''))
     ) {
       setSuccess(true);
       const fetch = async () => {
-        const [res, res1] = await Promise.all([
+        const [res, res1, res2] = await Promise.all([
           UpdateVocabularyData.updateVocabularyData(
             {
               vocabularyID: idVoca,
@@ -113,6 +134,7 @@ function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
               },
             }
           ),
+          CreateUserVoca.createUserVoca({ Idvocabulary: idVoca }, { headers: { Authorization: `Bearer ${auth.token}` } }),
         ]);
       };
       fetch();
@@ -210,7 +232,6 @@ function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
   const handleEnd = () => {
     audio.play();
   };
-
   const openMicro = () => {
     startRec();
     setActiveMicro(true);
@@ -222,6 +243,7 @@ function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
   };
 
   const closeModalSuccess = () => {
+    close();
     setSuccess(undefined);
     dispatch(setModalVocaPage(false));
     const swiper = document.querySelector('.test2').swiper;
@@ -229,6 +251,8 @@ function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
       swiper.slidePrev();
       return;
     });
+    setIndexSlider(null);
+    onClick();
   };
   const closeModalFail = () => {
     setSuccess(undefined);
@@ -390,7 +414,10 @@ function ModalVocaPageExercise({ idVoca, isActive, onClick }) {
                         </span>
                         <img onClick={handleEnd} className={cx('img-speak')} src={speak} alt="" />
                       </div>
-                      <div className={cx('text-sub')}>{translate !== undefined && translate.length > 0 ? translate : '...........'}</div>
+                      <div className={cx('text-sub')}>
+                        <Loading active={loadingMicro} opa={0.1} />
+                        {translate !== undefined && translate.length > 0 ? translate?.slice(0, -1) : '...........'}
+                      </div>
                     </div>
                     <div className={cx('button-complete')}>
                       <button onClick={closeSuccess}>Hoàn thành</button>

@@ -1,48 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '~/sass/Components/_GrammarResult.module.scss';
 import { Doughnut } from 'react-chartjs-2';
 import icon1 from '~/assets/image/PracticeListening/icon1.png';
 import icon2 from '~/assets/image/PracticeListening/icon2.png';
 import icon3 from '~/assets/image/PracticeListening/icon3.png';
-import * as GetGrammarLearned from '~/services/GetGrammarLearned';
-import * as GetProficientGrammar from '~/services/GetProficientGrammar';
-import * as GetProcessGrammar from '~/services/GetProcessGrammar';
-import * as GetGrammarMaster from '~/services/GetGrammarMaster';
-import { useEffect } from 'react';
+import * as GetAllVocaLear from '~/services/GettAllVocaLearn';
+import * as GetAllVocaCompetently from '~/services/GetAllVocaCompetently';
+import * as GetAllVocaMaster from '~/services/GetAllVocaMaster';
+import * as getProgress from '~/services/GetProgressSchedule';
+
 import { useAuth } from '~/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
-
+import 'chart.js/auto';
 const cx = classNames.bind(styles);
 
-function GrammarResult() {
+function VocabularyResult() {
   const { auth } = useAuth();
   const [dataLearned, setDataLearnrd] = useState({});
-  console.log('dataLearned', dataLearned);
   const [dataProficient, setDataProficient] = useState({});
   const [dataProcess, setDataProcess] = useState({});
   const [dataMaster, setDataMaster] = useState({});
   const { t } = useTranslation();
+
   useEffect(() => {
     const fetch = async () => {
-      const [learned, proficient, process, master] = await Promise.all([
-        GetGrammarLearned.getGrammarLearned({ headers: { Authorization: `Bearer ${auth.token}` } }),
-        GetProficientGrammar.getProficientGrammar({ headers: { Authorization: `Bearer ${auth.token}` } }),
-        GetProcessGrammar.getProcessGrammar({ headers: { Authorization: `Bearer ${auth.token}` } }),
-        GetGrammarMaster.GetGrammarMaster({ headers: { Authorization: `Bearer ${auth.token}` } }),
+      const [learned, process, master, proficient] = await Promise.all([
+        GetAllVocaLear.getVocaLearned({ headers: { Authorization: `Bearer ${auth.token}` } }),
+        GetAllVocaCompetently.getAllVocaCompetently({ headers: { Authorization: `Bearer ${auth.token}` } }),
+        GetAllVocaMaster.getAllVocaMaster({ headers: { Authorization: `Bearer ${auth.token}` } }),
+        getProgress.progressSchedule({ headers: { Authorization: `Bearer ${auth.token}` } }),
       ]);
+      console.log('proficient', proficient);
       setDataLearnrd(learned);
-      setDataProficient(proficient);
       setDataProcess(process);
       setDataMaster(master);
+      setDataProficient(proficient);
     };
     fetch();
   }, []);
 
   const result =
-    dataProcess !== undefined && dataProcess.data !== undefined && dataProcess.data.substring(0, dataProcess.data.length - 1) === 'NaN'
+    dataProficient !== undefined &&
+    dataProficient.data !== undefined &&
+    dataProficient.data.substring(0, dataProficient.data.length - 1) === 'NaN'
       ? 0
-      : dataProcess !== undefined && dataProcess.data !== undefined && dataProcess.data.substring(0, dataProcess.data.length - 1);
+      : dataProficient !== undefined &&
+        dataProficient.data !== undefined &&
+        dataProficient.data.substring(0, dataProficient.data.length - 1);
   const noresult = 100 - result;
 
   const data = {
@@ -60,7 +65,7 @@ function GrammarResult() {
     <div className={cx('wrapper-content__modal', 'grammar-result')}>
       <div className={cx('list-content__result')}>
         <ContentResult img={icon1} data={dataLearned} title={t('Numberoflisteninglessonslearned')} />
-        <ContentResult img={icon2} data={dataProficient} title={t('Numberofproficientgrammar')} />
+        <ContentResult img={icon2} data={dataProcess} title={t('Numberofproficientgrammar')} />
         <ContentResult img={icon3} data={dataMaster} title={t('Masteringgrammar')} />
       </div>
 
@@ -74,7 +79,7 @@ function GrammarResult() {
   );
 }
 
-export default GrammarResult;
+export default VocabularyResult;
 
 export function ContentResult({ title, data, img }) {
   return (

@@ -82,10 +82,13 @@ import { setResetEx3 } from '~/Redux/ResetEx3';
 import fail from '~/assets/music/fail.mp3';
 import { useEffect } from 'react';
 import { setExcercises } from '~/Redux/ExerciesSlice';
+import { useRecorder } from '~/hooks/useRecorder';
 
 const cx = classNames.bind(styles);
 
 function ModalFail({ count }) {
+  const { close } = useRecorder();
+
   const dispatch = useDispatch();
   const success = useSelector((state) => state.ModalSuccess.isActive);
   const scores = useSelector((state) => state.Scores.scores);
@@ -103,6 +106,8 @@ function ModalFail({ count }) {
     scoreItem = 0;
   }
   const handleFail = () => {
+    console.log('failsesdsd');
+    close();
     dispatch(setResetEx3(true));
     if (count === 1) {
       dispatch(setScores({ ...scores, count: count, scoreItem: scoreItem }));

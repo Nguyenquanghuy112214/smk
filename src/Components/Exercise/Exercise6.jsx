@@ -8,11 +8,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LoadingRobot from '../LoadingRobot';
 import micro from '~/assets/animations/micro.json';
 import { useRecorder } from '~/hooks/useRecorder';
+import Loading from '../animationloading/Animationloading';
 const cx = classNames.bind(styles);
 
 function Excercise6({ dataModal }) {
   const dispatch = useDispatch();
-  const { startRec, endRec, translate } = useRecorder();
+  const { startRec, endRec, translate, loadingMicro } = useRecorder();
   const [activeMicro, setActiveMicro] = useState(false);
 
   const openMicro = () => {
@@ -37,6 +38,7 @@ function Excercise6({ dataModal }) {
 
   return (
     <div className={cx('pronounce')}>
+      <Loading active={loadingMicro} opa={0.2} />
       <h3>{dataModal !== undefined && dataModal.dataItem !== undefined && dataModal.dataItem.name}</h3>
       <div className={cx('pronounce-img')}>
         <AnimatePresence>
@@ -56,7 +58,7 @@ function Excercise6({ dataModal }) {
           )}
         </AnimatePresence>
       </div>
-      <div className={cx('answer-micro')}>{translate}</div>
+      <div className={cx('answer-micro')}>{translate?.slice(0, -1)}</div>
     </div>
   );
 }

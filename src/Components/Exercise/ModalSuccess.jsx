@@ -11,9 +11,12 @@ import { setActiveModalScore } from '~/Redux/ActiveModalScore';
 import successSound from '~/assets/music/success.mp3';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecorder } from '~/hooks/useRecorder';
 const cx = classNames.bind(styles);
 
 function ModalSuccess({ count }) {
+  const { close } = useRecorder();
+
   const scores = useSelector((state) => state.Scores.scores);
 
   const dispatch = useDispatch();
@@ -33,6 +36,7 @@ function ModalSuccess({ count }) {
   }, []);
 
   const handleSuccess = () => {
+    close();
     dispatch(setActiveModalScore(true));
     dispatch(setScores({ score: +scores.score + scoreItem, count: count, scoreItem: scoreItem }));
   };

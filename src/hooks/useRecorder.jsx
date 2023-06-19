@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const useRecorder = () => {
+  const [loadingMicro, setLoadingMicro] = useState(null);
+  useEffect(() => {
+    setLoadingMicro(null);
+  }, []);
   let audioChunks = [];
   let recorder;
   const [translate, setTranslate] = useState();
+  console.log('sdsds', translate);
   navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const input = audioContext.createMediaStreamSource(stream);
@@ -23,6 +27,7 @@ export const useRecorder = () => {
     console.log('Recording stopped.');
     recorder.stop();
     recorder.exportWAV((blob) => {
+      setLoadingMicro(true);
       sendData(blob);
     });
   };
@@ -35,13 +40,17 @@ export const useRecorder = () => {
       .then((response) => {
         setTranslate(response?.data);
       })
+      .then(() => {
+        setLoadingMicro(false);
+      })
       .catch((error) => {
         console.error(error);
       });
   }
 
   const close = () => {
-    setTranslate();
+    setTranslate('');
+    console.log('sai');
   };
-  return { startRec, endRec, translate, close };
+  return { startRec, endRec, translate, close, loadingMicro };
 };
