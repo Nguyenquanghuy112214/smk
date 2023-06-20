@@ -23,15 +23,15 @@ const cx = classNames.bind(styles);
 
 const data2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'Y'];
 
-export function LeftContent() {
+export function LeftContent({ searchDb }) {
   const navigate = useNavigate();
   const { type } = useParams();
   const { indexvoca, isvoca } = useParams();
   const { search } = useParams();
   const { IDBook, IDAge, IDCourse } = useIDBookIDAge();
-
+  const listVocaSearch = useSelector((state) => state.DataSearchVoca);
   const Vocabulary = useSelector((state) => state.VocabyLesson);
-
+  const [allvoca, setAllVoca] = useState([]);
   const [voca, setVoca] = useState([]);
   const [indexActive, setIndexActive] = useState(null);
   const [isActiveSearch, setIsActiveSearch] = useState(null);
@@ -39,8 +39,10 @@ export function LeftContent() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await GetVocaByLesson.getVocaByLesson(IDAge, IDBook);
+      const [res, res2] = await Promise.all([GetVocaByLesson.getVocaByLesson(IDAge, IDBook), GetAllVoca.getAllVoca()]);
+
       setVoca([...res]);
+      setAllVoca(res2);
     };
     fetch();
   }, []);
@@ -55,6 +57,8 @@ export function LeftContent() {
   const handleClick = (index, item, e) => {
     if (type === 'main') {
       navigate(`/vocabulary/main/${index}/null/${isvoca}`);
+    } else {
+      navigate(`/vocabulary/exercise/${indexvoca}/null/${isvoca}`);
     }
     setIsActiveSearch(null);
     if (indexActive !== index) {
@@ -64,25 +68,67 @@ export function LeftContent() {
   };
   useEffect(() => {
     const fetch = async () => {
-      const res = await GetAllVoca.getAllVoca();
-      const data = setDataSearchVoca([...res.filter((i) => i.name.toLowerCase().charAt(0).includes(search.toLowerCase()))]);
-      dispatch(data);
+      if (type === 'main') {
+        const data = setDataSearchVoca([...allvoca.filter((i) => i.name.toLowerCase().startsWith(search.toLowerCase()))]);
+        setDataSearch([...allvoca.filter((i) => i.name.toLowerCase().startsWith(search.toLowerCase()))]);
+
+        dispatch(data);
+      } else {
+        if (search !== 'null') {
+          setDataSearch([...voca[indexvoca]?.voca.filter((i) => i.name.toLowerCase().startsWith(search.toLowerCase()))]);
+
+          const data = setDataSearchVoca([...voca[indexvoca]?.voca.filter((i) => i.name.toLowerCase().startsWith(search.toLowerCase()))]);
+          dispatch(data);
+        }
+      }
     };
     fetch();
-  }, []);
+  }, [allvoca]);
+  const [dataSearch, setDataSearch] = useState([]);
   const handleSearch = async (item, index) => {
-    navigate(`/vocabulary/main/undefined/${item}/${isvoca}`);
-    dispatch(setIndexVoca(null));
-    const res = await GetAllVoca.getAllVoca();
-    const data = setDataSearchVoca([...res.filter((i) => i.name.toLowerCase().charAt(0).includes(item.toLowerCase()))]);
-    dispatch(data);
-    setIsActiveSearch(index);
+    if (type === 'main') {
+      navigate(`/vocabulary/main/undefined/${item}/${isvoca}`);
+      dispatch(setIndexVoca(null));
+      setDataSearch([...allvoca.filter((i) => i.name.toLowerCase().startsWith(item.toLowerCase()))]);
+      const data = setDataSearchVoca([...allvoca.filter((i) => i.name.toLowerCase().startsWith(item.toLowerCase()))]);
+      dispatch(data);
+      setIsActiveSearch(index);
+    } else if (type === 'exercise') {
+      navigate(`/vocabulary/exercise/${indexvoca}/${item}/${isvoca}`);
+      setDataSearch([...voca[indexvoca]?.voca.filter((i) => i.name.toLowerCase().startsWith(item.toLowerCase()))]);
+      const data = setDataSearchVoca([...voca[indexvoca]?.voca.filter((i) => i.name.toLowerCase().startsWith(item.toLowerCase()))]);
+      dispatch(data);
+    }
   };
+  useEffect(() => {
+    if (searchDb !== undefined && searchDb.length > 0 && type === 'exercise' && search === 'null') {
+      const data = setDataSearchVoca([...voca[indexvoca]?.voca.filter((i) => i.name.toLowerCase().startsWith(searchDb.toLowerCase()))]);
+      dispatch(data);
+    } else if (searchDb !== undefined && searchDb.length > 0 && type === 'exercise' && search !== 'null') {
+      const data = setDataSearchVoca([...dataSearch?.filter((i) => i.name.toLowerCase().startsWith(searchDb.toLowerCase()))]);
+      dispatch(data);
+    } else if (searchDb !== undefined && searchDb.length === 0 && type === 'exercise' && search !== 'null') {
+      const data = setDataSearchVoca([...voca[indexvoca]?.voca?.filter((i) => i.name.toLowerCase().startsWith(search.toLowerCase()))]);
+      dispatch(data);
+    } else if (searchDb !== undefined && searchDb.length > 0 && type === 'main' && search === 'null') {
+      const data = setDataSearchVoca([...voca[indexvoca]?.voca?.filter((i) => i.name.toLowerCase().startsWith(searchDb.toLowerCase()))]);
+      dispatch(data);
+    } else if (searchDb !== undefined && searchDb.length > 0 && type === 'main' && search !== 'null') {
+      const data = setDataSearchVoca([...dataSearch?.filter((i) => i.name.toLowerCase().startsWith(searchDb.toLowerCase()))]);
+      dispatch(data);
+    } else if (searchDb !== undefined && searchDb.length > 0 && type === 'main' && search !== 'null') {
+      const data = setDataSearchVoca([...dataSearch?.filter((i) => i.name.toLowerCase().startsWith(searchDb.toLowerCase()))]);
+      dispatch(data);
+    } else if (searchDb !== undefined && searchDb.length === 0 && type === 'main' && search !== 'null') {
+      const data = setDataSearchVoca([...dataSearch?.filter((i) => i.name.toLowerCase().startsWith(search.toLowerCase()))]);
+      dispatch(data);
+    }
+  }, [searchDb]);
   const { t } = useTranslation();
   return data !== undefined ? (
     <div className={cx('wrapper', 'active')}>
       <div className={cx('content-body')}>
-        {type === 'main' ? (
+        {type === 'main' || type === 'exercise' ? (
           <Alphabet gridsm title={t('Alphabet')}>
             {data2.map((item, index) => {
               return (
@@ -121,7 +167,7 @@ export function LeftContent() {
   ) : null;
 }
 
-export function RightContent({ onClick2 }) {
+export function RightContent({ onClick2, searchDb }) {
   const { type } = useParams();
   const { search } = useParams();
 
@@ -138,6 +184,7 @@ export function RightContent({ onClick2 }) {
   const indexVoca = useSelector((state) => state.PostIndexVoca.isNumber);
   const listVocaSearch = useSelector((state) => state.DataSearchVoca);
   const [voca, setVoca] = useState([]);
+
   const [indexOffset, setIndexOffset] = useState();
   const dispatch = useDispatch();
 
@@ -149,24 +196,36 @@ export function RightContent({ onClick2 }) {
     fetch();
     dispatch(setIndexVoca(null));
   }, [Vocabulary]);
-
   let data = [];
   if (type === 'main') {
     if (Vocabulary[0] !== undefined && Vocabulary[0][0] !== undefined && indexvoca === '0' && search === 'null') {
       data = Vocabulary[0][+indexvoca].voca;
+    } else if (
+      // indexvoca === 'undefined' &&
+      (listVocaSearch.length > 0 && searchDb !== undefined && searchDb.length > 0) ||
+      search !== 'null'
+    ) {
+      data = listVocaSearch[0];
     } else if (voca !== undefined && voca.length > 0 && voca[+indexvoca] !== undefined && indexvoca !== 'undefined' && search === 'null') {
       data = voca[+indexvoca].voca;
-    } else if (indexvoca === 'undefined' && listVocaSearch.length > 0) {
-      data = listVocaSearch[0];
     }
-  } else {
+  } else if (type === 'exercise') {
     if (Vocabulary[0] !== undefined && Vocabulary[0][0] !== undefined && indexvoca === '0' && search === 'null') {
       data = Vocabulary[0][+indexvoca].voca;
-    } else if (voca !== undefined && voca.length > 0 && voca[+indexvoca] !== undefined && indexvoca !== 'undefined' && search === 'null') {
+    } else if (
+      voca !== undefined &&
+      voca.length > 0 &&
+      voca[+indexvoca] !== undefined &&
+      indexvoca !== 'undefined' &&
+      search === 'null' &&
+      searchDb !== undefined &&
+      searchDb.length === 0
+    ) {
       data = voca[+indexvoca].voca;
+    } else {
+      data = listVocaSearch[0];
     }
   }
-
   // phan trang
   // const itemOffset = useSelector((state) => state.ItemOffset.itemOffset);
   const [check, setCheck] = useState(false);
@@ -180,9 +239,9 @@ export function RightContent({ onClick2 }) {
     setCheck(!check);
     const endOffset = itemOffset + itemsPerPage;
 
-    setCurrentItems(data.slice(itemOffset, endOffset));
+    setCurrentItems(data?.slice(itemOffset, endOffset));
 
-    setPageCount(Math.ceil(data.length / itemsPerPage));
+    setPageCount(Math.ceil(data?.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, data]);
 
   useEffect(() => {

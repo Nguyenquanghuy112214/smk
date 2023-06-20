@@ -18,7 +18,6 @@ const cx = classNames.bind(styles);
 function GrammarResult() {
   const { auth } = useAuth();
   const [dataLearned, setDataLearnrd] = useState({});
-  console.log('dataLearned', dataLearned);
   const [dataProficient, setDataProficient] = useState({});
   const [dataProcess, setDataProcess] = useState({});
   const [dataMaster, setDataMaster] = useState({});

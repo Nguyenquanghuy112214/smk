@@ -156,7 +156,6 @@ export function ModalRunvideo({ active, onClick, data }) {
             },
           }
         );
-        console.log('res', res);
       };
       fetch();
     }

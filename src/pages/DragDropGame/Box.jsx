@@ -33,7 +33,6 @@ export function Box({ name, active, index }) {
     return new Audio(resourceAutio(name));
   }, [name]);
   const handleClick = () => {
-    console.log('name', name);
     audioSuccess.pause();
     audioSuccess.currentTime = 0;
     audioSuccess.play();

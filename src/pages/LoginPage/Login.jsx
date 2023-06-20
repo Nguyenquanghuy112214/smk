@@ -44,7 +44,6 @@ function Login() {
         const dn = await login.login(values);
         if (dn.data !== null) {
           const profile = await Profile.profile({ headers: { Authorization: `Bearer ${dn.data?.token}` } });
-          console.log('profile', profile);
           setProfile(profile.data);
           setAuth(dn.data);
           setCheckToken(true);

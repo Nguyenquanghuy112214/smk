@@ -89,24 +89,19 @@ function Excercise7({ dataModal }) {
       if (listAnswer.length > 1) {
         dispatch(setModalSuccess(true));
         dispatch(setActiveEx5(true));
-        console.log('th1');
       } else if (listAnswer.length === 1) {
         dispatch(setModalSuccess(true));
         dispatch(setActiveEx5(null));
-        console.log('th2');
       }
       // note test
       dispatch(setNextSingleSpeak(undefined));
     } else if (exactly.exact === false && listAnswer.find((x) => x.active === undefined && listAnswer.length > 1)) {
       if (countEx5 < 1) {
-        console.log('th3');
         dispatch(setActiveEx5(true));
         dispatch(setCountEx5(countEx5 + 1));
         setData([]);
         dispatch(setModalSuccess(false));
       } else if (countEx5 === 1) {
-        console.log('th4');
-
         dispatch(setCountEx5(countEx5 + 1));
         dispatch(setActiveEx5(true));
 
@@ -120,16 +115,12 @@ function Excercise7({ dataModal }) {
       setData([]);
     } else if (exactly.exact === false && listAnswer !== undefined && listAnswer.length === 1) {
       if (countEx5 < 1) {
-        console.log('th5');
-
         dispatch(setActiveEx5(null));
         setCountSingleEnd(countSingleEnd + 1);
         dispatch(setCountEx5(countEx5 + 1));
         dispatch(setModalSuccess(false));
         setData([]);
       } else if (countSingleEnd === 1) {
-        console.log('th6');
-
         dispatch(setActiveEx5(null));
         setCountSingleEnd(countSingleEnd + 1);
         dispatch(setCountEx5(countEx5 + 1));
@@ -159,7 +150,6 @@ function Excercise7({ dataModal }) {
       setActiveMicro(false);
     }, 3000);
   };
-  console.log('translate', translate);
   return (
     <div className={cx('exercies')}>
       <Loading active={loadingMicro} opa={0.2} />

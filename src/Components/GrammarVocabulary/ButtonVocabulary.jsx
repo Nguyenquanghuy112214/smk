@@ -75,7 +75,7 @@ function ButtonVocabulary({
         {title}
       </button>
     );
-  } else if (marque && type === 'main') {
+  } else if (marque && (type === 'main' || type === 'exercise')) {
     return (
       <button onClick={(e) => handleClick(e)} className={classes}>
         {title}

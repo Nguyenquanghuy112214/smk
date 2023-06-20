@@ -21,7 +21,6 @@ function ListNumberPage() {
   const [data, setData] = useState([]);
   const [dataActive, setDataActive] = useState();
 
-  console.log('data', data);
   const handleChonse = (item) => {
     setIsComponentVisible(true);
     setDataActive(item);
@@ -36,7 +35,6 @@ function ListNumberPage() {
   useEffect(() => {
     const fetch = async () => {
       const res = await GetAllNumber.getAllNumber();
-      console.log('res', res);
 
       const respone = res.data.map((item, index) => {
         return { ...item, delay: array[index] };

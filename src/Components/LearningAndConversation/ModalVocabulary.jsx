@@ -23,7 +23,6 @@ function ModalVocabulary({ isActive, vocaDetail }) {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  console.log('vocaDetail', vocaDetail);
   const handleClose = () => {
     setIndexVN(null);
     setIndexEN(null);
@@ -37,7 +36,6 @@ function ModalVocabulary({ isActive, vocaDetail }) {
     };
     fetch();
   }, [vocaDetail]);
-  console.log('data', data);
 
   const audio = useMemo(() => {
     return new Audio(`https://resourcesk.bkt.net.vn/AudioMP3/${data[indexEN] !== undefined && data[indexEN]?.soundslow}.mp3`);
@@ -73,8 +71,6 @@ function ModalVocabulary({ isActive, vocaDetail }) {
 
   useEffect(() => {
     if (indexEN !== null) {
-      console.log('zo2');
-
       audiovn.pause();
       audiovn.currentTime = 0;
       audio.play();
@@ -83,7 +79,6 @@ function ModalVocabulary({ isActive, vocaDetail }) {
 
   useEffect(() => {
     if (indexVN !== null) {
-      console.log('zo1');
       audio.pause();
       audio.currentTime = 0;
       audiovn.play();

@@ -21,7 +21,6 @@ import { resourceAutio } from '~/constant/resourceAudio';
 const cx = classNames.bind(styles);
 function ModalSpeakAlphaNumber({ active, color, dataActive }, ref) {
   const navigate = useNavigate();
-  console.log('dataActive', dataActive);
   const Random = useMemo(() => {
     return Math.floor(Math.random() * 24);
   }, [dataActive]);

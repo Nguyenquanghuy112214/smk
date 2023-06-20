@@ -40,7 +40,6 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
   const [indexListSpeak, setIndexListSpeak] = useState(undefined);
   const arrray = [1, 1, 1, 1, 1, 1, 1];
   const [success, setSuccess] = useState(undefined);
-  console.log('success', success);
   const [click, setClick] = useState(undefined);
   const [slideChange, setSliceChange] = useState(0);
   const ref = useRef();
@@ -132,7 +131,6 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
     );
     audio.play();
   };
-  console.log('activeMicro', activeMicro);
   const openSpeak4 = (index) => {
     setIndexListSpeak(index);
 
@@ -176,7 +174,6 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
     audio.play();
   };
 
-  console.log('click', click);
   const closeModalSuccess = () => {
     setSuccess(undefined);
     dispatch(setModalVocaPage(false));
@@ -207,7 +204,6 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
         },
       }
     );
-    console.log('res', res);
   };
 
   useEffect(() => {
@@ -255,7 +251,6 @@ function ModalVocaPractive({ idVoca, isActive, onClick }) {
     }
   };
   const { t } = useTranslation();
-  // console.log('dataModal', dataModal);
   if (!dataModal || !dataModal.listspeak || !dataModal.voca) return;
 
   return (

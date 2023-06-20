@@ -9,7 +9,6 @@ export const useRecorder = () => {
   let audioChunks = [];
   let recorder;
   const [translate, setTranslate] = useState();
-  console.log('sdsds', translate);
   navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const input = audioContext.createMediaStreamSource(stream);
@@ -50,7 +49,6 @@ export const useRecorder = () => {
 
   const close = () => {
     setTranslate('');
-    console.log('sai');
   };
   return { startRec, endRec, translate, close, loadingMicro };
 };

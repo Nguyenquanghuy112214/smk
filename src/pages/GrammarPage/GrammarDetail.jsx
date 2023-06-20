@@ -32,7 +32,6 @@ const GrammarDetail = () => {
   const dispatch = useDispatch();
   const { auth } = useAuth();
   const [listData, setListData] = useState([]);
-  console.log('listData', listData);
   const [listTopic, setListTopic] = useState([]);
 
   const { grammarTypeid } = useParams();
@@ -189,7 +188,6 @@ export function ModalRunvideo({ active, onClick, listData, namegrammar }) {
             },
           }
         );
-        console.log('res', res);
       };
       fetch();
     }

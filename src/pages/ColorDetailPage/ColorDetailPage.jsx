@@ -65,13 +65,10 @@ function ColorDetailPage() {
     width: '100%',
   };
   const handleClickLeft = () => {
-    console.log('slidePrev');
     const swiper = document.querySelector('.test').swiper;
     swiper.slidePrev();
   };
   const handleClickRight = () => {
-    console.log('slideNext');
-
     const swiper = document.querySelector('.test').swiper;
     swiper.slideNext();
   };
@@ -93,7 +90,6 @@ function ColorDetailPage() {
         },
       }
     );
-    console.log('res', res);
   };
   useEffect(() => {
     if (click === true) {

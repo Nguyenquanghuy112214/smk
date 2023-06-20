@@ -208,7 +208,6 @@ export function ButtonDetail({ onClick, data }) {
 }
 
 export function ModalPracticeListening({ data }) {
-  console.log('data', data);
   const { auth } = useAuth();
   const { t } = useTranslation();
 

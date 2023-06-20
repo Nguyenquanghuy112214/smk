@@ -10,7 +10,6 @@ import Paginated from '~/Components/Paginated';
 
 const cx = classNames.bind(styles);
 const PopularGrid = ({ title, listData }) => {
-  console.log('title', title);
   const { id } = useParams();
   const dispatch = useDispatch();
 

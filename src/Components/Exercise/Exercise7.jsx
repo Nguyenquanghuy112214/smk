@@ -42,11 +42,7 @@ function Excercise7({ dataModal }) {
   useEffect(() => {
     let name = dataModal !== undefined && dataModal.dataItem !== undefined && dataModal.dataItem.name;
     let tran = translate;
-    console.log('tran.toLowerCase().slice(0, -1)', tran?.toLowerCase().slice(0, -1).split(' ').join(''));
-    console.log('name.toLowerCase()', name?.toLowerCase());
-    console.log('check', tran?.toLowerCase().slice(0, -1).split(' ').join('') === name?.toLowerCase());
     if (tran !== undefined && tran.toLowerCase().slice(0, -1).split(' ').join('') === name?.toLowerCase()) {
-      console.log('truong hop dung');
       dispatch(setListActive({ active7: true }));
     } else {
       dispatch(setListActive({ active7: false }));

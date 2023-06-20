@@ -77,7 +77,6 @@ function Account() {
         LearningSituation.learningSituation({ headers: { Authorization: `Bearer ${auth.token}` } }),
         GetContentHistory.getContentHistory({ headers: { Authorization: `Bearer ${auth.token}` } }),
       ]);
-      console.log('procv', procv);
 
       setNumls(numls.data);
       setNumex(numex.data);
@@ -417,7 +416,6 @@ export function ContentDetailRoute({ rank, score, rankNext }) {
 }
 
 export function ContentDetailLearning({ data, active, onClick }) {
-  // console.log('data', data);
   const { t } = useTranslation();
   return (
     <>

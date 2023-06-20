@@ -6,7 +6,6 @@ const IDBookAge = createSlice({
 
   reducers: {
     changeIDBookAge: (state, action) => {
-      console.log('action', action);
       state = action.payload;
       return state;
     },

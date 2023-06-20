@@ -92,7 +92,6 @@ function Conversation() {
         }
       ),
     ]);
-    console.log('res1', res1);
 
     setActive(false);
     setActiveResult(false);

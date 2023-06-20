@@ -41,7 +41,6 @@ const ModalLesson = ({ isActive, dataDetailLesson, titleModalLearning }) => {
   const isLoading = useSelector((state) => state.Loading.isActive);
   const [vocabulary, setVocabulary] = useState();
   const [vocaDetail, setModalVocaDetail] = useState();
-  console.log('vocabulary', vocabulary);
 
   useEffect(() => {
     const fetch = async () => {

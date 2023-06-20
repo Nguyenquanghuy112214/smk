@@ -36,7 +36,6 @@ function BingoGame() {
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const isToggle = useSelector((state) => state.toggleMusic.isActive);
-  console.log('isToggle', isToggle);
   const { typeofGame } = useParams();
   const [input, setInput] = useState([]);
   const [start, setStart] = useState(0);
@@ -127,7 +126,6 @@ function BingoGame() {
     return newData;
   }
   const [success, setSuccess] = useState(null);
-  console.log('success', success);
   const [Check, setCheck] = useState(null);
   function check(data, squares) {
     for (const row of data) {
@@ -397,7 +395,6 @@ function BingoGame() {
   };
 
   const toggleMusic = () => {
-    console.log('1');
     dispatch(setToggleMusic(!isToggle));
   };
 

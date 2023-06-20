@@ -88,7 +88,6 @@ function Register() {
     >
       {(formikProps) => {
         const { values, errors, touched } = formikProps;
-        console.log('errors', errors);
         return (
           <Form>
             <ToastContainer />

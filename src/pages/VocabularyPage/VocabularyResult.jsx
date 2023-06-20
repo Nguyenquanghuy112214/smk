@@ -31,7 +31,6 @@ function VocabularyResult() {
         GetAllVocaMaster.getAllVocaMaster({ headers: { Authorization: `Bearer ${auth.token}` } }),
         getProgress.progressSchedule({ headers: { Authorization: `Bearer ${auth.token}` } }),
       ]);
-      console.log('proficient', proficient);
       setDataLearnrd(learned);
       setDataProcess(process);
       setDataMaster(master);

@@ -24,7 +24,7 @@ function SupplementaryStudy({ title, children, selectedGramar, selectedResult, p
   return (
     <div className={cx('wrapper')}>
       <HeaderPage title={title} path={path} />
-      {location === '/grammar' || isvoca === 'false' || isvoca === true ? (
+      {location === '/grammar' || isvoca === 'false' || isvoca === 'true' ? (
         <div className={cx('navigate-header')}>
           <button
             onClick={handleActive1}

@@ -106,7 +106,6 @@ function ModalFail({ count }) {
     scoreItem = 0;
   }
   const handleFail = () => {
-    console.log('failsesdsd');
     close();
     dispatch(setResetEx3(true));
     if (count === 1) {

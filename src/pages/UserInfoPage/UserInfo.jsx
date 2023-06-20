@@ -105,7 +105,6 @@ function UserInfo() {
           },
           { headers: { Authorization: `Bearer ${auth.token}` } }
         );
-        console.log('res', res);
         if (res.success === true) {
           toast.success(t('Editinformationsuccessfully'), {
             position: toast.POSITION.TOP_RIGHT,

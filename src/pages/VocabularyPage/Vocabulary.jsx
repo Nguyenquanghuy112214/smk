@@ -14,22 +14,24 @@ import { useTranslation } from 'react-i18next';
 import routes from '~/config/routes';
 import Loading from '~/Components/animationloading/Animationloading';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import MenuTlMb from '~/Components/MenuTlMb/MenuTlMb';
 import VocabularyResult from './VocabularyResult';
+import useDebounce from '~/hooks/useDebounce';
+import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 function Vocabulary() {
-  const { isvoca } = useParams();
   const [isVocaMain, setIsVocaMain] = useState();
   const isActiveModalVocaPage = useSelector((state) => state.ModalVocaPage.isActive);
-  // console.log('isActiveModalVocaPage', isActiveModalVocaPage);
-  console.log('isVocaMain', isVocaMain);
-
+  const { indexvoca, isvoca, type } = useParams();
+  console.log('indexvoca', indexvoca);
+  const navigate = useNavigate();
   const isActiveModalVocaPageExercise = useSelector((state) => state.ActiveModalVocaPageExercise.isActive);
   const data = useSelector((state) => state.DataDetailVoca.data);
   const [activeGrammar, setActiveGrammar] = useState(true);
-
+  const [search, setSearch] = useState('');
+  const searchDb = useDebounce(search, 200);
   const { t } = useTranslation();
   const handleClick = () => {
     if (isvoca === 'true') {
@@ -47,7 +49,17 @@ function Vocabulary() {
   };
   const handleSlectedResult = () => {
     setActiveGrammar(false);
+    if (type === 'exercise') navigate(`/vocabulary/exercise/${indexvoca}/null/${isvoca}`);
+    else {
+      navigate(`/vocabulary/main/0/null/${isvoca}`);
+    }
   };
+  const changeSearch = (value) => {
+    setSearch(value.target.value);
+  };
+  useEffect(() => {
+    setSearch('');
+  }, [activeGrammar]);
   return (
     <div style={{ minHeight: '100vh' }}>
       <Loading active={isActiveModalVocaPage === undefined ? true : false} opa={0.6} />
@@ -63,13 +75,17 @@ function Vocabulary() {
       >
         {activeGrammar ? (
           <div>
-            <Search />
+            <Search handleChange={(value) => changeSearch(value)} />
             <Row className={cx('wrapper-content')}>
               <Col xxl={4} xl={4} lg={5} md={6} sm={4} xs={12}>
-                <LeftContent alphabet={isActiveModalVocaPage && !isActiveModalVocaPageExercise}></LeftContent>
+                <LeftContent
+                  activeGrammar={activeGrammar}
+                  searchDb={searchDb}
+                  alphabet={isActiveModalVocaPage && !isActiveModalVocaPageExercise}
+                ></LeftContent>
               </Col>
               <Col xxl={8} xl={8} lg={7} md={6} sm={8} xs={12}>
-                <RightContent onClick2={handleClick}></RightContent>
+                <RightContent searchDb={searchDb} onClick2={handleClick}></RightContent>
               </Col>
             </Row>
           </div>

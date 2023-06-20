@@ -52,7 +52,6 @@ function Learning() {
   } else if (listTopic[0] !== undefined) {
     data = listTopic[0];
   }
-  console.log('data', data);
 
   return (
     <div className={cx('wrapper-total')}>

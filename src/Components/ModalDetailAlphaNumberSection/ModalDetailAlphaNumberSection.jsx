@@ -22,16 +22,12 @@ const cx = classNames.bind(styles);
 function ModalDetailAlphaNumberSection({ children, onCickLeft, onCickRight }) {
   const { type, alpha, color, number, idalpha, idcolor, idnumber } = useParams();
   const handleClickLeft = () => {
-    console.log('1');
     onCickLeft();
   };
   const handleClickRight = () => {
-    console.log('2');
-
     onCickRight();
   };
   const [data, setData] = useState();
-  console.log('data', data);
   useEffect(() => {
     const fetch = async () => {
       const res = await GetAllAlpha.getAllAlpha();
@@ -68,7 +64,6 @@ function ModalDetailAlphaNumberSection({ children, onCickLeft, onCickRight }) {
     return () => clearTimeout(timer);
   }, [audio]);
   const handleSpeak = () => {
-    console.log('audio', audio);
     audio.pause();
     audio.currentTime = 0;
     audio.play();

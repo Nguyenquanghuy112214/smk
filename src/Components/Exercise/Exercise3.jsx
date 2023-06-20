@@ -231,7 +231,6 @@ function Exercise3({ dataModal }) {
                 </motion.button>
               );
             } else if (index - 4 < answerSuccess?.length) {
-              console.log('th2');
               return (
                 <motion.button
                   style={{

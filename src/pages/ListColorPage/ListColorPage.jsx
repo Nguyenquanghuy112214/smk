@@ -23,7 +23,6 @@ function ListColorPage() {
   const [data, setData] = useState([]);
   const [dataActive, setDataActive] = useState();
 
-  console.log('data', data);
   const handleChonse = (item) => {
     setIsComponentVisible(true);
     setDataActive(item);
@@ -38,7 +37,6 @@ function ListColorPage() {
   useEffect(() => {
     const fetch = async () => {
       const res = await GetAllColor.getAllColor();
-      console.log('res', res);
 
       const respone = res.data.map((item, index) => {
         return { ...item, delay: array[index] };

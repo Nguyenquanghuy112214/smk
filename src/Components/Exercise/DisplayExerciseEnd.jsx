@@ -30,7 +30,6 @@ const DisplayExerciseEnd = () => {
   const { course } = useCourse();
   const { auth } = useAuth();
   const { idvoca, namevoca } = useParams();
-  console.log('namevoca', namevoca);
   const { t } = useTranslation();
   const scores = useSelector((state) => state.Scores);
   const scoresTotal = useSelector((state) => state.scoreExercise.score);

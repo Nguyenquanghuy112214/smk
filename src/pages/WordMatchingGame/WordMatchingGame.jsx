@@ -55,9 +55,6 @@ function WordMatchingGame() {
   const [answerSuccessReal, setAnswerSuccessReal] = useState([]);
   const [listVoca, setListVoca] = useState([]);
   const [count, setCount] = useState(0);
-  console.log('answerSuccess', answerSuccess);
-  console.log('listVoca', listVoca);
-  console.log('answerSuccessReal', answerSuccessReal);
   const randomFirt = Math.floor(Math.random() * 100);
   const randomBack = Math.floor(Math.random() * dataVoca.length);
 
@@ -250,6 +247,7 @@ function WordMatchingGame() {
   // else {
   return (
     <div className={cx('wrapper')}>
+      <ModalHelp />
       <button className={cx('icon')} onClick={onHome}>
         <IoHome />
       </button>
@@ -354,3 +352,21 @@ function WordMatchingGame() {
 // }
 
 export default WordMatchingGame;
+
+export const ModalHelp = () => {
+  const { close, bg_i } = imgWordMatchingGame;
+
+  return (
+    <div className={cx('modal')}>
+      <div className={cx('icon-close')}>
+        <img src={close} alt="" />
+      </div>
+      <div className={cx('wrapper-content')}>
+        <div className={cx('title1')}>Hướng dẫn</div>
+        <div className={cx('title2')}>
+          4 bức tranh ẩn chứa ẩn nghĩa của một từ, bạn có đoán được từ đó là gì không ? Chọn từng chữ để giải nghĩa từ của bạn .
+        </div>
+      </div>
+    </div>
+  );
+};

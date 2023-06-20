@@ -69,7 +69,6 @@ function HomePage() {
   const [ismodal, setIsModal] = useState(false);
   const Class = useSelector((state) => state.CardClass.isNumber);
   const idClass = useSelector((state) => state.CardClass.isNumber.class);
-  console.log('idClass', idClass);
   const [width, setWidth] = useState();
 
   const dispatch = useDispatch();
@@ -147,7 +146,6 @@ function HomePage() {
     }
     return;
   };
-  console.log('Class', Class);
   return (
     Class !== undefined && (
       <div ref={ref}>

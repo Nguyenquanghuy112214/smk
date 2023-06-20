@@ -151,7 +151,7 @@ function Excercise5({ dataModal, dataDisturb }) {
     }
 
     listVocaSplit.forEach((voca, index) => {
-      setListVoca((listVoca) => [...listVoca, { voca: voca.toUpperCase(), index }]);
+      setListVoca((listVoca) => [...listVoca, { voca: voca?.toUpperCase(), index }]);
     });
     //
   }, [firstQues, singleSpeak, dataModal, countEx5]);

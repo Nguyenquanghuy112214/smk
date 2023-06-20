@@ -16,8 +16,6 @@ function LayoutGame({ children }) {
   const music = useSelector((state) => state.musicBackground.music);
   const isToggle = useSelector((state) => state.toggleMusic.isActive);
 
-  console.log('music', music);
-
   useEffect(() => {
     publicRoutes.map((item, index) => {
       if (item.isMusic === true) {

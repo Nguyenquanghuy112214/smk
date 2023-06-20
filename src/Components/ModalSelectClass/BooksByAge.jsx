@@ -39,7 +39,6 @@ import { useIDBookIDAge } from '~/hooks/useIDBookIDAge';
 const cx = classNames.bind(styles);
 
 function BookByAge({ listCourse }) {
-  console.log('listCourse2', listCourse);
   const { IDCourse } = useIDBookIDAge();
 
   const { setCourse } = useCourse();
@@ -79,21 +78,17 @@ function BookByAge({ listCourse }) {
     ]);
 
     if (item.idbook !== undefined && item.idclass !== undefined) {
-      console.log('ZOO', item);
       dispatch(setTopic(GetTopic));
       dispatch(setVocabyLesson(GetVocal));
       setIDBookAge(item.idbook, item.idclass, item.courseId);
       dispatch(setModalSelect(false));
     } else {
-      console.log('Out');
-
       alert(t('Pleaseselectyourage'));
     }
   };
   useEffect(() => {
     setImg([]);
   }, [idClass]);
-  console.log('idClass', idClass);
   const handleError = (index) => {
     setImg((img) => [...img, index]);
   };

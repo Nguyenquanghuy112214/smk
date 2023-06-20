@@ -36,12 +36,9 @@ function AphaDetailPage() {
   const { auth } = useAuth();
   const { type, alpha, idalpha } = useParams();
   const [success, setSuccess] = useState(undefined);
-  console.log('success', success);
   const [activeMicro, setActiveMicro] = useState(false);
   const [data, setData] = useState();
-  console.log('data', data);
   const [click, setClick] = useState(undefined);
-  console.log('datadata', data);
   const { transcript } = useSpeechRecognition();
   const text = useDebounce(transcript, 800);
 
@@ -67,13 +64,10 @@ function AphaDetailPage() {
     width: '100%',
   };
   const handleClickLeft = () => {
-    console.log('slidePrev');
     const swiper = document.querySelector('.test').swiper;
     swiper.slidePrev();
   };
   const handleClickRight = () => {
-    console.log('slideNext');
-
     const swiper = document.querySelector('.test').swiper;
     swiper.slideNext();
   };
@@ -96,7 +90,6 @@ function AphaDetailPage() {
         },
       }
     );
-    console.log('res', res);
   };
 
   useEffect(() => {

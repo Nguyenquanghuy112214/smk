@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search({ handleChange }) {
   const { t } = useTranslation();
   const [active, setActive] = useState(false);
   return (
@@ -15,7 +15,13 @@ function Search() {
       <span>
         <AiOutlineSearch />
       </span>
-      <input type="text" placeholder={t('Search')} onBlur={() => setActive(false)} onFocus={() => setActive(true)} />
+      <input
+        onChange={(e) => handleChange(e)}
+        type="text"
+        placeholder={t('Search')}
+        onBlur={() => setActive(false)}
+        onFocus={() => setActive(true)}
+      />
     </div>
   );
 }

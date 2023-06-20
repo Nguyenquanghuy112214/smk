@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { setDataVocaExcercise } from '~/Redux/DataVocaExcercise';
 import { motion } from 'framer-motion';
 
+import * as GetAllVoca from '~/services/GetAllVoca';
 import * as GetVocaByTopicAndLesson from '~/services/GetVocabularyByTopicAndLesson';
 import Excercise9 from './Exercise9';
 import Excercise10 from './Exercise10';
@@ -90,24 +91,24 @@ export function RightMenu({ idTopic, idFirstUnit }) {
   const { id, name, numberunit, idtopic } = useParams();
 
   const dispatch = useDispatch();
-  // const active = useSelector((state) => state.Excercies.isActive);
-  const active = 7;
+  const active = useSelector((state) => state.Excercies.isActive);
+  // const active = 5;
   const activemodal = useSelector((state) => state.ModalExcercise.isActive);
   const listVoca = useSelector((state) => state.DataVocaExcercise);
 
   const [dataDisturb, setDataisturb] = useState();
   const [dataModal, setDataModal] = useState({});
   const [firtListVoca, setFirstListVoca] = useState();
-
   useEffect(() => {
     const fetch = async () => {
       const [res, res2] = await Promise.all([
         GetVocaByTopicAndLesson.getVocabularyTopicAndLesson(idTopic, idFirstUnit !== undefined && idFirstUnit.idlesson),
 
-        GetVocaByTopicAndLesson.getVocabularyTopicAndLesson(idTopic, id === undefined ? +id - 1 : +id + 1),
+        GetAllVoca.getAllVoca(),
       ]);
+      const random = Math.floor(Math.random() * res2?.length);
       setFirstListVoca(res);
-      setDataisturb(res2 !== undefined && res2[0] !== undefined && res2[0]);
+      setDataisturb(res2?.filter((x) => +x.id !== res?.map((y) => +y.idvocabulary))[random]);
     };
     fetch();
   }, [idFirstUnit, idTopic, id]);
@@ -119,7 +120,6 @@ export function RightMenu({ idTopic, idFirstUnit }) {
     data = firtListVoca;
   }
   const openExcercise = async (item) => {
-    console.log('item', item);
     navigate(`/exercise/${id}/1/${item.idvocabulary}/${item.name}/${name}/${numberunit}/${idtopic}`);
     dispatch(setModalExcercise(true));
     setDataModal({ dataItem: item, dataTotal: data });

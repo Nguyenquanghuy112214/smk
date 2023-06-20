@@ -71,19 +71,12 @@ function ListClass() {
 
   let data = [];
   if (search !== '' && dataSearch.length === 0) {
-    console.log('th1');
     data = [];
   } else if (search !== '' && dataSearch.length > 0) {
-    console.log('th2');
-
     data = dataSearch;
   } else {
-    console.log('th3');
-
     data = listCourse;
   }
-  console.log('data', data);
-  console.log('dataSearch', dataSearch);
   const { t } = useTranslation();
   return (
     <div ref={ref} className={cx('wrapper')}>

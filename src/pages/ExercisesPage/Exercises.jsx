@@ -21,7 +21,6 @@ function Vocabulary() {
   const { idtopic } = useParams();
   const isActiveModalVocaPage = useSelector((state) => state.ModalVocaPage.isActive);
   const idTopic = useSelector((state) => state.IdTopic.isTopic);
-  console.log('idTopic', idTopic);
   const [listUnit, setListUnit] = useState();
 
   useLayoutEffect(() => {

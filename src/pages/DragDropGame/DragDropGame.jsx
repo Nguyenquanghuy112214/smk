@@ -37,7 +37,6 @@ const DragDropGame = () => {
   const [dataQuestion, setDataQuestion] = useState([]);
   const audioSuccess = useMemo(() => {
     if (dataQuestion && dataQuestion[idDragDrop] && dataQuestion[idDragDrop].name) {
-      console.log('dataQuestion[idDragDrop].name)', dataQuestion[idDragDrop].name);
       return new Audio(resourceAutio(dataQuestion[idDragDrop].name));
     }
   }, [idDragDrop]);
