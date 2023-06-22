@@ -57,7 +57,7 @@ function WordMatchingGame() {
   const [count, setCount] = useState(0);
   const randomFirt = Math.floor(Math.random() * 100);
   const randomBack = Math.floor(Math.random() * dataVoca.length);
-
+  const [activehelp, setActiveHelp] = useState(false);
   useEffect(() => {
     setIndexVoca(randomFirt);
   }, []);
@@ -243,11 +243,18 @@ function WordMatchingGame() {
   const onHome = () => {
     navigator('/');
   };
+
+  const handleHelp = () => {
+    setActiveHelp(true);
+  };
+  const handleHiddent = () => {
+    setActiveHelp(false);
+  };
   if (!dataVoca || !dataVoca[indexVoca] || !dataVoca[indexVoca].cpitSpeak) return <div className={cx('wrapper')}></div>;
   // else {
   return (
     <div className={cx('wrapper')}>
-      <ModalHelp />
+      <ModalHelp activehelp={activehelp} hiddentHelp={handleHiddent} />
       <button className={cx('icon')} onClick={onHome}>
         <IoHome />
       </button>
@@ -255,7 +262,7 @@ function WordMatchingGame() {
       <div className={cx('list-navigate')}>
         <img src={home} alt="" onClick={handleNaviteHome} />
         <img src={isToggle ? unmute_btn : mute_btn} alt="" onClick={handleToggleMusic} />
-        <img src={info_btn} alt="" />
+        <img onClick={handleHelp} src={info_btn} alt="" />
       </div>
       <Container>
         <div className={cx('list-img')}>
@@ -353,20 +360,44 @@ function WordMatchingGame() {
 
 export default WordMatchingGame;
 
-export const ModalHelp = () => {
+export const ModalHelp = ({ activehelp, hiddentHelp }) => {
   const { close, bg_i } = imgWordMatchingGame;
+  const animation = {
+    hidden: {
+      opacity: 0,
+      // scale: 0,
+    },
+    show: {
+      opacity: 1,
+      // scale: 1,
 
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
   return (
-    <div className={cx('modal')}>
-      <div className={cx('icon-close')}>
-        <img src={close} alt="" />
-      </div>
-      <div className={cx('wrapper-content')}>
-        <div className={cx('title1')}>Hướng dẫn</div>
-        <div className={cx('title2')}>
-          4 bức tranh ẩn chứa ẩn nghĩa của một từ, bạn có đoán được từ đó là gì không ? Chọn từng chữ để giải nghĩa từ của bạn .
-        </div>
-      </div>
-    </div>
+    <AnimatePresence>
+      {activehelp && (
+        <motion.div variants={animation} initial="hidden" animate="show" className={cx('modal-total')}>
+          <div className={cx('modal')}>
+            <div className={cx('bg')}>
+              <img src={bg_i} alt="" />
+              <div className={cx('wrapper-content')}>
+                <div className={cx('title1')}>Hướng dẫn</div>
+                <div className={cx('title2')}>
+                  4 bức tranh ẩn chứa ẩn nghĩa của một từ, bạn có đoán được từ đó là gì không ?
+                  <br />
+                  Chọn từng chữ để giải nghĩa từ của bạn .
+                </div>
+              </div>
+            </div>
+            <div onClick={() => hiddentHelp()} className={cx('icon-close')}>
+              <img src={close} alt="" />
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
